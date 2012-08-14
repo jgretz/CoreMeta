@@ -34,7 +34,12 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ExampleService.h"
+#import "ExampleRepository.h"
 
 @interface MainVC : UIViewController
+
+@property (retain) ExampleService* exampleService;
+@property (assign) ExampleRepository* exampleRepository;
 
 @end

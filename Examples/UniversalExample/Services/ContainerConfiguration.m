@@ -10,11 +10,19 @@
 #import "Container.h"
 #import "IdiomContainerConvention.h"
 
+#import "ExampleService.h"
+
+#import "ExampleRepository.h"
+
 @implementation ContainerConfiguration
 
 -(void) configure {
     Container* container = [Container sharedContainer];
     [container addConvention: [IdiomContainerConvention convention]];
+    
+    [container registerClass: [ExampleService class]];
+    
+    [container registerClass: [ExampleService class] cache: YES];
 }
 
 @end

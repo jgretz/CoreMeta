@@ -41,4 +41,6 @@
 
 @implementation MainVC
 
+@synthesize exampleService, exampleRepository;
+
 @end

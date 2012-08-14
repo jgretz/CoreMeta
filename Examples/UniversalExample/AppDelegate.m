@@ -35,8 +35,6 @@
 
 #import "AppDelegate.h"
 
-#import "NSObject+IOC.h"
-
 #import "ContainerConfiguration.h"
 #import "MainVC.h"
 
@@ -44,16 +42,10 @@
 
 @synthesize window = _window;
 
-- (void)dealloc {
-    [_window release];
-    
-    [super dealloc];
-}
-
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     [[ContainerConfiguration object] configure];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
     self.window.rootViewController = [MainVC object];

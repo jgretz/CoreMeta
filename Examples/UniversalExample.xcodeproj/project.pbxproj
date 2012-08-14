@@ -14,6 +14,8 @@
 		8C14319615B4B67400A9C1B9 /* iPhoneMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C14319115B4B67400A9C1B9 /* iPhoneMainVC.xib */; };
 		8C1431CB15B4B98C00A9C1B9 /* ContainerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1431CA15B4B98C00A9C1B9 /* ContainerConfiguration.m */; };
 		8C1431CC15B4B9A400A9C1B9 /* libCoreMeta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1431C615B4B94500A9C1B9 /* libCoreMeta.a */; };
+		8CB5C01415D9FFB200E83780 /* ExampleService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5C01315D9FFB200E83780 /* ExampleService.m */; };
+		8CB5C01815DA000C00E83780 /* ExampleRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5C01715DA000C00E83780 /* ExampleRepository.m */; };
 		8CB8D89514F5D025003E91E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB8D89414F5D025003E91E5 /* UIKit.framework */; };
 		8CB8D89714F5D025003E91E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB8D89614F5D025003E91E5 /* Foundation.framework */; };
 		8CB8D89914F5D025003E91E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB8D89814F5D025003E91E5 /* CoreGraphics.framework */; };
@@ -58,6 +60,10 @@
 		8C1431BD15B4B94500A9C1B9 /* CoreMeta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoreMeta.xcodeproj; path = ../CoreMeta/CoreMeta.xcodeproj; sourceTree = "<group>"; };
 		8C1431C915B4B98C00A9C1B9 /* ContainerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContainerConfiguration.h; path = Services/ContainerConfiguration.h; sourceTree = "<group>"; };
 		8C1431CA15B4B98C00A9C1B9 /* ContainerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerConfiguration.m; path = Services/ContainerConfiguration.m; sourceTree = "<group>"; };
+		8CB5C01215D9FFB200E83780 /* ExampleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleService.h; path = Services/ExampleService.h; sourceTree = "<group>"; };
+		8CB5C01315D9FFB200E83780 /* ExampleService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleService.m; path = Services/ExampleService.m; sourceTree = "<group>"; };
+		8CB5C01615DA000C00E83780 /* ExampleRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleRepository.h; path = Repositories/ExampleRepository.h; sourceTree = "<group>"; };
+		8CB5C01715DA000C00E83780 /* ExampleRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleRepository.m; path = Repositories/ExampleRepository.m; sourceTree = "<group>"; };
 		8CB8D89014F5D025003E91E5 /* UniversalExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniversalExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB8D89414F5D025003E91E5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8CB8D89614F5D025003E91E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -161,6 +167,8 @@
 			children = (
 				8C1431C915B4B98C00A9C1B9 /* ContainerConfiguration.h */,
 				8C1431CA15B4B98C00A9C1B9 /* ContainerConfiguration.m */,
+				8CB5C01215D9FFB200E83780 /* ExampleService.h */,
+				8CB5C01315D9FFB200E83780 /* ExampleService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -172,6 +180,15 @@
 				8C1431C815B4B94500A9C1B9 /* CoreMetaTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8CB5C01515D9FFF300E83780 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5C01615DA000C00E83780 /* ExampleRepository.h */,
+				8CB5C01715DA000C00E83780 /* ExampleRepository.m */,
+			);
+			name = Repositories;
 			sourceTree = "<group>";
 		};
 		8CB8D88514F5D025003E91E5 = {
@@ -205,6 +222,7 @@
 		8CB8D89A14F5D025003E91E5 /* UniversalExample */ = {
 			isa = PBXGroup;
 			children = (
+				8CB5C01515D9FFF300E83780 /* Repositories */,
 				8C1431B915B4B8E900A9C1B9 /* Services */,
 				8C14318C15B4B67400A9C1B9 /* Models */,
 				8C14318315B4B67400A9C1B9 /* Controllers */,
@@ -319,6 +337,8 @@
 				8C14319315B4B67400A9C1B9 /* iPhoneMainVC.m in Sources */,
 				8C14319415B4B67400A9C1B9 /* MainVC.m in Sources */,
 				8C1431CB15B4B98C00A9C1B9 /* ContainerConfiguration.m in Sources */,
+				8CB5C01415D9FFB200E83780 /* ExampleService.m in Sources */,
+				8CB5C01815DA000C00E83780 /* ExampleRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +369,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -374,6 +395,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -392,6 +414,7 @@
 		8CB8D8A914F5D025003E91E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniversalExample/UniversalExample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../CoreMeta\"/**";
@@ -405,6 +428,7 @@
 		8CB8D8AA14F5D025003E91E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniversalExample/UniversalExample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../CoreMeta\"/**";
