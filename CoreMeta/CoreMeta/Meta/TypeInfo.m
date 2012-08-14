@@ -1,6 +1,6 @@
 //
 //  IVarInfo.m
-//  core
+//  CoreMeta
 //
 //  Created by Joshua Gretz on 3/12/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  NSString+Helpers.h
-//  Meta-iOS
+//  CoreMeta
 //
 //  Created by Joshua Gretz on 7/16/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.

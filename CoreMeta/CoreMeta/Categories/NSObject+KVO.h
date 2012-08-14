@@ -1,6 +1,6 @@
 //
 //  NSObject+KVO.h
-//  core
+//  CoreMeta
 //
 //  Created by Joshua Gretz on 4/17/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.

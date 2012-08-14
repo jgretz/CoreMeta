@@ -52,6 +52,7 @@
 		8C1430B215B4A09900A9C1B9 /* Reflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14308C15B4A09900A9C1B9 /* Reflection.m */; };
 		8C1430B315B4A09900A9C1B9 /* TypeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C14308D15B4A09900A9C1B9 /* TypeInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C1430B415B4A09900A9C1B9 /* TypeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14308E15B4A09900A9C1B9 /* TypeInfo.m */; };
+		8CB5BFEC15D9E47600E83780 /* CoreMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB5BFEB15D9E47600E83780 /* CoreMeta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		8C14308C15B4A09900A9C1B9 /* Reflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reflection.m; sourceTree = "<group>"; };
 		8C14308D15B4A09900A9C1B9 /* TypeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeInfo.h; sourceTree = "<group>"; };
 		8C14308E15B4A09900A9C1B9 /* TypeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeInfo.m; sourceTree = "<group>"; };
+		8CB5BFEB15D9E47600E83780 /* CoreMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMeta.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				8C14307415B4A09900A9C1B9 /* IOC */,
 				8C14308215B4A09900A9C1B9 /* Meta */,
 				8C14306415B4A08700A9C1B9 /* Resources */,
+				8CB5BFEB15D9E47600E83780 /* CoreMeta.h */,
 			);
 			path = CoreMeta;
 			sourceTree = "<group>";
@@ -224,10 +227,10 @@
 				8C14306B15B4A09900A9C1B9 /* NSObject+IOC.m */,
 				8C14306C15B4A09900A9C1B9 /* NSObject+KVO.h */,
 				8C14306D15B4A09900A9C1B9 /* NSObject+KVO.m */,
-				8C14306E15B4A09900A9C1B9 /* NSObject+Properties.h */,
-				8C14306F15B4A09900A9C1B9 /* NSObject+Properties.m */,
 				8C14307015B4A09900A9C1B9 /* NSString+Helpers.h */,
 				8C14307115B4A09900A9C1B9 /* NSString+Helpers.m */,
+				8C14306E15B4A09900A9C1B9 /* NSObject+Properties.h */,
+				8C14306F15B4A09900A9C1B9 /* NSObject+Properties.m */,
 				8C14307215B4A09900A9C1B9 /* NSString+PropertyKVC.h */,
 				8C14307315B4A09900A9C1B9 /* NSString+PropertyKVC.m */,
 			);
@@ -287,6 +290,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB5BFEC15D9E47600E83780 /* CoreMeta.h in Headers */,
 				8C14308F15B4A09900A9C1B9 /* NSArray+Helpers.h in Headers */,
 				8C14309115B4A09900A9C1B9 /* NSObject+Binding.h in Headers */,
 				8C14309315B4A09900A9C1B9 /* NSObject+IOC.h in Headers */,

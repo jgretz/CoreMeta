@@ -1,6 +1,6 @@
 //
 //  ObjectMap.m
-//  core
+//  CoreMeta
 //
 //  Created by Joshua Gretz on 5/24/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.

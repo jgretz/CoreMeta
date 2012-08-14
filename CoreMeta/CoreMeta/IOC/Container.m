@@ -1,6 +1,6 @@
 //
 //  Container.m
-//  core
+//  CoreMeta
 //
 //  Created by Joshua Gretz on 12/23/10.
 //  Copyright 2010 TrueFit Solutions. All rights reserved.
