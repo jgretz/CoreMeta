@@ -1,6 +1,6 @@
 //
 //  NSObject+KVO.m
-//  CoreMeta
+//  core
 //
 //  Created by Joshua Gretz on 4/17/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.
@@ -9,6 +9,7 @@
 #import "NSObject+KVO.h"
 #import <objc/runtime.h>
 #import "NSObject+IOC.h"
+#import "NSArray+Helpers.h"
 
 #pragma mark NSObject Category
 @interface NSObject(KVOPrivate)
@@ -31,19 +32,27 @@ const NSString* KVO_INFO = @"KVO_INFO";
 
 #pragma mark Helper Class
 @interface Observer : NSObject
+@property (copy) NSString* keyPath;
 @property (copy) void (^changeBlock)(id, NSDictionary*);
 @property (copy) BOOL (^testBlock)(id, NSDictionary*);
 @property (assign) BOOL inUse;
 @end
 
 @implementation Observer
-@synthesize changeBlock, testBlock, inUse;
 @end
 
 #pragma mark NSObject(KVO)
 @implementation NSObject (KVO)
 
 #pragma mark When
+-(void) when: (NSString*) keyPath changes: (void (^)()) block {
+    [self when: keyPath changesExecute:^(id object, NSDictionary* changes) { block(); }];
+}
+
+-(void) when: (NSString*) keyPath becomes: (BOOL (^)()) testBlock do: (void (^)()) block {
+    [self when: keyPath becomes: testBlock execute:^(id object, NSDictionary* changes) { block(); }];
+}
+
 -(void) when: (NSString*) keyPath changesExecute: (void (^)(id, NSDictionary*)) block {
     [self when: keyPath becomes: ^BOOL(id object, NSDictionary * changes) { return YES; } execute: block];
 }
@@ -59,13 +68,19 @@ const NSString* KVO_INFO = @"KVO_INFO";
             [self.kvoInfo setObject: observers forKey: keyPath];
         }
         
-        Observer* observer = [Observer object];
+        Observer* observer = [observers firstWhere:^BOOL(Observer* evaluatedObject) { return [evaluatedObject.keyPath isEqual: keyPath]; }];
+        BOOL exists = observer != nil;
+        if (!exists) {
+            observer = [Observer object];
+            [observers addObject: observer];
+        }
+        
+        observer.keyPath = keyPath;
         observer.changeBlock = block;
         observer.testBlock = testBlock;
         
-        [observers addObject: observer];
-        
-        [self addObserver: self forKeyPath: keyPath options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context: nil];
+        if (!exists)
+            [self addObserver: self forKeyPath: keyPath options: NSKeyValueObservingOptionNew context: nil];
     }    
 }
 

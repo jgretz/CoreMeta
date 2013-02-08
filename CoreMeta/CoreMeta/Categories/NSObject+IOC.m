@@ -1,6 +1,6 @@
 //
 //  NSObject+IOC.m
-//  CoreMeta
+//  core
 //
 //  Created by Joshua Gretz on 3/21/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.
@@ -13,6 +13,14 @@
 
 +(id) object {
     return [[Container sharedContainer] objectForClass: [self class]];
+}
+
++(id) objectWith: (NSDictionary*) propertyValues {
+    return [[Container sharedContainer] objectForClass: [self class] withPropertyValues: propertyValues];
+}
+
+-(void) inject {
+    [[Container sharedContainer] inject: self];
 }
 
 @end

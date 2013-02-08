@@ -1,6 +1,6 @@
 //
 //  Mixin.m
-//  CoreMeta
+//  core
 //
 //  Created by Joshua Gretz on 3/9/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.

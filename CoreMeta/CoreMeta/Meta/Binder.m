@@ -1,6 +1,6 @@
 //
 //  Binder.m
-//  CoreMeta
+//  core
 //
 //  Created by Joshua Gretz on 5/23/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.
@@ -136,7 +136,11 @@ const NSString* BINDER_ID = @"BinderId";
 -(void) bindBoth: (NSObject*) object1 keypath: (NSString*) object1_keypath to: (NSObject*) object2 keypath: (NSString*) object2_keypath withManipulation: (id (^)(id)) manipulation {
     id value = [object1 valueForKeyPath: object1_keypath];
     if (manipulation)
-        value = manipulation(value);    
+        value = manipulation(value);
+	
+	if ([value class] == [NSNull class])
+		NSLog(@"HMMMM");
+	
     [object2 setValue: value forKey: object2_keypath]; // sync
     
     [self bind: object1 keypath: object1_keypath to: object2 keypath: object2_keypath withManipulation: manipulation];
@@ -165,7 +169,10 @@ const NSString* BINDER_ID = @"BinderId";
     
     if (binding.manipulation)
         value = binding.manipulation(value);
-    
+	
+	if ([value isKindOfClass: [NSNull class]])
+		value = nil;
+	
     [binding.observer setValue: value forKey: binding.observerKeypath];            
     
     binding.inUse = NO;

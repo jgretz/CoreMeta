@@ -14,6 +14,7 @@
 		8C14319615B4B67400A9C1B9 /* iPhoneMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C14319115B4B67400A9C1B9 /* iPhoneMainVC.xib */; };
 		8C1431CB15B4B98C00A9C1B9 /* ContainerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1431CA15B4B98C00A9C1B9 /* ContainerConfiguration.m */; };
 		8C1431CC15B4B9A400A9C1B9 /* libCoreMeta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1431C615B4B94500A9C1B9 /* libCoreMeta.a */; };
+		8C62E33E16C4914800F919C2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C62E33D16C4914800F919C2 /* Default-568h@2x.png */; };
 		8CB5C01415D9FFB200E83780 /* ExampleService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5C01315D9FFB200E83780 /* ExampleService.m */; };
 		8CB5C01815DA000C00E83780 /* ExampleRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5C01715DA000C00E83780 /* ExampleRepository.m */; };
 		8CB8D89514F5D025003E91E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB8D89414F5D025003E91E5 /* UIKit.framework */; };
@@ -60,6 +61,7 @@
 		8C1431BD15B4B94500A9C1B9 /* CoreMeta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoreMeta.xcodeproj; path = ../CoreMeta/CoreMeta.xcodeproj; sourceTree = "<group>"; };
 		8C1431C915B4B98C00A9C1B9 /* ContainerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContainerConfiguration.h; path = Services/ContainerConfiguration.h; sourceTree = "<group>"; };
 		8C1431CA15B4B98C00A9C1B9 /* ContainerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerConfiguration.m; path = Services/ContainerConfiguration.m; sourceTree = "<group>"; };
+		8C62E33D16C4914800F919C2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8CB5C01215D9FFB200E83780 /* ExampleService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleService.h; path = Services/ExampleService.h; sourceTree = "<group>"; };
 		8CB5C01315D9FFB200E83780 /* ExampleService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleService.m; path = Services/ExampleService.m; sourceTree = "<group>"; };
 		8CB5C01615DA000C00E83780 /* ExampleRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleRepository.h; path = Repositories/ExampleRepository.h; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		8CB8D88514F5D025003E91E5 = {
 			isa = PBXGroup;
 			children = (
+				8C62E33D16C4914800F919C2 /* Default-568h@2x.png */,
 				8CB8D89314F5D025003E91E5 /* Frameworks */,
 				8CB8D89A14F5D025003E91E5 /* UniversalExample */,
 				8CB8D89114F5D025003E91E5 /* Products */,
@@ -270,7 +273,7 @@
 		8CB8D88714F5D025003E91E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "TrueFit Solutions";
 			};
 			buildConfigurationList = 8CB8D88A14F5D025003E91E5 /* Build configuration list for PBXProject "UniversalExample" */;
@@ -321,6 +324,7 @@
 				8CB8D89F14F5D025003E91E5 /* InfoPlist.strings in Resources */,
 				8C14319515B4B67400A9C1B9 /* iPadMainVC.xib in Resources */,
 				8C14319615B4B67400A9C1B9 /* iPhoneMainVC.xib in Resources */,
+				8C62E33E16C4914800F919C2 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +374,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -396,6 +404,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

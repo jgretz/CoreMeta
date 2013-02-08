@@ -1,6 +1,6 @@
-//
+    //
 //  ClassInfo.m
-//  CoreMeta
+//  core
 //
 //  Created by Joshua Gretz on 3/12/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.
@@ -9,37 +9,51 @@
 #import "Reflection.h"
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import "NSObject+IOC.h"
 #import "NSObject+Properties.h"
 #import "NSString+Helpers.h"
 
 #pragma mark - Private Category
 @interface Reflection() 
 
-@property (retain) NSDictionary* propertyValueTypeMap;
-@property (retain) NSArray* ivarValueTypeList;
+@property (strong) NSDictionary* propertyValueTypeMap;
+@property (strong) NSArray* ivarValueTypeList;
+@property (strong) NSArray* ignoreClasses;
+
+@property (strong) NSMutableDictionary* instanceVariablesForClassCache;
+@property (strong) NSMutableDictionary* propertiesForClassCache;
 
 @end
 
 @implementation Reflection
 
-#pragma mark - Instance Definition
-@synthesize propertyValueTypeMap, ivarValueTypeList;
-
-#pragma mark - Singleton
-static Reflection* shared;
-+(void) initialize {
-    static BOOL initialized = NO;
+#pragma mark - Shared Singleton
++(Reflection*) sharedReflection {
+    static Reflection* sharedReflectionInstance;
+    
     @synchronized(self) {
-        if (!initialized) {
-            initialized = YES;
+        if (!sharedReflectionInstance) {
+            sharedReflectionInstance = [[Reflection alloc] init];
             
-            shared = [[Reflection alloc] init];
-            shared.propertyValueTypeMap = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects: @"float", @"int", @"char", @"double",@"long",@"short",nil] 
-                                                                         forKeys: [NSArray arrayWithObjects: @"Tf", @"Ti", @"Tc", @"Td",@"Tl",@"Ts", nil]];
+            sharedReflectionInstance.propertyValueTypeMap = @{
+                @"Tf" : @"float",
+                @"Ti" : @"int",
+                @"Tc" : @"char",
+                @"Td" : @"double",
+                @"Tl" : @"long",
+                @"Ts" : @"short"
+            };
             
-            shared.ivarValueTypeList = [NSArray arrayWithObjects: @"float", @"int", @"char", @"double",@"long",@"short",
-                                        @"f", @"i", @"c", @"d",@"l",@"s", @"@?", @"?", nil];
+            sharedReflectionInstance.ivarValueTypeList = @[ @"float", @"int", @"char", @"double",@"long",@"short", @"f", @"i", @"c", @"d",@"l",@"s", @"@?", @"?"];
+            
+            sharedReflectionInstance.ignoreClasses = @[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class] ];
+            
+            sharedReflectionInstance.instanceVariablesForClassCache = [NSMutableDictionary dictionary];
+            sharedReflectionInstance.propertiesForClassCache = [NSMutableDictionary dictionary];
+            
         }
+        
+        return sharedReflectionInstance;
     }
 }
 
@@ -52,8 +66,7 @@ static Reflection* shared;
     if (!classType)
         return NO;
     
-    NSArray* ignore = [NSArray arrayWithObjects: NSStringFromClass([NSObject class]), NSStringFromClass([UIViewController class]), NSStringFromClass([UIView class]), NSStringFromClass([UITableViewCell class]), nil];
-    return ![ignore containsObject: NSStringFromClass(classType)];
+    return ![Reflection.sharedReflection.ignoreClasses containsObject: classType];
 }
 
 +(NSArray*) instanceVariablesForClass: (Class) classType  {
@@ -61,6 +74,11 @@ static Reflection* shared;
 }
 
 +(NSArray*) instanceVariablesForClass: (Class) classType includeInheritance: (BOOL) includeInheritance {
+    NSString* key = NSStringFromClass(classType);
+    NSArray* cached = Reflection.sharedReflection.instanceVariablesForClassCache[key];
+    if (cached)
+        return cached;
+    
     unsigned int numIvars = 0;
     Ivar* ivars = class_copyIvarList(classType, &numIvars);
     
@@ -72,7 +90,7 @@ static Reflection* shared;
         typeInfo.name = [NSString stringWithUTF8String: ivar_getName(ivar)];
         typeInfo.typeName = [NSString stringWithUTF8String: ivar_getTypeEncoding(ivar)];
                 
-        if ([shared.ivarValueTypeList containsObject: typeInfo.typeName])
+        if ([Reflection.sharedReflection.ivarValueTypeList containsObject: typeInfo.typeName])
             typeInfo.valueType = YES;
         
         [array addObject: typeInfo];
@@ -86,6 +104,7 @@ static Reflection* shared;
             [array addObjectsFromArray: [Reflection instanceVariablesForClass: parent includeInheritance: includeInheritance]];
     }
     
+    Reflection.sharedReflection.instanceVariablesForClassCache[key] = array;
     return array;
 }
 
@@ -94,8 +113,16 @@ static Reflection* shared;
 }
 
 +(NSArray*) propertiesForClass: (Class) classType includeInheritance: (BOOL) includeInheritance {
-    NSMutableArray* array = [NSMutableArray array];
+    NSString* key = NSStringFromClass(classType);
+    if (!key) {
+        return [NSArray array];
+    }
     
+    NSArray* cached = Reflection.sharedReflection.propertiesForClassCache[key];
+    if (cached)
+        return cached;
+    
+    NSMutableArray* array = [NSMutableArray array];
     for (NSString* propertyName in [classType propertyNames])
         [array addObject: [Reflection infoForProperty: propertyName onClass: classType]];
     
@@ -105,6 +132,7 @@ static Reflection* shared;
             [array addObjectsFromArray: [Reflection propertiesForClass: parent includeInheritance: includeInheritance]];
     }
     
+    Reflection.sharedReflection.propertiesForClassCache[key] = array;
     return array;
 }
 
@@ -124,7 +152,7 @@ static Reflection* shared;
     // set type name and value type flags
     NSString* typeName = [propertyParts objectAtIndex: 0];
     if ([typeName startsWith: @"T@"]) {
-        if ([[typeName substringFromIndex: 3] startsWith:@"<"]) {
+        if (typeName.length >= 5 && [[typeName substringFromIndex: 3] startsWith:@"<"]) {
             info.protocol = YES;
             info.typeName = [[typeName trimLeft: 4] trimRight: 2];
         }
@@ -134,7 +162,7 @@ static Reflection* shared;
     }
     else {
         info.valueType = YES;
-        info.typeName = [shared.propertyValueTypeMap objectForKey: [typeName substringToIndex: 2]];
+        info.typeName = [Reflection.sharedReflection.propertyValueTypeMap objectForKey: [typeName substringToIndex: 2]];
     }
 	
     return info;

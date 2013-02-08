@@ -1,6 +1,6 @@
 //
 //  NSArray+Helpers.m
-//  CoreMeta
+//  Meta-iOS
 //
 //  Created by Joshua Gretz on 7/16/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.
@@ -35,20 +35,29 @@
 	return array;	
 }
 
--(id) firstWhere: (NSPredicate*) predicate {
+-(id) firstWhere: (BOOL(^) (id evaluatedObject)) block {
+    return [self firstWhereBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) { return block(evaluatedObject); }];
+    
+}
+
+-(NSArray*) where: (BOOL(^) (id evaluatedObject)) block {
+    return [self whereBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) { return block(evaluatedObject); }];
+}
+
+-(id) firstWherePredicate: (NSPredicate*) predicate {
     return [[self filteredArrayUsingPredicate: predicate] first];
 }
 
--(NSArray*) where: (NSPredicate*) predicate {
+-(NSArray*) wherePredicate: (NSPredicate*) predicate {
     return [self filteredArrayUsingPredicate: predicate];
 }
 
 -(id) firstWhereBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block {
-    return [self firstWhere: [NSPredicate predicateWithBlock: block]];
+    return [self firstWherePredicate: [NSPredicate predicateWithBlock: block]];
 }
 
 -(NSArray*) whereBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block {
-    return [self where: [NSPredicate predicateWithBlock: block]];
+    return [self wherePredicate: [NSPredicate predicateWithBlock: block]];
 }
 
 -(NSArray*) select: (id (^)(id evaluatedObject))block {
@@ -56,6 +65,10 @@
     for (id obj in self)
         [array addObject: block(obj)];
     return array;
+}
+
+-(id) objectAtIndexedSubscript:(NSUInteger)index {
+    return [self objectAtIndex: index];
 }
 
 @end
@@ -75,6 +88,19 @@
         i++;
         j--;
     }
+}
+
+-(void) setObject:(id)object atIndexedSubscript:(NSUInteger)index {
+    if (!object)
+        [NSException raise: NSInvalidArgumentException format:@"setObject:atIndexedSubscript does not allow objects to be nil"];
+    
+    if (index > self.count)
+        [NSException raise:NSRangeException format:@"setObject:atIndexedSubscript does not allow the index to be out of array bounds"];
+    
+    if (index == self.count)
+        [self addObject: object];
+    else
+        [self replaceObjectAtIndex: index withObject: object];
 }
 
 @end

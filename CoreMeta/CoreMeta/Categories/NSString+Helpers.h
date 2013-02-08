@@ -1,6 +1,6 @@
 //
 //  NSString+Helpers.h
-//  CoreMeta
+//  Meta-iOS
 //
 //  Created by Joshua Gretz on 7/16/12.
 //  Copyright (c) 2012 TrueFit Solutions. All rights reserved.
@@ -20,6 +20,7 @@
 -(BOOL) isNilOrEmpty;
 -(BOOL) contains: (NSString*) search;
 -(BOOL) startsWith: (NSString*) search;
+-(BOOL) endsWith: (NSString*) search;
 
 -(NSString*) properCaseAtSpace;
 -(NSString*) insertSpaceBeforeProperCase;
@@ -29,7 +30,10 @@
 -(NSString*) padRightToLength: (int) length;
 -(NSString*) padBothToLength: (int) length;
 
-+(NSString*) fromInt: (int) value;
++(NSString*) stringFromInt: (int) value;
++(NSString*) stringFromFloat: (float) value;
++(NSString*) stringFromFloat: (float) value format: (NSString*) format;
+
 +(NSString*) newStringWithUUID;
 
 @end

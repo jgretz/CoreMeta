@@ -64,6 +64,9 @@
 		return ( NO );
 	
 	const char * value = property_getTypeString( property );
+    if (!value)
+        return NO;
+    
 	if ( strcmp(type, value) == 0 )
 		return ( YES );
 	
@@ -139,10 +142,7 @@
 	if ( str == NULL )
 		return ( nil );
 	
-	NSString * result = [NSString stringWithUTF8String: str];
-	free( (void *)str );
-	
-	return ( result );
+	return [NSString stringWithUTF8String: str];
 }
 
 + (NSArray *) propertyNames

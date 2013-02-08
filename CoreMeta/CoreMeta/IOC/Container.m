@@ -1,6 +1,6 @@
 //
 //  Container.m
-//  CoreMeta
+//  core
 //
 //  Created by Joshua Gretz on 12/23/10.
 //  Copyright 2010 TrueFit Solutions. All rights reserved.
@@ -14,12 +14,10 @@
 @interface RegistryMap : NSObject
 @property (assign) Class classType;
 @property BOOL cache;
+@property (copy) void(^onCreate)();
 @end
 
 @implementation RegistryMap
-
-@synthesize classType, cache;
-
 @end
 
 #pragma mark - Private Category
@@ -118,6 +116,9 @@
 	RegistryMap* map = [self getMapRegisteredForKey: key];
 	if (map) {
         object = [self create: map.classType];
+        if (object && map.onCreate)
+            map.onCreate(object);
+        
         if (object && map.cache)
             [self put: object];
         return object;
@@ -128,7 +129,7 @@
         if ([convention respondsToEvent: MapClass]) {
             Class mapType = [convention mapKey: key];
             if (mapType)
-                return [self create: mapType];
+                return [self objectForClass: mapType];
         }
     }
     
@@ -138,6 +139,15 @@
 
 -(id) objectForClass: (Class) classType {
 	return [self objectForClass: classType cache: NO];
+}
+
+-(id) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary {
+    id object = [self objectForClass: classType];
+    
+    for (id key in dictionary.keyEnumerator)
+        [object setValue: [dictionary objectForKey: key] forKey: key];
+    
+    return object;
 }
 
 -(id) objectForClass: (Class) classType cache: (BOOL) cache {
@@ -180,6 +190,10 @@
     [self registerClass: classType forKey: NSStringFromClass(classType) cache: cache];
 }
 
+-(void) registerClass: (Class)classType cache: (BOOL)cache onCreate: (void(^)(id)) onCreate {
+    [self registerClass: classType forKey: NSStringFromClass(classType) cache: cache onCreate: onCreate];
+}
+
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol {
 	[self registerClass: classType forProtocol: protocol cache: NO];
 }
@@ -201,9 +215,14 @@
 }
 
 -(void) registerClass: (Class)classType forKey:(NSString*) key cache: (BOOL) cache {
+    [self registerClass: classType forKey: key cache: cache onCreate: nil];
+}
+
+-(void) registerClass: (Class)classType forKey:(NSString*) key cache: (BOOL) cache onCreate:(void (^)(id))onCreate {
 	RegistryMap* map = [[RegistryMap alloc] init];
 	map.classType = classType;
 	map.cache = cache;
+    map.onCreate = onCreate;
 	
 	[mapRegistry setValue: map forKey: key];
 }
