@@ -85,11 +85,24 @@ const NSString* KVO_INFO = @"KVO_INFO";
 }
 
 #pragma mark Clear
+-(void) clearKVO {
+    @synchronized(self.kvoInfo) {
+        if (!self.kvoInfo)
+            return;
+        
+        for (NSString* key in self.kvoInfo.allKeys)
+            [self removeObserver: self forKeyPath: key];
+        [self.kvoInfo removeAllObjects];
+    }
+}
+
 -(void) clearKVOForPath: (NSString*) keyPath {
     @synchronized(self.kvoInfo) {
         if (!self.kvoInfo)
             return;
+        
         [self.kvoInfo removeObjectForKey: keyPath];
+        [self removeObserver: self forKeyPath: keyPath];
     }
 }
 

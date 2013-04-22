@@ -20,6 +20,7 @@
 -(void) when: (NSString*) keyPath changesExecute: (void (^)(id, NSDictionary*)) block;
 -(void) when: (NSString*) keyPath becomes: (BOOL (^)(id, NSDictionary*)) testBlock execute: (void (^)(id, NSDictionary *))block;
 
+-(void) clearKVO;
 -(void) clearKVOForPath: (NSString*) keyPath;
 
 @end
