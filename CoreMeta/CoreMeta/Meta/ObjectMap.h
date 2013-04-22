@@ -11,5 +11,7 @@
 @interface ObjectMap : NSObject
 
 -(void) map: (id) source into: (id) target;
+-(void) map: (id) source into: (id) target ignoreNilValues: (BOOL) ignoreNilValues;
+-(void) map: (id) source into: (id) target ignoreValue: (BOOL(^)(id,NSString*)) ignoreValue;
 
 @end

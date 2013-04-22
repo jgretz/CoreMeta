@@ -13,6 +13,16 @@
 @implementation ObjectMap
 
 -(void) map:(id)source into:(id)target {
+    [self map: source into: target ignoreNilValues: NO];
+}
+
+-(void) map: (id) source into: (id) target ignoreNilValues: (BOOL) ignoreNilValues {
+    [self map: source into: target ignoreValue:^BOOL(id value, NSString* propertyName) {
+        return value == nil;
+    }];
+}
+
+-(void) map: (id) source into: (id) target ignoreValue: (BOOL(^)(id,NSString*)) ignoreValue {
     NSArray* sourceProperties = [Reflection propertiesForClass: [source class] includeInheritance: YES];
     
     NSMutableDictionary* targetProperties = [NSMutableDictionary dictionary];
@@ -24,7 +34,11 @@
         if (!targetPropertyInfo || targetPropertyInfo.readonly || targetPropertyInfo.type != sourcePropertyInfo.type)
             continue;
         
-        [target setValue: [source valueForKey: sourcePropertyInfo.name] forKey: targetPropertyInfo.name];
+        id value = [source valueForKey: sourcePropertyInfo.name];
+        if (ignoreValue && ignoreValue(value, sourcePropertyInfo.name))
+            continue;
+        
+        [target setValue: value forKey: targetPropertyInfo.name];
     }
 }
 
