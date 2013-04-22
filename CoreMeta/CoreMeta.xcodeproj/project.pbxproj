@@ -258,13 +258,13 @@
 		8C14307415B4A09900A9C1B9 /* IOC */ = {
 			isa = PBXGroup;
 			children = (
+				8C14307B15B4A09900A9C1B9 /* Standard Conventions */,
 				8C14307515B4A09900A9C1B9 /* Container.h */,
 				8C14307615B4A09900A9C1B9 /* Container.m */,
 				8C14307715B4A09900A9C1B9 /* ContainerConvention.h */,
 				8C14307815B4A09900A9C1B9 /* ContainerConvention.m */,
 				8C14307915B4A09900A9C1B9 /* Mixin.h */,
 				8C14307A15B4A09900A9C1B9 /* Mixin.m */,
-				8C14307B15B4A09900A9C1B9 /* Standard Conventions */,
 			);
 			path = IOC;
 			sourceTree = "<group>";
