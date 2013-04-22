@@ -144,8 +144,13 @@
 -(id) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary {
     id object = [self objectForClass: classType];
     
-    for (id key in dictionary.keyEnumerator)
+    for (id key in dictionary.keyEnumerator) {
+        id value = dictionary[key];
+        if (!value)
+            continue;
+        
         [object setValue: [dictionary objectForKey: key] forKey: key];
+    }
     
     return object;
 }
