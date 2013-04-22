@@ -12,7 +12,7 @@
 #include "NSObject+IOC.h"
 #include "NSObject+KVO.h"
 #include "NSObject+Binding.h"
-#include "NSObject+PerformBlock.h"
+#include "NSObject+Perform.h"
 
 #include "NSString+Helpers.h"
 #include "NSArray+Helpers.h"
