@@ -54,8 +54,8 @@
 		8C1430B415B4A09900A9C1B9 /* TypeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14308E15B4A09900A9C1B9 /* TypeInfo.m */; };
 		8C1F7B6316382ADB00A2FBBE /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C1F7B6116382ADB00A2FBBE /* NSData+Base64.h */; };
 		8C1F7B6416382ADB00A2FBBE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F7B6216382ADB00A2FBBE /* NSData+Base64.m */; };
-		8C4391FE168E1968003721D4 /* NSObject+PerformBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C4391FC168E1968003721D4 /* NSObject+PerformBlock.h */; };
-		8C4391FF168E1968003721D4 /* NSObject+PerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4391FD168E1968003721D4 /* NSObject+PerformBlock.m */; };
+		8C4391FE168E1968003721D4 /* NSObject+Perform.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C4391FC168E1968003721D4 /* NSObject+Perform.h */; };
+		8C4391FF168E1968003721D4 /* NSObject+Perform.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4391FD168E1968003721D4 /* NSObject+Perform.m */; };
 		8C537F7B15D974690066676D /* CoreMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C537F7A15D974690066676D /* CoreMeta.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306E15E524EB0048B6E0 /* NSDictionary+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */; };
@@ -122,8 +122,8 @@
 		8C14308E15B4A09900A9C1B9 /* TypeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeInfo.m; sourceTree = "<group>"; };
 		8C1F7B6116382ADB00A2FBBE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		8C1F7B6216382ADB00A2FBBE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		8C4391FC168E1968003721D4 /* NSObject+PerformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PerformBlock.h"; sourceTree = "<group>"; };
-		8C4391FD168E1968003721D4 /* NSObject+PerformBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PerformBlock.m"; sourceTree = "<group>"; };
+		8C4391FC168E1968003721D4 /* NSObject+Perform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Perform.h"; sourceTree = "<group>"; };
+		8C4391FD168E1968003721D4 /* NSObject+Perform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Perform.m"; sourceTree = "<group>"; };
 		8C537F7A15D974690066676D /* CoreMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMeta.h; sourceTree = "<group>"; };
 		8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Helpers.h"; sourceTree = "<group>"; };
 		8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Helpers.m"; sourceTree = "<group>"; };
@@ -243,8 +243,8 @@
 				8C14306D15B4A09900A9C1B9 /* NSObject+KVO.m */,
 				8C14306E15B4A09900A9C1B9 /* NSObject+Properties.h */,
 				8C14306F15B4A09900A9C1B9 /* NSObject+Properties.m */,
-				8C4391FC168E1968003721D4 /* NSObject+PerformBlock.h */,
-				8C4391FD168E1968003721D4 /* NSObject+PerformBlock.m */,
+				8C4391FC168E1968003721D4 /* NSObject+Perform.h */,
+				8C4391FD168E1968003721D4 /* NSObject+Perform.m */,
 				8C14307015B4A09900A9C1B9 /* NSString+Helpers.h */,
 				8C14307115B4A09900A9C1B9 /* NSString+Helpers.m */,
 				8C14307215B4A09900A9C1B9 /* NSString+PropertyKVC.h */,
@@ -330,7 +330,7 @@
 				8C1430B115B4A09900A9C1B9 /* Reflection.h in Headers */,
 				8C1430B315B4A09900A9C1B9 /* TypeInfo.h in Headers */,
 				8C1F7B6316382ADB00A2FBBE /* NSData+Base64.h in Headers */,
-				8C4391FE168E1968003721D4 /* NSObject+PerformBlock.h in Headers */,
+				8C4391FE168E1968003721D4 /* NSObject+Perform.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +453,7 @@
 				8C1430B415B4A09900A9C1B9 /* TypeInfo.m in Sources */,
 				8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */,
 				8C1F7B6416382ADB00A2FBBE /* NSData+Base64.m in Sources */,
-				8C4391FF168E1968003721D4 /* NSObject+PerformBlock.m in Sources */,
+				8C4391FF168E1968003721D4 /* NSObject+Perform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

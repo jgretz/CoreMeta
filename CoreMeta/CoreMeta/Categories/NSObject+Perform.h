@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (PerformBlock)
+@interface NSObject (Perform)
 
 -(void) performBlock: (void (^)(void)) block afterDelay:(NSTimeInterval)delay;
 -(void) performBlockInMainThread: (void (^)(void)) block;
+-(void) performBlockInBackground: (void (^)(void)) block;
+
+-(void) performSelectorInBackground: (SEL) selector withObject: (id) object afterDelay: (NSTimeInterval) delay;
+
 @end
