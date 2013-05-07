@@ -23,4 +23,12 @@
     [[Container sharedContainer] inject: self];
 }
 
+-(void) put {
+    [[Container sharedContainer] put: self];
+}
+
+-(void) removeFromIOC {
+    [[Container sharedContainer] put: nil forClass: [self class]];
+}
+
 @end

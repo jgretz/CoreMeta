@@ -28,8 +28,6 @@
 		8C14309A15B4A09900A9C1B9 /* NSString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14307115B4A09900A9C1B9 /* NSString+Helpers.m */; };
 		8C14309B15B4A09900A9C1B9 /* NSString+PropertyKVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C14307215B4A09900A9C1B9 /* NSString+PropertyKVC.h */; settings = {ATTRIBUTES = (); }; };
 		8C14309C15B4A09900A9C1B9 /* NSString+PropertyKVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14307315B4A09900A9C1B9 /* NSString+PropertyKVC.m */; };
-		8C14309D15B4A09900A9C1B9 /* Container.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C14307515B4A09900A9C1B9 /* Container.h */; settings = {ATTRIBUTES = (); }; };
-		8C14309E15B4A09900A9C1B9 /* Container.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14307615B4A09900A9C1B9 /* Container.m */; };
 		8C14309F15B4A09900A9C1B9 /* ContainerConvention.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C14307715B4A09900A9C1B9 /* ContainerConvention.h */; settings = {ATTRIBUTES = (); }; };
 		8C1430A015B4A09900A9C1B9 /* ContainerConvention.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C14307815B4A09900A9C1B9 /* ContainerConvention.m */; };
 		8C1430A115B4A09900A9C1B9 /* Mixin.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C14307915B4A09900A9C1B9 /* Mixin.h */; settings = {ATTRIBUTES = (); }; };
@@ -59,6 +57,8 @@
 		8C537F7B15D974690066676D /* CoreMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C537F7A15D974690066676D /* CoreMeta.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306E15E524EB0048B6E0 /* NSDictionary+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */; };
+		BAC2834D4D75328AB1B22F0F /* Container.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC288EAB2AF169079872765 /* Container.m */; };
+		BAC28DB7BCBE667CC1DF0063 /* Container.h in Headers */ = {isa = PBXBuildFile; fileRef = BAC28AB994E83243F5CE58EE /* Container.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,8 +96,6 @@
 		8C14307115B4A09900A9C1B9 /* NSString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helpers.m"; sourceTree = "<group>"; };
 		8C14307215B4A09900A9C1B9 /* NSString+PropertyKVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PropertyKVC.h"; sourceTree = "<group>"; };
 		8C14307315B4A09900A9C1B9 /* NSString+PropertyKVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PropertyKVC.m"; sourceTree = "<group>"; };
-		8C14307515B4A09900A9C1B9 /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
-		8C14307615B4A09900A9C1B9 /* Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Container.m; sourceTree = "<group>"; };
 		8C14307715B4A09900A9C1B9 /* ContainerConvention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerConvention.h; sourceTree = "<group>"; };
 		8C14307815B4A09900A9C1B9 /* ContainerConvention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerConvention.m; sourceTree = "<group>"; };
 		8C14307915B4A09900A9C1B9 /* Mixin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mixin.h; sourceTree = "<group>"; };
@@ -127,6 +125,8 @@
 		8C537F7A15D974690066676D /* CoreMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMeta.h; sourceTree = "<group>"; };
 		8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Helpers.h"; sourceTree = "<group>"; };
 		8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Helpers.m"; sourceTree = "<group>"; };
+		BAC288EAB2AF169079872765 /* Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Container.m; sourceTree = "<group>"; };
+		BAC28AB994E83243F5CE58EE /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,12 +259,12 @@
 			isa = PBXGroup;
 			children = (
 				8C14307B15B4A09900A9C1B9 /* Standard Conventions */,
-				8C14307515B4A09900A9C1B9 /* Container.h */,
-				8C14307615B4A09900A9C1B9 /* Container.m */,
 				8C14307715B4A09900A9C1B9 /* ContainerConvention.h */,
 				8C14307815B4A09900A9C1B9 /* ContainerConvention.m */,
 				8C14307915B4A09900A9C1B9 /* Mixin.h */,
 				8C14307A15B4A09900A9C1B9 /* Mixin.m */,
+				BAC28AB994E83243F5CE58EE /* Container.h */,
+				BAC288EAB2AF169079872765 /* Container.m */,
 			);
 			path = IOC;
 			sourceTree = "<group>";
@@ -317,7 +317,6 @@
 				8C14309515B4A09900A9C1B9 /* NSObject+KVO.h in Headers */,
 				8C14309715B4A09900A9C1B9 /* NSObject+Properties.h in Headers */,
 				8C14309B15B4A09900A9C1B9 /* NSString+PropertyKVC.h in Headers */,
-				8C14309D15B4A09900A9C1B9 /* Container.h in Headers */,
 				8C14309F15B4A09900A9C1B9 /* ContainerConvention.h in Headers */,
 				8C1430A115B4A09900A9C1B9 /* Mixin.h in Headers */,
 				8C1430A315B4A09900A9C1B9 /* IdiomContainerConvention.h in Headers */,
@@ -331,6 +330,7 @@
 				8C1430B315B4A09900A9C1B9 /* TypeInfo.h in Headers */,
 				8C1F7B6316382ADB00A2FBBE /* NSData+Base64.h in Headers */,
 				8C4391FE168E1968003721D4 /* NSObject+Perform.h in Headers */,
+				BAC28DB7BCBE667CC1DF0063 /* Container.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,7 +439,6 @@
 				8C14309815B4A09900A9C1B9 /* NSObject+Properties.m in Sources */,
 				8C14309A15B4A09900A9C1B9 /* NSString+Helpers.m in Sources */,
 				8C14309C15B4A09900A9C1B9 /* NSString+PropertyKVC.m in Sources */,
-				8C14309E15B4A09900A9C1B9 /* Container.m in Sources */,
 				8C1430A015B4A09900A9C1B9 /* ContainerConvention.m in Sources */,
 				8C1430A215B4A09900A9C1B9 /* Mixin.m in Sources */,
 				8C1430A415B4A09900A9C1B9 /* IdiomContainerConvention.m in Sources */,
@@ -454,6 +453,7 @@
 				8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */,
 				8C1F7B6416382ADB00A2FBBE /* NSData+Base64.m in Sources */,
 				8C4391FF168E1968003721D4 /* NSObject+Perform.m in Sources */,
+				BAC2834D4D75328AB1B22F0F /* Container.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

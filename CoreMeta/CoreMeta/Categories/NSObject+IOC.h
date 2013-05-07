@@ -14,5 +14,7 @@
 +(id) objectWith: (NSDictionary*) propertyValues;
 
 -(void) inject;
+-(void) put;
 
+-(void) removeFromIOC;
 @end
