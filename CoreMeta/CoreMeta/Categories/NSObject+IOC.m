@@ -27,6 +27,11 @@
     [[Container sharedContainer] put: self];
 }
 
+-(void) putForClass: (Class) classType {
+    [[Container sharedContainer] put: self forClass: classType];
+}
+
+
 -(void) removeFromIOC {
     [[Container sharedContainer] put: nil forClass: [self class]];
 }
