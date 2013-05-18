@@ -28,6 +28,7 @@
 
 -(void) inject;
 -(void) put;
+-(void) putForClass: (Class) classType;
 
 -(void) removeFromIOC;
 @end
