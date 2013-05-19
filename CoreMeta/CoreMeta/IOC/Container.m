@@ -28,7 +28,7 @@
 @interface RegistryMap : NSObject
 @property (assign) Class classType;
 @property BOOL cache;
-@property (copy) void(^onCreate)();
+@property (copy) void(^onCreate)(id);
 @end
 
 @implementation RegistryMap
