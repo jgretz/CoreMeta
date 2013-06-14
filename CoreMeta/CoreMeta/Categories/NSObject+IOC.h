@@ -25,6 +25,7 @@
 
 +(id) object;
 +(id) objectWith: (NSDictionary*) propertyValues;
++(id) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args;
 
 -(void) inject;
 -(void) put;

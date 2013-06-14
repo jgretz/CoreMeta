@@ -31,6 +31,7 @@
 -(id) objectForClass: (Class) classType;
 -(id) objectForClass: (Class) classType cache: (BOOL) cache;
 -(id) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary;
+-(id) objectForClass: (Class) classType usingInitSelector: (SEL) selector withArguments: (NSArray*) args;
 -(id) objectForProtocol: (Protocol*) protocol;
 
 -(void) put: (id) object;
@@ -41,6 +42,7 @@
 -(void) registerClass: (Class) classType;
 -(void) registerClass: (Class) classType cache: (BOOL) cache;
 -(void) registerClass: (Class) classType cache: (BOOL) cache onCreate: (void(^)(id)) onCreate;
+-(void) registerClass: (Class) classType cache: (BOOL) cache usingInitSelector: (SEL) selector withArguments: (NSArray*) args;
 
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol;
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache;

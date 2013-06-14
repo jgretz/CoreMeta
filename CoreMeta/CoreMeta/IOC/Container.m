@@ -36,12 +36,13 @@
 
 #pragma mark - Private Category
 @interface Container() {
-	NSMutableDictionary* objectRegistry;
-	NSMutableDictionary* mapRegistry;
-    
-    NSMutableArray* classesSeen;    
+    NSMutableDictionary* objectRegistry;
+    NSMutableDictionary* mapRegistry;
+    NSMutableDictionary* customInitRegistry;
+
+    NSMutableArray* classesSeen;
     NSMutableArray* conventions;
-    
+
     NSObject* sync;
 }
 
@@ -56,11 +57,11 @@
 #pragma mark - Shared Singleton
 +(Container*) sharedContainer {
     static Container* sharedContainerInstance;
-    
-    @synchronized(self) {
+
+    @synchronized (self) {
         if (!sharedContainerInstance)
             sharedContainerInstance = [[Container alloc] init];
-        
+
         return sharedContainerInstance;
     }
 }
@@ -68,34 +69,42 @@
 
 #pragma mark - Init
 -(id) init {
-	if ((self = [super init])) {
-		objectRegistry = [[NSMutableDictionary alloc] init];
-		mapRegistry = [[NSMutableDictionary alloc] init];
-        
-        classesSeen = [[NSMutableArray alloc] init];
-        
-        conventions = [[NSMutableArray alloc] init];
-        
+    if ((self = [super init])) {
+        objectRegistry = [NSMutableDictionary dictionary];
+        mapRegistry = [NSMutableDictionary dictionary];
+        customInitRegistry = [NSMutableDictionary dictionary];
+
+        classesSeen = [NSMutableArray array];
+
+        conventions = [NSMutableArray array];
+
         sync = [[NSObject alloc] init];
-		
-		[self put: self];
-	}
-	return self;
+
+        [self put: self];
+    }
+    return self;
 }
 
 #pragma mark - Create
 -(id) create: (Class) classType {
     NSString* className = NSStringFromClass(classType);
-    
-	id object = [objectRegistry objectForKey: className];
-	if (object)
-		return object;
-	
-	object = [[classType alloc] init];
-    @synchronized(classesSeen) {
+
+    id object = [objectRegistry objectForKey: className];
+    if (object)
+        return object;
+
+    NSInvocation* customInit = customInitRegistry[className];
+
+    object = [classType alloc];
+    if (customInit)
+        [customInit invokeWithTarget: object];
+    else
+        object = [object init];
+
+    @synchronized (classesSeen) {
         if (![classesSeen containsObject: className]) {
             [classesSeen addObject: className];
-            
+
             for (ContainerConvention* convention in conventions) {
                 if ([convention respondsToEvent: ApplyMixin]) {
                     Class mixinType = [convention classToMixIntoClass: classType];
@@ -105,34 +114,52 @@
             }
         }
     }
-    
-	[self inject: object];
-	
-	return object;
+
+    [self inject: object];
+
+    return object;
+}
+
+-(NSInvocation*) invocationForClass: (Class) class withSelector: (SEL) selector withArguments: (NSArray*) args {
+    NSMethodSignature* signature = [class instanceMethodSignatureForSelector: selector];
+    if (!signature) {
+        NSLog(@"No method %@ found on class %@", NSStringFromSelector(selector), NSStringFromClass(class));
+    }
+
+    NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
+    invocation.selector = selector;
+
+    for (int i = 0; i < args.count; i++) {
+        id arg = args[i];
+        [invocation setArgument: &arg atIndex: i + 2];
+    }
+    [invocation retainArguments];
+
+    return invocation;
 }
 
 #pragma mark - Mapping
 -(RegistryMap*) getMapRegisteredForProtocol: (Protocol*) protocol {
-	return [mapRegistry valueForKey: NSStringFromProtocol(protocol)];
+    return [mapRegistry valueForKey: NSStringFromProtocol(protocol)];
 }
 
 -(RegistryMap*) getMapRegisteredForKey: (NSString*) key {
-	return [mapRegistry valueForKey: key];
+    return [mapRegistry valueForKey: key];
 }
 
--(id) objectForKey: (NSString*) key {	
-	// if we have an object, return it
-	id object = [objectRegistry objectForKey: key];
-	if (object)
-		return object;
-	
-	// see if we have a mapped class to create
-	RegistryMap* map = [self getMapRegisteredForKey: key];
-	if (map) {
+-(id) objectForKey: (NSString*) key {
+    // if we have an object, return it
+    id object = [objectRegistry objectForKey: key];
+    if (object)
+        return object;
+
+    // see if we have a mapped class to create
+    RegistryMap* map = [self getMapRegisteredForKey: key];
+    if (map) {
         object = [self create: map.classType];
         if (object && map.onCreate)
             map.onCreate(object);
-        
+
         if (object && map.cache)
             [self put: object];
         return object;
@@ -146,47 +173,59 @@
                 return [self objectForClass: mapType];
         }
     }
-    
+
     // nothing found
     return nil;
 }
 
 -(id) objectForClass: (Class) classType {
-	return [self objectForClass: classType cache: NO];
+    return [self objectForClass: classType cache: NO];
 }
 
 -(id) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary {
     id object = [self objectForClass: classType];
-    
+
     for (id key in dictionary.keyEnumerator) {
         id value = dictionary[key];
         if (!value)
             continue;
-        
+
         [object setValue: [dictionary objectForKey: key] forKey: key];
     }
-    
+
     return object;
 }
 
 -(id) objectForClass: (Class) classType cache: (BOOL) cache {
-	id object = [self objectForKey: NSStringFromClass(classType)];
-	if (object)
-		return object;
-    
-	object = [self create: classType];	
-	if (cache)
-		[self put: object];
-	
-	return object;	
+    id object = [self objectForKey: NSStringFromClass(classType)];
+    if (object)
+        return object;
+
+    object = [self create: classType];
+    if (cache)
+        [self put: object];
+
+    return object;
+}
+
+-(id) objectForClass: (Class) classType usingInitSelector: (SEL) selector withArguments: (NSArray*) args {
+    NSInvocation* hold = customInitRegistry[NSStringFromClass(classType)];
+    NSString* className = NSStringFromClass(classType);
+    customInitRegistry[className] = [self invocationForClass: classType withSelector: selector withArguments: args];
+
+    id object = [self objectForClass: classType];
+
+    customInitRegistry[className] = hold;
+
+    return object;
 }
 
 -(id) objectForProtocol: (Protocol*) protocol {
     // check explicit map
-	RegistryMap* map = [self getMapRegisteredForProtocol: protocol];
-	if (map)
+    RegistryMap* map = [self getMapRegisteredForProtocol: protocol];
+    if (map)
         return [self objectForClass: map.classType cache: map.cache];
-    
+
     // check conventions
     for (ContainerConvention* convention in conventions) {
         if ([convention respondsToEvent: MapProtocol]) {
@@ -195,95 +234,101 @@
                 return [self objectForClass: mapType cache: NO];
         }
     }
-    
+
     // nothing found
     return nil;
 }
 
 #pragma mark - Registration
--(void) registerClass: (Class)classType {
+-(void) registerClass: (Class) classType {
     [self registerClass: classType forKey: NSStringFromClass(classType) cache: NO];
 }
 
--(void) registerClass: (Class)classType cache: (BOOL)cache {
+-(void) registerClass: (Class) classType cache: (BOOL) cache {
     [self registerClass: classType forKey: NSStringFromClass(classType) cache: cache];
 }
 
--(void) registerClass: (Class)classType cache: (BOOL)cache onCreate: (void(^)(id)) onCreate {
+-(void) registerClass: (Class) classType cache: (BOOL) cache onCreate: (void (^)(id)) onCreate {
     [self registerClass: classType forKey: NSStringFromClass(classType) cache: cache onCreate: onCreate];
 }
 
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol {
-	[self registerClass: classType forProtocol: protocol cache: NO];
+    [self registerClass: classType forProtocol: protocol cache: NO];
 }
 
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache {
-	[self registerClass: classType forKey: NSStringFromProtocol(protocol) cache: cache];
+    [self registerClass: classType forKey: NSStringFromProtocol(protocol) cache: cache];
 }
 
--(void) registerClass: (Class)classType forClass: (Class) keyClass {
+-(void) registerClass: (Class) classType forClass: (Class) keyClass {
     [self registerClass: classType forClass: keyClass cache: NO];
 }
 
--(void) registerClass: (Class)classType forClass: (Class) keyClass cache: (BOOL) cache {
+-(void) registerClass: (Class) classType forClass: (Class) keyClass cache: (BOOL) cache {
     [self registerClass: classType forKey: NSStringFromClass(keyClass) cache: cache];
 }
 
--(void) registerClass: (Class)classType forKey:(NSString*) key {
-	[self registerClass: classType forKey: key cache: NO];
+-(void) registerClass: (Class) classType forKey: (NSString*) key {
+    [self registerClass: classType forKey: key cache: NO];
 }
 
--(void) registerClass: (Class)classType forKey:(NSString*) key cache: (BOOL) cache {
+-(void) registerClass: (Class) classType forKey: (NSString*) key cache: (BOOL) cache {
     [self registerClass: classType forKey: key cache: cache onCreate: nil];
 }
 
--(void) registerClass: (Class)classType forKey:(NSString*) key cache: (BOOL) cache onCreate:(void (^)(id))onCreate {
-	RegistryMap* map = [[RegistryMap alloc] init];
-	map.classType = classType;
-	map.cache = cache;
+-(void) registerClass: (Class) classType cache: (BOOL) cache usingInitSelector: (SEL) selector withArguments: (NSArray*) args {
+    customInitRegistry[NSStringFromClass(classType)] = [self invocationForClass: classType withSelector: selector withArguments: args];
+
+    [self registerClass: classType cache: cache];
+}
+
+-(void) registerClass: (Class) classType forKey: (NSString*) key cache: (BOOL) cache onCreate: (void (^)(id)) onCreate {
+    RegistryMap* map = [[RegistryMap alloc] init];
+    map.classType = classType;
+    map.cache = cache;
     map.onCreate = onCreate;
-	
-	[mapRegistry setValue: map forKey: key];
+
+    [mapRegistry setValue: map forKey: key];
 }
 
 #pragma mark - Put
--(void) put: (id) object {	
-	[objectRegistry setValue: object forKey: NSStringFromClass([object class])];
+-(void) put: (id) object {
+    [objectRegistry setValue: object forKey: NSStringFromClass([object class])];
 }
 
 -(void) put: (id) object forKey: (NSString*) key {
-	[objectRegistry setValue: object forKey: key];
+    [objectRegistry setValue: object forKey: key];
 }
 
 -(void) put: (id) object forClass: (Class) classType {
-	[objectRegistry setValue: object forKey: NSStringFromClass(classType)];	
+    [objectRegistry setValue: object forKey: NSStringFromClass(classType)];
 }
 
 -(void) put: (id) object forProtocol: (Protocol*) protocol {
-	[self registerClass: [object class] forProtocol: protocol];
-	[self put: object];
+    [self registerClass: [object class] forProtocol: protocol];
+    [self put: object];
 }
 
 #pragma mark - Injection
 -(void) inject: (id) object {
-	[self inject: object asClass: [object class]];
+    [self inject: object asClass: [object class]];
 }
 
 -(void) inject: (id) object asClass: (Class) classType {
     for (PropertyInfo* propertyInfo in [Reflection propertiesForClass: classType includeInheritance: YES]) {
         if (propertyInfo.readonly)
             continue;
-        
-        @synchronized(sync) {
-            id propertyValue = [self objectForKey: propertyInfo.typeName];         
-            if (!propertyValue && propertyInfo.protocol) {                
+
+        @synchronized (sync) {
+            id propertyValue = [self objectForKey: propertyInfo.typeName];
+            if (!propertyValue && propertyInfo.protocol) {
                 RegistryMap* map = [mapRegistry objectForKey: propertyInfo.typeName];
-                if (!map)			
+                if (!map)
                     continue;
-                
+
                 propertyValue = [self objectForClass: map.classType cache: map.cache];
             }
-            
+
             if (propertyValue)
                 [object setValue: propertyValue forKey: propertyInfo.name];
         }
@@ -291,7 +336,7 @@
 }
 
 #pragma mark - Conventions
--(void) addConvention:(ContainerConvention *)convention {
+-(void) addConvention: (ContainerConvention*) convention {
     [conventions addObject: convention];
 }
 

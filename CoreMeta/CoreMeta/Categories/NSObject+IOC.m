@@ -32,6 +32,10 @@
     return [[Container sharedContainer] objectForClass: [self class] withPropertyValues: propertyValues];
 }
 
++(id) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args {
+    return [[Container sharedContainer] objectForClass: [self class] usingInitSelector: selector withArguments: args];
+}
+
 -(void) inject {
     [[Container sharedContainer] inject: self];
 }
