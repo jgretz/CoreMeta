@@ -215,7 +215,10 @@
 
     id object = [self objectForClass: classType];
 
-    customInitRegistry[className] = hold;
+    if (hold)
+        customInitRegistry[className] = hold;
+    else
+        [customInitRegistry removeObjectForKey: className];
 
     return object;
 }
