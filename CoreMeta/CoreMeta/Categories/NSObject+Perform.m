@@ -37,11 +37,10 @@
 }
 
 -(void) performSelectorInBackground: (SEL) selector withObject: (id) object afterDelay: (NSTimeInterval) delay {
-    [self performBlockInMainThread: ^{
-        [self performBlock: ^{
-            [self performSelectorInBackground: selector withObject: object];
-        } afterDelay: delay];
-    }];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self performSelectorInBackground: selector withObject: object];
+    });
 }
 
 @end
