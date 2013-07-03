@@ -23,13 +23,24 @@
 
 @interface NSObject (IOC)
 
+#pragma mark - Object Initializers
 +(id) object;
 +(id) objectWith: (NSDictionary*) propertyValues;
 +(id) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args;
 
+#pragma mark - Injection / Cache Control
 -(void) inject;
 -(void) put;
 -(void) putForClass: (Class) classType;
-
 -(void) removeFromIOC;
+
+#pragma mark - Registration Shortcuts
+-(void) registerClass;
+-(void) registerClassAndCache: (BOOL) cache;
+-(void) registerClassAndCache: (BOOL) cache onCreate: (void(^)(id)) onCreate;
+-(void) registerClassForClass: (Class) overrideClass;
+-(void) registerClassForClass: (Class) overrideClass cache: (BOOL) cache;
+-(void) registerClassForProtocol: (Protocol*) protocol;
+-(void) registerClassForProtocoal: (Protocol*) protocol cache: (BOOL) cache;
+
 @end
