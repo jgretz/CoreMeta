@@ -27,6 +27,7 @@
 +(id) object;
 +(id) objectWith: (NSDictionary*) propertyValues;
 +(id) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args;
++(id) objectOnCreate:(void(^)(id)) onCreate;
 
 #pragma mark - Injection / Cache Control
 -(void) inject;

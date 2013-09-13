@@ -37,6 +37,15 @@
     return [[Container sharedContainer] objectForClass: [self class] usingInitSelector: selector withArguments: args];
 }
 
++(id) objectOnCreate:(void(^)(id)) onCreate {
+	id obj = [[Container sharedContainer] objectForClass: [self class]];
+
+	if (onCreate)
+		onCreate(obj);
+	
+	return obj;
+}
+
 #pragma mark - Injection / Cache Control
 -(void) inject {
     [[Container sharedContainer] inject: self];
