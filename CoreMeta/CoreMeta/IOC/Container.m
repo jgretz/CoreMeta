@@ -319,7 +319,7 @@
 
 -(void) inject: (id) object asClass: (Class) classType {
     for (PropertyInfo* propertyInfo in [Reflection propertiesForClass: classType includeInheritance: YES]) {
-        if (propertyInfo.readonly)
+        if (propertyInfo.readonly || propertyInfo.valueType)
             continue;
 
         @synchronized (sync) {
