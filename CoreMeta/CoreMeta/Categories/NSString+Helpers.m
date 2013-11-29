@@ -42,7 +42,7 @@
 }
 
 -(NSString*) trimWhiteSpaceRight {
-    for (int i = self.length - 1; i > 0; i--) {
+    for (int i = (int) self.length - 1; i > 0; i--) {
         NSString* test = [self substring: 1 start: i];
         if (![test isEqual: @" "])
             return [self substringToIndex: i + 1];
@@ -62,21 +62,21 @@
 -(BOOL) contains: (NSString*) search {
 	NSRange range = [self rangeOfString: search];
     
-    int location = range.location;
+    int location = (int) range.location;
 	return location >= 0 && location < self.length;	
 }
 
 -(BOOL) startsWith: (NSString*) search {
 	NSRange range = [self rangeOfString: search];
     
-    int location = range.location;
+    int location = (int) range.location;
 	return location == 0;
 }
 
 -(BOOL) endsWith: (NSString*) search {
     NSRange range = [self rangeOfString: search];
     
-    int location = range.location;
+    int location = (int) range.location;
 	return location == self.length - search.length;
 }
 
