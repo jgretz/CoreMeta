@@ -64,31 +64,31 @@
 }
 
 #pragma mark - Registration Shortcuts
--(void) registerClass {
++(void) registerClass {
     [[Container sharedContainer] registerClass: [self class]];
 }
 
--(void) registerClassAndCache: (BOOL) cache {
++(void) registerClassAndCache: (BOOL) cache {
     [[Container sharedContainer] registerClass: [self class] cache: YES];
 }
 
--(void) registerClassAndCache: (BOOL) cache onCreate: (void (^)(id)) onCreate {
++(void) registerClassAndCache: (BOOL) cache onCreate: (void (^)(id)) onCreate {
     [[Container sharedContainer] registerClass: [self class] cache: YES onCreate: onCreate];
 }
 
--(void) registerClassForClass: (Class) overrideClass {
++(void) registerClassForClass: (Class) overrideClass {
     [[Container sharedContainer] registerClass: [self class] forClass: overrideClass];
 }
 
--(void) registerClassForClass: (Class) overrideClass cache: (BOOL) cache {
++(void) registerClassForClass: (Class) overrideClass cache: (BOOL) cache {
     [[Container sharedContainer] registerClass: [self class] forClass: overrideClass cache: cache];
 }
 
--(void) registerClassForProtocol: (Protocol*) protocol {
++(void) registerClassForProtocol: (Protocol*) protocol {
     [[Container sharedContainer] registerClass: [self class] forProtocol: protocol];
 }
 
--(void) registerClassForProtocoal: (Protocol*) protocol cache: (BOOL) cache {
++(void) registerClassForProtocoal: (Protocol*) protocol cache: (BOOL) cache {
     [[Container sharedContainer] registerClass: [self class] forProtocol: protocol cache: cache];
 }
 
