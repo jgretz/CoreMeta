@@ -62,21 +62,25 @@
 -(BOOL) contains: (NSString*) search {
 	NSRange range = [self rangeOfString: search];
     
-    int location = (int) range.location;
-	return location >= 0 && location < self.length;	
+    NSUInteger location = range.location;
+	return location != 0 && location < self.length;
 }
 
 -(BOOL) startsWith: (NSString*) search {
 	NSRange range = [self rangeOfString: search];
     
-    int location = (int) range.location;
+    NSUInteger location = range.location;
 	return location == 0;
 }
 
 -(BOOL) endsWith: (NSString*) search {
+    
+    if (self.length < search.length)
+        return FALSE;
+    
     NSRange range = [self rangeOfString: search];
     
-    int location = (int) range.location;
+    NSUInteger location = range.location;
 	return location == self.length - search.length;
 }
 
