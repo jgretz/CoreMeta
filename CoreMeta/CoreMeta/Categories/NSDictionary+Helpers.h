@@ -24,6 +24,7 @@
 @interface NSDictionary (Helpers)
 
 -(id) objectForKeyedSubscript: (id) key;
+-(BOOL) containsKey: (id) key;
 
 @end
 

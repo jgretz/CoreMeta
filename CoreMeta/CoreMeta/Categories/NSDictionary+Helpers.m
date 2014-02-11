@@ -27,6 +27,10 @@
     return [self objectForKey: key];
 }
 
+-(BOOL) containsKey: (id) key {
+    return [self.allKeys containsObject: key];
+}
+
 @end
 
 @implementation NSMutableDictionary (Helpers)
