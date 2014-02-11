@@ -25,19 +25,19 @@
 @implementation NSObject (IOC)
 
 #pragma mark - Object Initializers
-+(id) object {
++(instancetype) object {
     return [[Container sharedContainer] objectForClass: [self class]];
 }
 
-+(id) objectWith: (NSDictionary*) propertyValues {
++(instancetype) objectWith: (NSDictionary*) propertyValues {
     return [[Container sharedContainer] objectForClass: [self class] withPropertyValues: propertyValues];
 }
 
-+(id) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args {
++(instancetype) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args {
     return [[Container sharedContainer] objectForClass: [self class] usingInitSelector: selector withArguments: args];
 }
 
-+(id) objectOnCreate:(void(^)(id)) onCreate {
++(instancetype) objectOnCreate:(void(^)(id)) onCreate {
 	id obj = [[Container sharedContainer] objectForClass: [self class]];
 
 	if (onCreate)

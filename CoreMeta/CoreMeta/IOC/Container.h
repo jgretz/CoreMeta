@@ -27,12 +27,12 @@
 
 +(Container*) sharedContainer;
 
--(id) objectForKey: (NSString*) key;
--(id) objectForClass: (Class) classType;
--(id) objectForClass: (Class) classType cache: (BOOL) cache;
--(id) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary;
--(id) objectForClass: (Class) classType usingInitSelector: (SEL) selector withArguments: (NSArray*) args;
--(id) objectForProtocol: (Protocol*) protocol;
+-(instancetype) objectForKey: (NSString*) key;
+-(instancetype) objectForClass: (Class) classType;
+-(instancetype) objectForClass: (Class) classType cache: (BOOL) cache;
+-(instancetype) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary;
+-(instancetype) objectForClass: (Class) classType usingInitSelector: (SEL) selector withArguments: (NSArray*) args;
+-(instancetype) objectForProtocol: (Protocol*) protocol;
 
 -(void) put: (id) object;
 -(void) put: (id) object forKey: (NSString*) key;

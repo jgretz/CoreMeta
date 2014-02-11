@@ -24,10 +24,10 @@
 @interface NSObject (IOC)
 
 #pragma mark - Object Initializers
-+(id) object;
-+(id) objectWith: (NSDictionary*) propertyValues;
-+(id) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args;
-+(id) objectOnCreate:(void(^)(id)) onCreate;
++(instancetype) object;
++(instancetype) objectWith: (NSDictionary*) propertyValues;
++(instancetype) objectUsingInitSelector: (SEL) selector withArguments: (NSArray*) args;
++(instancetype) objectOnCreate:(void(^)(id)) onCreate;
 
 #pragma mark - Injection / Cache Control
 -(void) inject;

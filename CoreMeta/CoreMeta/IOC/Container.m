@@ -46,7 +46,7 @@
     NSObject* sync;
 }
 
--(id) create: (Class) classType;
+-(instancetype) create: (Class) classType;
 -(RegistryMap*) getMapRegisteredForProtocol: (Protocol*) protocol;
 -(RegistryMap*) getMapRegisteredForKey: (NSString*) key;
 
@@ -68,7 +68,7 @@
 
 
 #pragma mark - Init
--(id) init {
+-(instancetype) init {
     if ((self = [super init])) {
         objectRegistry = [NSMutableDictionary dictionary];
         mapRegistry = [NSMutableDictionary dictionary];
@@ -86,7 +86,7 @@
 }
 
 #pragma mark - Create
--(id) create: (Class) classType {
+-(instancetype) create: (Class) classType {
     NSString* className = NSStringFromClass(classType);
 
     id object = [objectRegistry objectForKey: className];
@@ -147,7 +147,7 @@
     return [mapRegistry valueForKey: key];
 }
 
--(id) objectForKey: (NSString*) key {
+-(instancetype) objectForKey: (NSString*) key {
     // if we have an object, return it
     id object = [objectRegistry objectForKey: key];
     if (object)
@@ -178,11 +178,11 @@
     return nil;
 }
 
--(id) objectForClass: (Class) classType {
+-(instancetype) objectForClass: (Class) classType {
     return [self objectForClass: classType cache: NO];
 }
 
--(id) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary {
+-(instancetype) objectForClass: (Class) classType withPropertyValues: (NSDictionary*) dictionary {
     id object = [self objectForClass: classType];
 
     for (id key in dictionary.keyEnumerator) {
@@ -196,7 +196,7 @@
     return object;
 }
 
--(id) objectForClass: (Class) classType cache: (BOOL) cache {
+-(instancetype) objectForClass: (Class) classType cache: (BOOL) cache {
     id object = [self objectForKey: NSStringFromClass(classType)];
     if (object)
         return object;
@@ -208,7 +208,7 @@
     return object;
 }
 
--(id) objectForClass: (Class) classType usingInitSelector: (SEL) selector withArguments: (NSArray*) args {
+-(instancetype) objectForClass: (Class) classType usingInitSelector: (SEL) selector withArguments: (NSArray*) args {
     NSInvocation* hold = customInitRegistry[NSStringFromClass(classType)];
     NSString* className = NSStringFromClass(classType);
     customInitRegistry[className] = [self invocationForClass: classType withSelector: selector withArguments: args];
@@ -223,7 +223,7 @@
     return object;
 }
 
--(id) objectForProtocol: (Protocol*) protocol {
+-(instancetype) objectForProtocol: (Protocol*) protocol {
     // check explicit map
     RegistryMap* map = [self getMapRegisteredForProtocol: protocol];
     if (map)
