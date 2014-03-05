@@ -32,6 +32,13 @@
     dispatch_async(dispatch_get_main_queue(), block);
 }
 
+-(void) performBlockInMainThreadAndWait: (void (^)(void)) block {
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
+
 -(void) performBlockInBackground: (void (^)(void)) block {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), block);
 }
