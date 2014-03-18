@@ -55,10 +55,11 @@
                 @"Tc" : @"char",
                 @"Td" : @"double",
                 @"Tl" : @"long",
-                @"Ts" : @"short"
+                @"Ts" : @"short",
+                @"TB" : @"bool",
             };
             
-            sharedReflectionInstance.ivarValueTypeList = @[ @"float", @"int", @"char", @"double",@"long",@"short", @"f", @"i", @"c", @"d",@"l",@"s", @"@?", @"?"];
+            sharedReflectionInstance.ivarValueTypeList = @[ @"float", @"int", @"char", @"double", @"long", @"short", @"bool", @"f", @"i", @"c", @"d", @"l" ,@"s", @"B", @"@?", @"?"];
             
             sharedReflectionInstance.ignoreClasses = @[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class] ];
             
