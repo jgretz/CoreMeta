@@ -260,7 +260,13 @@
 }
 
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache {
-    [self registerClass: classType forKey: NSStringFromProtocol(protocol) cache: cache];
+    RegistryMap* map = [self getMapRegisteredForKey: NSStringFromClass(classType)];
+    
+    [self registerClass: classType forProtocol: protocol cache: cache onCreate: map ? map.onCreate : nil];
+}
+
+-(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache onCreate:(void (^)(id))onCreate {
+    [self registerClass: classType forKey: NSStringFromProtocol(protocol) cache: cache onCreate: onCreate];
 }
 
 -(void) registerClass: (Class) classType forClass: (Class) keyClass {

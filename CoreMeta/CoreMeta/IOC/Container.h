@@ -46,6 +46,7 @@
 
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol;
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache;
+-(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache onCreate:(void (^)(id))onCreate;
 
 -(void) registerClass: (Class) classType forClass: (Class) keyClass;
 -(void) registerClass: (Class) classType forClass: (Class) keyClass cache: (BOOL) cache;
