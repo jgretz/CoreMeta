@@ -26,6 +26,7 @@
 #import "NSObject+IOC.h"
 #import "NSObject+Properties.h"
 #import "NSString+Helpers.h"
+#import <CoreData/CoreData.h>
 
 #pragma mark - Private Category
 @interface Reflection() 
@@ -61,9 +62,9 @@
             };
             
             sharedReflectionInstance.ivarValueTypeList = @[ @"float", @"int", @"char", @"double", @"long", @"short", @"bool", @"f", @"i", @"c", @"d", @"l" ,@"s", @"B", @"@?", @"?"];
-            sharedReflectionInstance.ignoreProperties = @[ @"super", @"hash", @"description", @"debugDescription" ];
+            sharedReflectionInstance.ignoreProperties = @[ @"superclass", @"hash", @"description", @"debugDescription" ];
             
-            sharedReflectionInstance.ignoreClasses = @[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class] ];
+            sharedReflectionInstance.ignoreClasses = @[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class], [NSManagedObject class]];
             
             sharedReflectionInstance.instanceVariablesForClassCache = [NSMutableDictionary dictionary];
             sharedReflectionInstance.propertiesForClassCache = [NSMutableDictionary dictionary];
