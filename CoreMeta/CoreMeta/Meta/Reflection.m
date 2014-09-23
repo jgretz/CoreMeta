@@ -33,6 +33,7 @@
 @property (strong) NSDictionary* propertyValueTypeMap;
 @property (strong) NSArray* ivarValueTypeList;
 @property (strong) NSArray* ignoreClasses;
+@property (strong) NSArray* ignoreProperties;
 
 @property (strong) NSMutableDictionary* instanceVariablesForClassCache;
 @property (strong) NSMutableDictionary* propertiesForClassCache;
@@ -60,6 +61,7 @@
             };
             
             sharedReflectionInstance.ivarValueTypeList = @[ @"float", @"int", @"char", @"double", @"long", @"short", @"bool", @"f", @"i", @"c", @"d", @"l" ,@"s", @"B", @"@?", @"?"];
+            sharedReflectionInstance.ignoreProperties = @[ @"super", @"hash", @"description", @"debugDescription" ];
             
             sharedReflectionInstance.ignoreClasses = @[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class] ];
             
@@ -138,8 +140,12 @@
         return cached;
     
     NSMutableArray* array = [NSMutableArray array];
-    for (NSString* propertyName in [classType propertyNames])
+    for (NSString* propertyName in [classType propertyNames]) {
+        if ([Reflection.sharedReflection.ignoreProperties containsObject: propertyName])
+            continue;
+        
         [array addObject: [Reflection infoForProperty: propertyName onClass: classType]];
+    }
     
     if (includeInheritance) {
         Class parent = [self superClass: classType];
