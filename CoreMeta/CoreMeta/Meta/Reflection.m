@@ -26,7 +26,7 @@
 #import "NSObject+IOC.h"
 #import "NSObject+Properties.h"
 #import "NSString+Helpers.h"
-#import <CoreData/CoreData.h>
+@import CoreData;
 
 #pragma mark - Private Category
 @interface Reflection() 
