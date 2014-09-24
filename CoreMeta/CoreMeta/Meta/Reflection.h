@@ -25,6 +25,9 @@
 
 @interface Reflection : NSObject
 
++(void) addGlobalClassToIgnore: (Class) type;
++(void) addGlobalPropertyToIgnore: (NSString*) propertyName;
+
 +(Class) superClass: (Class) classType;
 
 +(NSArray*) instanceVariablesForClass: (Class) classType;

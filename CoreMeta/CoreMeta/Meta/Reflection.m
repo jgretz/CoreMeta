@@ -26,15 +26,14 @@
 #import "NSObject+IOC.h"
 #import "NSObject+Properties.h"
 #import "NSString+Helpers.h"
-@import CoreData;
 
 #pragma mark - Private Category
 @interface Reflection() 
 
 @property (strong) NSDictionary* propertyValueTypeMap;
 @property (strong) NSArray* ivarValueTypeList;
-@property (strong) NSArray* ignoreClasses;
-@property (strong) NSArray* ignoreProperties;
+@property (strong) NSMutableArray* ignoreClasses;
+@property (strong) NSMutableArray* ignoreProperties;
 
 @property (strong) NSMutableDictionary* instanceVariablesForClassCache;
 @property (strong) NSMutableDictionary* propertiesForClassCache;
@@ -62,9 +61,8 @@
             };
             
             sharedReflectionInstance.ivarValueTypeList = @[ @"float", @"int", @"char", @"double", @"long", @"short", @"bool", @"f", @"i", @"c", @"d", @"l" ,@"s", @"B", @"@?", @"?"];
-            sharedReflectionInstance.ignoreProperties = @[ @"superclass", @"hash", @"description", @"debugDescription" ];
-            
-            sharedReflectionInstance.ignoreClasses = @[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class], [NSManagedObject class]];
+            sharedReflectionInstance.ignoreProperties = [@[ @"superclass", @"hash", @"description", @"debugDescription" ] mutableCopy];
+            sharedReflectionInstance.ignoreClasses = [@[ [NSObject class], [UIViewController class], [UIView class], [UITableViewCell class]] mutableCopy];
             
             sharedReflectionInstance.instanceVariablesForClassCache = [NSMutableDictionary dictionary];
             sharedReflectionInstance.propertiesForClassCache = [NSMutableDictionary dictionary];
@@ -73,6 +71,15 @@
         
         return sharedReflectionInstance;
     }
+}
+
++(void) addGlobalClassToIgnore: (Class) type {
+    [Reflection.sharedReflection.ignoreClasses addObject: type];
+    
+}
+
++(void) addGlobalPropertyToIgnore: (NSString*) propertyName {
+    [Reflection.sharedReflection.ignoreProperties addObject: propertyName];
 }
 
 #pragma mark - Class Info
