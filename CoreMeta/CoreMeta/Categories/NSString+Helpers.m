@@ -63,7 +63,7 @@
 	NSRange range = [self rangeOfString: search];
     
     NSUInteger location = range.location;
-	return location != 0 && location < self.length;
+	return location < self.length;
 }
 
 -(BOOL) startsWith: (NSString*) search {
