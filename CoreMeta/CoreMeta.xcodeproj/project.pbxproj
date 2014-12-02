@@ -51,6 +51,9 @@
 		8C537F7B15D974690066676D /* CoreMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C537F7A15D974690066676D /* CoreMeta.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306E15E524EB0048B6E0 /* NSDictionary+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */; };
+		9B9BF2261A2DFF4100ECE76C /* Container+AutoRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BF2231A2DFF4100ECE76C /* Container+AutoRegister.m */; };
+		9B9BF2271A2DFF4100ECE76C /* Container+AutoRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9BF2241A2DFF4100ECE76C /* Container+AutoRegister.h */; };
+		9B9BF2281A2DFF4100ECE76C /* AutoContainerRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9BF2251A2DFF4100ECE76C /* AutoContainerRegister.h */; };
 		BAC2834D4D75328AB1B22F0F /* Container.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC288EAB2AF169079872765 /* Container.m */; };
 		BAC28DB7BCBE667CC1DF0063 /* Container.h in Headers */ = {isa = PBXBuildFile; fileRef = BAC28AB994E83243F5CE58EE /* Container.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
@@ -108,6 +111,9 @@
 		8C537F7A15D974690066676D /* CoreMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMeta.h; sourceTree = "<group>"; };
 		8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Helpers.h"; sourceTree = "<group>"; };
 		8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Helpers.m"; sourceTree = "<group>"; };
+		9B9BF2231A2DFF4100ECE76C /* Container+AutoRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Container+AutoRegister.m"; path = "AutoRegistration/Container+AutoRegister.m"; sourceTree = "<group>"; };
+		9B9BF2241A2DFF4100ECE76C /* Container+AutoRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Container+AutoRegister.h"; path = "AutoRegistration/Container+AutoRegister.h"; sourceTree = "<group>"; };
+		9B9BF2251A2DFF4100ECE76C /* AutoContainerRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoContainerRegister.h; path = AutoRegistration/AutoContainerRegister.h; sourceTree = "<group>"; };
 		BAC288EAB2AF169079872765 /* Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Container.m; sourceTree = "<group>"; };
 		BAC28AB994E83243F5CE58EE /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,6 +235,7 @@
 		8C14307415B4A09900A9C1B9 /* IOC */ = {
 			isa = PBXGroup;
 			children = (
+				9B9BF2221A2DFCEE00ECE76C /* AutoRegistration */,
 				8C14307B15B4A09900A9C1B9 /* Standard Conventions */,
 				8C14307715B4A09900A9C1B9 /* ContainerConvention.h */,
 				8C14307815B4A09900A9C1B9 /* ContainerConvention.m */,
@@ -272,6 +279,16 @@
 			path = Meta;
 			sourceTree = "<group>";
 		};
+		9B9BF2221A2DFCEE00ECE76C /* AutoRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				9B9BF2241A2DFF4100ECE76C /* Container+AutoRegister.h */,
+				9B9BF2231A2DFF4100ECE76C /* Container+AutoRegister.m */,
+				9B9BF2251A2DFF4100ECE76C /* AutoContainerRegister.h */,
+			);
+			name = AutoRegistration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -289,6 +306,7 @@
 				8C14309715B4A09900A9C1B9 /* NSObject+Properties.h in Headers */,
 				8C14309B15B4A09900A9C1B9 /* NSString+PropertyKVC.h in Headers */,
 				8C14309F15B4A09900A9C1B9 /* ContainerConvention.h in Headers */,
+				9B9BF2271A2DFF4100ECE76C /* Container+AutoRegister.h in Headers */,
 				8C1430A115B4A09900A9C1B9 /* Mixin.h in Headers */,
 				8C1430A315B4A09900A9C1B9 /* IdiomContainerConvention.h in Headers */,
 				8C1430A515B4A09900A9C1B9 /* MixinClassContainerConvention.h in Headers */,
@@ -299,6 +317,7 @@
 				8C1430AF15B4A09900A9C1B9 /* PropertyInfo.h in Headers */,
 				8C1430B115B4A09900A9C1B9 /* Reflection.h in Headers */,
 				8C1430B315B4A09900A9C1B9 /* TypeInfo.h in Headers */,
+				9B9BF2281A2DFF4100ECE76C /* AutoContainerRegister.h in Headers */,
 				8C1F7B6316382ADB00A2FBBE /* NSData+Base64.h in Headers */,
 				8C4391FE168E1968003721D4 /* NSObject+Perform.h in Headers */,
 				BAC28DB7BCBE667CC1DF0063 /* Container.h in Headers */,
@@ -376,6 +395,7 @@
 				8C1430B215B4A09900A9C1B9 /* Reflection.m in Sources */,
 				8C1430B415B4A09900A9C1B9 /* TypeInfo.m in Sources */,
 				8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */,
+				9B9BF2261A2DFF4100ECE76C /* Container+AutoRegister.m in Sources */,
 				8C1F7B6416382ADB00A2FBBE /* NSData+Base64.m in Sources */,
 				8C4391FF168E1968003721D4 /* NSObject+Perform.m in Sources */,
 				BAC2834D4D75328AB1B22F0F /* Container.m in Sources */,
