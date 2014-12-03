@@ -165,6 +165,20 @@
     return array;
 }
 
++(NSArray*) protocolsForClass: (Class) classType {
+    unsigned count;
+    __unsafe_unretained Protocol** protocolList = class_copyProtocolList(classType, &count);
+    
+    NSMutableArray* result = [NSMutableArray array];
+    for (unsigned i = 0; i < count; i++) {
+        [result addObject: protocolList[i]];
+    }
+    
+    free(protocolList);
+    
+    return result;
+}
+
 +(PropertyInfo*) infoForProperty: (NSString*) propertyName onClass: (Class) classType {
     PropertyInfo* info = [[PropertyInfo alloc] init];
     info.name = propertyName;
@@ -195,6 +209,28 @@
     }
 	
     return info;
+}
+
++(NSArray*) classesThatConformToProtocol: (Protocol*) protocol {
+    NSMutableArray* result = [NSMutableArray array];
+
+    int numberOfClasses = objc_getClassList(NULL, 0);
+    if (numberOfClasses > 0) {
+        Class* classes = (Class*)malloc(sizeof(Class) * numberOfClasses);
+        numberOfClasses = objc_getClassList(classes, numberOfClasses);
+        
+        for (int i = 0; i < numberOfClasses; i++) {
+            Class type = classes[i];
+            
+            if (class_conformsToProtocol(type, protocol))
+                [result addObject: type];
+        }
+        
+        free(classes);
+        
+    }
+    
+    return result;
 }
 
 @end
