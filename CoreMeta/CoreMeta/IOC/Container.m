@@ -20,9 +20,11 @@
  */
 
 
+#import <objc/runtime.h>
 #import "Container.h"
 #import "Reflection.h"
 #import "Mixin.h"
+#import "AutoContainerRegister.h"
 
 #pragma mark - RegistryMap Helper
 @interface RegistryMap : NSObject
@@ -347,6 +349,21 @@
 #pragma mark - Conventions
 -(void) addConvention: (ContainerConvention*) convention {
     [conventions addObject: convention];
+}
+
+#pragma mark - AutoRegister
+-(void) autoRegister {
+    Protocol* autoContainerRegister = @protocol(AutoContainerRegister);
+    
+    for (Class type in [Reflection classesThatConformToProtocol: autoContainerRegister]) {
+        [self registerClass: type];
+        
+        for (Protocol* protocol in [Reflection protocolsForClass: type]) {
+            if (protocol_isEqual(protocol, autoContainerRegister)) {
+                [self registerClass: type forProtocol: protocol];
+            }
+        }
+    }
 }
 
 @end

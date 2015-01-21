@@ -60,4 +60,6 @@
 
 -(void) addConvention: (ContainerConvention*) convention;
 
+-(void) autoRegister;
+
 @end

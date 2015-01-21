@@ -35,8 +35,11 @@
 
 +(NSArray*) propertiesForClass: (Class) classType;
 +(NSArray*) propertiesForClass: (Class) classType includeInheritance: (BOOL) includeInheritance;
++(NSArray*) protocolsForClass: (Class) classType;
 
 +(PropertyInfo*) infoForProperty: (NSString*) propertyName onClass: (Class) classType;
 +(BOOL) continueUpTree: (Class) classType;
+
++(NSArray*) classesThatConformToProtocol: (Protocol*) protocol;
 
 @end
