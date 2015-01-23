@@ -27,6 +27,7 @@
 #import "AutoContainerRegister.h"
 
 #pragma mark - RegistryMap Helper
+
 @interface RegistryMap : NSObject
 @property (assign) Class classType;
 @property BOOL cache;
@@ -37,6 +38,7 @@
 @end
 
 #pragma mark - Private Category
+
 @interface Container() {
     NSMutableDictionary* objectRegistry;
     NSMutableDictionary* mapRegistry;
@@ -57,6 +59,7 @@
 @implementation Container
 
 #pragma mark - Shared Singleton
+
 +(Container*) sharedContainer {
     static Container* sharedContainerInstance;
 
@@ -70,6 +73,7 @@
 
 
 #pragma mark - Init
+
 -(instancetype) init {
     if ((self = [super init])) {
         objectRegistry = [NSMutableDictionary dictionary];
@@ -88,6 +92,7 @@
 }
 
 #pragma mark - Create
+
 -(instancetype) create: (Class) classType {
     NSString* className = NSStringFromClass(classType);
 
@@ -141,6 +146,7 @@
 }
 
 #pragma mark - Mapping
+
 -(RegistryMap*) getMapRegisteredForProtocol: (Protocol*) protocol {
     return [mapRegistry valueForKey: NSStringFromProtocol(protocol)];
 }
@@ -245,6 +251,7 @@
 }
 
 #pragma mark - Registration
+
 -(void) registerClass: (Class) classType {
     [self registerClass: classType forKey: NSStringFromClass(classType) cache: NO];
 }
@@ -263,11 +270,11 @@
 
 -(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache {
     RegistryMap* map = [self getMapRegisteredForKey: NSStringFromClass(classType)];
-    
+
     [self registerClass: classType forProtocol: protocol cache: cache onCreate: map ? map.onCreate : nil];
 }
 
--(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache onCreate:(void (^)(id))onCreate {
+-(void) registerClass: (Class) classType forProtocol: (Protocol*) protocol cache: (BOOL) cache onCreate: (void (^)(id)) onCreate {
     [self registerClass: classType forKey: NSStringFromProtocol(protocol) cache: cache onCreate: onCreate];
 }
 
@@ -303,6 +310,7 @@
 }
 
 #pragma mark - Put
+
 -(void) put: (id) object {
     [objectRegistry setValue: object forKey: NSStringFromClass([object class])];
 }
@@ -321,6 +329,7 @@
 }
 
 #pragma mark - Injection
+
 -(void) inject: (id) object {
     [self inject: object asClass: [object class]];
 }
@@ -347,21 +356,32 @@
 }
 
 #pragma mark - Conventions
+
 -(void) addConvention: (ContainerConvention*) convention {
     [conventions addObject: convention];
 }
 
 #pragma mark - AutoRegister
+
 -(void) autoRegister {
     Protocol* autoContainerRegister = @protocol(AutoContainerRegister);
-    
+
     for (Class type in [Reflection classesThatConformToProtocol: autoContainerRegister]) {
-        [self registerClass: type];
-        
+        BOOL cache = NO;
+        if ([type respondsToSelector: @selector(cache)])
+            cache = [type cache];
+
+        if ([type respondsToSelector: @selector(onCreate)])
+            [self registerClass: type cache: cache onCreate: [type onCreate]];
+        else
+            [self registerClass: type cache: cache];
+
         for (Protocol* protocol in [Reflection protocolsForClass: type]) {
             if (protocol_isEqual(protocol, autoContainerRegister)) {
-                [self registerClass: type forProtocol: protocol];
+                continue;
             }
+
+            [self registerClass: type forProtocol: protocol];
         }
     }
 }

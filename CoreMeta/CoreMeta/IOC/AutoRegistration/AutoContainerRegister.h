@@ -9,4 +9,9 @@
 // Classes marked with this protocol will be regisered with the container when autoRegister is called
 @protocol AutoContainerRegister <NSObject>
 
+@optional
+
++(BOOL) cache;
++(void(^)(id)) onCreate;
+
 @end
