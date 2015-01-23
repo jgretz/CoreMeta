@@ -52,7 +52,9 @@
 		8C9784701A2F557300930169 /* AutoContainerRegister.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C97846F1A2F557300930169 /* AutoContainerRegister.h */; };
 		8CDF306E15E524EB0048B6E0 /* NSDictionary+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */; settings = {ATTRIBUTES = (); }; };
 		8CDF306F15E524EB0048B6E0 /* NSDictionary+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */; };
+		BAC282234F516F806F78DEB2 /* Promise.h in Headers */ = {isa = PBXBuildFile; fileRef = BAC2887AE97A05046A19B0AE /* Promise.h */; };
 		BAC2834D4D75328AB1B22F0F /* Container.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC288EAB2AF169079872765 /* Container.m */; };
+		BAC28CDC9352678279BD0352 /* Promise.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC2814F0CD35BBB06992D45 /* Promise.m */; };
 		BAC28DB7BCBE667CC1DF0063 /* Container.h in Headers */ = {isa = PBXBuildFile; fileRef = BAC28AB994E83243F5CE58EE /* Container.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
@@ -110,6 +112,8 @@
 		8C97846F1A2F557300930169 /* AutoContainerRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoContainerRegister.h; sourceTree = "<group>"; };
 		8CDF306C15E524EB0048B6E0 /* NSDictionary+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Helpers.h"; sourceTree = "<group>"; };
 		8CDF306D15E524EB0048B6E0 /* NSDictionary+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Helpers.m"; sourceTree = "<group>"; };
+		BAC2814F0CD35BBB06992D45 /* Promise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Promise.m; sourceTree = "<group>"; };
+		BAC2887AE97A05046A19B0AE /* Promise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Promise.h; sourceTree = "<group>"; };
 		BAC288EAB2AF169079872765 /* Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Container.m; sourceTree = "<group>"; };
 		BAC28AB994E83243F5CE58EE /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,6 +166,7 @@
 				8C14308215B4A09900A9C1B9 /* Meta */,
 				8C14306415B4A08700A9C1B9 /* Resources */,
 				8C537F7A15D974690066676D /* CoreMeta.h */,
+				BAC28CB576B89D32B2287C4E /* Promises */,
 			);
 			path = CoreMeta;
 			sourceTree = "<group>";
@@ -283,6 +288,15 @@
 			path = AutoRegistration;
 			sourceTree = "<group>";
 		};
+		BAC28CB576B89D32B2287C4E /* Promises */ = {
+			isa = PBXGroup;
+			children = (
+				BAC2814F0CD35BBB06992D45 /* Promise.m */,
+				BAC2887AE97A05046A19B0AE /* Promise.h */,
+			);
+			path = Promises;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -314,6 +328,7 @@
 				8C4391FE168E1968003721D4 /* NSObject+Perform.h in Headers */,
 				8C9784701A2F557300930169 /* AutoContainerRegister.h in Headers */,
 				BAC28DB7BCBE667CC1DF0063 /* Container.h in Headers */,
+				BAC282234F516F806F78DEB2 /* Promise.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +406,7 @@
 				8C1F7B6416382ADB00A2FBBE /* NSData+Base64.m in Sources */,
 				8C4391FF168E1968003721D4 /* NSObject+Perform.m in Sources */,
 				BAC2834D4D75328AB1B22F0F /* Container.m in Sources */,
+				BAC28CDC9352678279BD0352 /* Promise.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
