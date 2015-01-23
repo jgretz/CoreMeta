@@ -157,19 +157,33 @@
 
 -(instancetype) objectForKey: (NSString*) key {
     // if we have an object, return it
-    id object = [objectRegistry objectForKey: key];
+    id object = objectRegistry[key];
     if (object)
         return object;
 
     // see if we have a mapped class to create
     RegistryMap* map = [self getMapRegisteredForKey: key];
     if (map) {
-        object = [self create: map.classType];
-        if (object && map.onCreate)
-            map.onCreate(object);
+        // define follow map logic (used for both potential maps - called class and override class)
+        __block Container* _self = self;
+        void(^followMap)(RegistryMap*, id obj) = ^(RegistryMap* m, id obj) {
+            if (!m || !obj) {
+                return;
+            }
 
-        if (object && map.cache)
-            [self put: object];
+            if (m.onCreate)
+                m.onCreate(obj);
+
+            if (m.cache)
+                [_self put: obj];
+        };
+
+        // create object
+        object = [self create: map.classType];
+
+        followMap(map, object);
+        followMap([self getMapRegisteredForKey: NSStringFromClass(map.classType)], object);
+
         return object;
     }
 
@@ -198,7 +212,7 @@
         if (!value)
             continue;
 
-        [object setValue: [dictionary objectForKey: key] forKey: key];
+        [object setValue: dictionary[key] forKey: key];
     }
 
     return object;
@@ -340,13 +354,17 @@
             continue;
 
         @synchronized (sync) {
-            id propertyValue = [self objectForKey: propertyInfo.typeName];
-            if (!propertyValue && propertyInfo.protocol) {
-                RegistryMap* map = [mapRegistry objectForKey: propertyInfo.typeName];
-                if (!map)
-                    continue;
+            id propertyValue = nil;
+            if (propertyInfo.protocol) {
+                Protocol* p = NSProtocolFromString(propertyInfo.typeName);
 
-                propertyValue = [self objectForClass: map.classType cache: map.cache];
+                if (p)
+                    propertyValue = [self objectForProtocol: p];
+            }
+            else {
+                Class type = NSClassFromString(propertyInfo.typeName);
+                if (type)
+                    propertyValue = [self objectForKey: propertyInfo.typeName];
             }
 
             if (propertyValue)
