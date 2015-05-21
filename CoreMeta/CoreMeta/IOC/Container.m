@@ -342,6 +342,23 @@
     [self put: object];
 }
 
+#pragma mark - Clear
+-(void) clearAll {
+    [objectRegistry removeAllObjects];
+}
+
+-(void) clearForKey: (NSString*) key {
+    [objectRegistry removeObjectForKey: key];
+}
+
+-(void) clearForClass: (Class) classType {
+    [self clearForKey: NSStringFromClass(classType)];
+}
+
+-(void) clearForProtocol: (Protocol*) protocol {
+    [self clearForKey: NSStringFromProtocol(protocol)];
+}
+
 #pragma mark - Injection
 
 -(void) inject: (id) object {

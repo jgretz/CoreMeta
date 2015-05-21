@@ -39,6 +39,11 @@
 -(void) put: (id) object forClass: (Class) classType;
 -(void) put: (id) object forProtocol: (Protocol*) protocol;
 
+-(void) clearAll;
+-(void) clearForKey: (NSString*) key;
+-(void) clearForClass: (Class) classType;
+-(void) clearForProtocol: (Protocol*) protocol;
+
 -(void) registerClass: (Class) classType;
 -(void) registerClass: (Class) classType cache: (BOOL) cache;
 -(void) registerClass: (Class) classType cache: (BOOL) cache onCreate: (void(^)(id)) onCreate;
