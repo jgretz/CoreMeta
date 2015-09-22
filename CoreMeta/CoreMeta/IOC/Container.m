@@ -248,8 +248,14 @@
 -(instancetype) objectForProtocol: (Protocol*) protocol {
     // check explicit map
     RegistryMap* map = [self getMapRegisteredForProtocol: protocol];
-    if (map)
-        return [self objectForClass: map.classType cache: map.cache];
+    
+    if (map) {
+        id obj = [self objectForClass: map.classType cache: map.cache];
+        if (map.onCreate) {
+            map.onCreate(obj);
+        }
+        return obj;
+    }
 
     // check conventions
     for (ContainerConvention* convention in conventions) {
