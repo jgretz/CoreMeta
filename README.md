@@ -1,6 +1,5 @@
 # CoreMeta
 
-[![CI Status](http://img.shields.io/travis/Andrew Holt/CoreMeta.svg?style=flat)](https://travis-ci.org/Andrew Holt/CoreMeta)
 [![Version](https://img.shields.io/cocoapods/v/CoreMeta.svg?style=flat)](http://cocoapods.org/pods/CoreMeta)
 [![License](https://img.shields.io/cocoapods/l/CoreMeta.svg?style=flat)](http://cocoapods.org/pods/CoreMeta)
 [![Platform](https://img.shields.io/cocoapods/p/CoreMeta.svg?style=flat)](http://cocoapods.org/pods/CoreMeta)
@@ -20,10 +19,25 @@ it, simply add the following line to your Podfile:
 pod "CoreMeta"
 ```
 
-## Author
+IOC / DI for iOS, Binding Framework, and some other goodies
 
-Andrew Holt, aholt@truefitinnovation.com
+========
 
-## License
+For more information, please visit http://www.gretzlab.com or check out the example project.
 
-CoreMeta is available under the MIT license. See the LICENSE file for more info.
+License
+======
+
+Copyright 2011 TrueFit Solutions
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
