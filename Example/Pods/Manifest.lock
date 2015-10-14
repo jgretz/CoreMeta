@@ -1,0 +1,14 @@
+PODS:
+  - CoreMeta (0.1.0)
+
+DEPENDENCIES:
+  - CoreMeta (from `../`)
+
+EXTERNAL SOURCES:
+  CoreMeta:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CoreMeta: 106e03320f284da7d95f3e02dcd39cf73af8818a
+
+COCOAPODS: 0.38.2

@@ -1,0 +1,6 @@
+framework module CoreMeta {
+  umbrella header "CoreMeta-umbrella.h"
+
+  export *
+  module * { export * }
+}
