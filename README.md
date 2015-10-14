@@ -1,32 +1,39 @@
-# CoreMeta
+CoreMeta
+============
+IOC / DI for iOS, Binding Framework, and some other goodies
 
+For more information, please visit http://www.gretzlab.com or check out the example project.
+
+Branches
+-----------
+Master is currently equivalent to the v1-objc branch. This is also the code that is behind the CocoaPod
+
+We are currently working on an updated version, which you can find on the v2-swift branch. If you use v1 and have any suggestions, questions, or wants - reach out with comments.
+
+CocoaPod
+------------
 [![Version](https://img.shields.io/cocoapods/v/CoreMeta.svg?style=flat)](http://cocoapods.org/pods/CoreMeta)
 [![License](https://img.shields.io/cocoapods/l/CoreMeta.svg?style=flat)](http://cocoapods.org/pods/CoreMeta)
 [![Platform](https://img.shields.io/cocoapods/p/CoreMeta.svg?style=flat)](http://cocoapods.org/pods/CoreMeta)
 
-## Usage
-
+Usage
+------------
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+Requirements
+-------------
+None
 
-## Installation
-
-CoreMeta is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Installation
+-------------
+CoreMeta is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod "CoreMeta"
 ```
 
-IOC / DI for iOS, Binding Framework, and some other goodies
-
-========
-
-For more information, please visit http://www.gretzlab.com or check out the example project.
-
 License
-======
+=========
 
 Copyright 2011 TrueFit Solutions
 
