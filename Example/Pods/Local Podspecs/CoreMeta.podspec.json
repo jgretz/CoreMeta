@@ -1,16 +1,17 @@
 {
   "name": "CoreMeta",
-  "version": "0.1.0",
-  "summary": "A short description of CoreMeta.",
+  "version": "2.0.0",
+  "summary": "IOC / DI for iOS, Binding Framework, and some other goodies",
   "description": "",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/CoreMeta",
+  "homepage": "https://github.com/jgretz/CoreMeta",
   "license": "MIT",
   "authors": {
-    "Andrew Holt": "aholt@truefitinnovation.com"
+    "Josh Gretz": "jgretz@truefit.io",
+    "Andrew Holt": "aholt@truefit.io"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/CoreMeta.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/jgretz/CoreMeta.git",
+    "tag": "2.0.0"
   },
   "platforms": {
     "ios": "7.0"

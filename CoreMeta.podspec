@@ -8,22 +8,15 @@
 
 Pod::Spec.new do |s|
   s.name             = "CoreMeta"
-  s.version          = "1.0.0"
+  s.version          = "2.0.0"
   s.summary          = "IOC / DI for iOS, Binding Framework, and some other goodies."
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = "For more information, please visit http://www.gretzlab.com or check out the example project."
 
   s.homepage         = "https://github.com/jgretz/CoreMeta"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-  s.license          = 'MIT'
-  s.author           = { "Andrew Holt" => "jgretz@truefitinnovation.com" }
+  s.license          = 'Apache 2.0'
+  s.author           = { "Josh Gretz" => "jgretz@truefit.io" }
   s.source           = { :git => "https://github.com/jgretz/CoreMeta.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/jgretz'
+  s.social_media_url = 'https://twitter.com/joshgretz'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
