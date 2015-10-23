@@ -5,11 +5,13 @@
 
 import Foundation
 
-public class CMTypeIntrospector<T:NSObject> {
-    let type = T.self
+public class CMTypeIntrospector {
+    let type: AnyClass
     let valueTypeMap: Dictionary<String, String>
 
-    public init() {
+    public init(t: AnyClass) {
+        self.type = t
+
         valueTypeMap = [
                 "Tf": "float",
                 "Ti": "int",
@@ -20,7 +22,6 @@ public class CMTypeIntrospector<T:NSObject> {
                 "TB": "bool"
         ]
     }
-
 
     public func properties() -> Array<CMPropertyInfo> {
         var propertyInfos = Array<CMPropertyInfo>()

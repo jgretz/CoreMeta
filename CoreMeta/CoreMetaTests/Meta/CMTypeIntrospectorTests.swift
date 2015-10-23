@@ -4,47 +4,37 @@
 //
 
 import XCTest
-import CoreMeta
 
 class CMTypeIntrospectorTests: XCTestCase {
-
-    class Tree: NSObject {
-        var fruit: Array<Fruit>
-        var color: String
-
-        init(fruit: Array<Fruit>, color: String) {
-            self.fruit = fruit
-            self.color = color
-        }
-
-    }
-
-    class Fruit: NSObject {
-        var name: String
-
-        init(name: String) {
-            self.name = name
-        }
-    }
-
-    // tests
     var properties: Array<CMPropertyInfo>!
 
     override func setUp() {
-        let introspector = CMTypeIntrospector<Tree>()
+        let introspector = CMTypeIntrospector(t: FruitTree.self)
 
         properties = introspector.properties();
     }
 
     func testTreeShouldReturnSomeProperties() {
-        XCTAssert(properties.count > 0, "No properties found for tree")
+        XCTAssert(properties.count > 0, "Type Introspector: No properties found for tree")
     }
 
     func testTreeShouldReturnPropertyFruit() {
-        XCTAssert(properties.any({($0 as CMPropertyInfo).name == "fruit"}), "fruit property not found for tree")
+        XCTAssert(properties.any({($0 as CMPropertyInfo).name == "fruit"}), "Type Introspector: fruit property not found for tree")
     }
 
-    func testTreeShouldReturnPrpertyColor() {
-        XCTAssert(properties.any({($0 as CMPropertyInfo).name == "color"}), "color property found for tree")
+    func testTreeShouldReturnPropertyFruitOfTypeArray() {
+        let propertyInfo = properties.first({($0 as CMPropertyInfo).name == "fruit"})!;
+
+        XCTAssert(propertyInfo.typeInfo.name == "NSArray", "Type Introspector: fruit property not of type NSArray")
+    }
+
+    func testTreeShouldReturnPropertyColor() {
+        XCTAssert(properties.any({($0 as CMPropertyInfo).name == "color"}), "Type Introspector: color property found for tree")
+    }
+
+    func testTreeShouldReturnPropertyColorOfTypeString() {
+        let propertyInfo = properties.first({($0 as CMPropertyInfo).name == "color"})!;
+
+        XCTAssert(propertyInfo.typeInfo.name == "NSString", "Type Introspector: color property not of type NSString")
     }
 }
