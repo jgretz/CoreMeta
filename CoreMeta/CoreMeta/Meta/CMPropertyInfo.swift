@@ -8,11 +8,9 @@ import Foundation
 public class CMPropertyInfo {
     public let name: String
     public let typeInfo: CMTypeInfo
-    public let isReadOnly: Bool
 
-    init(name: String, typeInfo: CMTypeInfo, isReadOnly: Bool) {
+    init(name: String, typeInfo: CMTypeInfo) {
         self.name = name
         self.typeInfo = typeInfo
-        self.isReadOnly = isReadOnly
     }
 }

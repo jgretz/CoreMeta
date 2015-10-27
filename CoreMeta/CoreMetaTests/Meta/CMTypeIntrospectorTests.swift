@@ -9,32 +9,40 @@ class CMTypeIntrospectorTests: XCTestCase {
     var properties: Array<CMPropertyInfo>!
 
     override func setUp() {
-        let introspector = CMTypeIntrospector(t: FruitTree.self)
+        let introspector = CMTypeIntrospector(t: Ocean.self)
 
         properties = introspector.properties();
     }
 
-    func testTreeShouldReturnSomeProperties() {
-        XCTAssert(properties.count > 0, "Type Introspector: No properties found for tree")
+    func testPropertiesShouldReturnSomePropertiesWhenClassHasProperties() {
+        XCTAssert(properties.count > 0, "Type Introspector: No properties found for class")
     }
 
-    func testTreeShouldReturnPropertyFruit() {
-        XCTAssert(properties.any({($0 as CMPropertyInfo).name == "fruit"}), "Type Introspector: fruit property not found for tree")
+    func testPropertyShouldHaveFalseForAllBooleansIfNotApplicable() {
+        guard let property = properties.first({$0.name == "shark"}) else {
+            XCTFail("Type Introspector: defined property not found")
+            return
+        }
+
+        XCTAssertFalse(property.typeInfo.isValueType, "Type Introspector: isValueType set to true for non-readonly property")
+        XCTAssertFalse(property.typeInfo.isProtocol, "Type Introspector: isProtocol set to true for non-readonly property")
     }
 
-    func testTreeShouldReturnPropertyFruitOfTypeArray() {
-        let propertyInfo = properties.first({($0 as CMPropertyInfo).name == "fruit"})!;
+    func testPropertyShouldBeValueTypeForValueTypeProperties() {
+        guard let property = properties.first({$0.name == "depth"}) else {
+            XCTFail("Type Introspector: defined property not found")
+            return
+        }
 
-        XCTAssert(propertyInfo.typeInfo.name == "NSArray", "Type Introspector: fruit property not of type NSArray")
+        XCTAssert(property.typeInfo.isValueType, "Type Introspector: isValueType set to false for value type property")
     }
 
-    func testTreeShouldReturnPropertyColor() {
-        XCTAssert(properties.any({($0 as CMPropertyInfo).name == "color"}), "Type Introspector: color property found for tree")
-    }
+    func testPropertyShouldBeProtocolForProtocolProperties() {
+        guard let property = properties.first({$0.name == "fish"}) else {
+            XCTFail("Type Introspector: defined property not found")
+            return
+        }
 
-    func testTreeShouldReturnPropertyColorOfTypeString() {
-        let propertyInfo = properties.first({($0 as CMPropertyInfo).name == "color"})!;
-
-        XCTAssert(propertyInfo.typeInfo.name == "NSString", "Type Introspector: color property not of type NSString")
+        XCTAssert(property.typeInfo.isProtocol, "Type Introspector: isProtocol set to false for protocol property")
     }
 }

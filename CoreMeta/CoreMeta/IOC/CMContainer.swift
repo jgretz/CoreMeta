@@ -81,19 +81,8 @@ public class CMContainer {
     // Creation
     //**********
 
-    public func objectForType(t: AnyClass) -> NSObject {
-        let reg = self.registrationMap.registrationForType(t)
-
-        if (reg != nil && self.cache.hasType(reg!.type)) {
-            return self.cache[reg!.type] as! NSObject
-        }
-
-        let introspector = reg == nil ? CMTypeIntrospector(t: t) : reg!.typeIntrospector
-
-        let type = NSClassFromString(NSStringFromClass(introspector.type)) as! NSObject.Type
-        let obj = type.init()
-
-        return obj
+    public func objectForType<T: NSObject>() -> T {
+        return self.objectForType(T.self) as! T
     }
 
     public func objectForProtocol(p: Protocol) -> NSObject? {
@@ -102,4 +91,50 @@ public class CMContainer {
         return reg == nil ? nil : self.objectForType(reg!.returnedClass)
     }
 
+    public func objectForType(t: AnyClass) -> NSObject {
+        let reg = self.registrationMap.registrationForType(t)
+
+        // if we already have a cached value then we should return that
+        if (reg != nil && self.cache.hasType(reg!.type)) {
+            return self.cache[reg!.type] as! NSObject
+        }
+
+        // create the object
+        let obj = create((reg == nil ? CMTypeIntrospector(t: t) : reg!.typeIntrospector))
+
+        // cache if we need to
+        if (reg != nil && reg!.cache) {
+            self.put(obj, type: reg!.type)
+        }
+
+        // return
+        return obj
+    }
+
+    private func create(introspector: CMTypeIntrospector) -> NSObject {
+        let type = introspector.type as! NSObject.Type
+        let obj = type.init()
+
+        for prop in introspector.properties().filter({ !($0.typeInfo.isValueType) }) {
+            guard let propObj = prop.typeInfo.isProtocol ? self.createInjectedValueForProtocol(prop.typeInfo.name) : self.createInjectedValueForClass(prop.typeInfo.name) else {
+                continue
+            }
+
+            obj.setValue(propObj, forKey: prop.name)
+        }
+
+        return obj
+    }
+
+    private func createInjectedValueForClass(name: String) -> NSObject? {
+        let type:AnyClass = NSClassFromString(name)!
+        let reg = self.registrationMap.registrationForType(type)
+
+        return reg == nil ? nil : self.objectForType(type)
+    }
+
+    private func createInjectedValueForProtocol(name: String) -> NSObject?  {
+        let p:Protocol = NSProtocolFromString(name)!
+        return self.objectForProtocol(p)
+    }
 }

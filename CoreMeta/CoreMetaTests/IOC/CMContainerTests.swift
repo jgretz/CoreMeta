@@ -11,12 +11,14 @@ class CMContainerTests : XCTestCase {
     var rose: Rose!
     var leaf: Leaf!
     var trout: Trout!
+    var shark: Shark!
 
     override func setUp() {
         self.tree = Tree()
-        rose = Rose()
-        leaf = Leaf()
-        trout = Trout()
+        self.rose = Rose()
+        self.leaf = Leaf()
+        self.trout = Trout()
+        self.shark = Shark()
 
         container = CMContainer()
 
@@ -24,6 +26,7 @@ class CMContainerTests : XCTestCase {
         container.registerClassAsClass(Rose.self, replacedClass: Flower.self)
 
         container.registerClassAsProtocol(Trout.self, p: Fish.self)
+        container.registerClass(Shark.self)
     }
 
     //**********
@@ -50,6 +53,13 @@ class CMContainerTests : XCTestCase {
 
     func testContainerShouldReturnNilForUnmappedProtocol() {
         XCTAssertNil(container.objectForProtocol(Lizard.self), "Container: returns a value for unmapped protocol")
+    }
+
+    func testContainerShouldReturnedCachedObjectIfSpecified() {
+        let obj1:Leaf = container.objectForType()
+        let obj2:Leaf = container.objectForType()
+
+        XCTAssert(obj1 == obj2, "Container: not caching class defined as cache = true")
     }
 
     //*********
@@ -125,5 +135,41 @@ class CMContainerTests : XCTestCase {
         container.clearProtocol(Fish.self)
 
         XCTAssert(container.objectForType(Tree.self) == self.tree, "Container: is removing incorrect object when clear for protocol is called")
+    }
+
+    //***********
+    // Injection
+    //***********
+
+    func testContainerShouldAssignValuesForPropertiesForRegisteredClasses() {
+        let obj:Ocean = container.objectForType()
+
+        XCTAssertNotNil(obj.shark, "Container: is not assigning a value for property of a class type that is registered")
+    }
+
+    func testContainerShouldAssignValuesForPropertiesForRegisteredProtocols() {
+        let obj:Ocean = container.objectForType()
+
+        XCTAssertNotNil(obj.fish, "Container: is not assigning a value for a property of a protocol type that is registered")
+    }
+
+    func testContainerShouldAssignValuesStoredForPropertiesForRegisteredClasses() {
+        container.put(self.shark)
+
+        let obj:Ocean = container.objectForType()
+        XCTAssertEqual(obj.shark, self.shark, "Container: is not assigning put value for a property of a class type")
+    }
+
+    func testContainerShouldAssignValuesStoredForPropertiesForRegisteredProtocols() {
+        container.put(self.trout, p: Fish.self)
+
+        let obj:Ocean = container.objectForType()
+        XCTAssertEqual(obj.fish as? Trout, self.trout, "Container: is not assigning put value for a property of a protocol type")
+    }
+
+    func testContainerShouldNotAssignValueToPropertyThatIsNotRegistered() {
+        let obj:Ocean = container.objectForType()
+
+        XCTAssertNil(obj.whale, "Container: is assigning a value for a property that is not registered")
     }
 }

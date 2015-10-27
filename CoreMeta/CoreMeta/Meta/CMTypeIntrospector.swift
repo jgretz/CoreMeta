@@ -43,10 +43,9 @@ public class CMTypeIntrospector {
             }
 
             let infoParts = infoString.componentsSeparatedByString(",")
-            let readonly = infoParts.any({ ($0 as String) == "R" })
             let typeInfo = parseTypeInfo(infoParts.first!)
 
-            propertyInfos.append(CMPropertyInfo(name: propertyName, typeInfo: typeInfo, isReadOnly: readonly))
+            propertyInfos.append(CMPropertyInfo(name: propertyName, typeInfo: typeInfo))
         }
 
         free(properties)
@@ -84,6 +83,6 @@ public class CMTypeIntrospector {
     }
 
     func isProtocol(typename: String) -> Bool {
-        return typename.characters.count == 5 && typename.substringFromIndex(typename.startIndex.advancedBy(3)).hasPrefix("<");
+        return typename.substringFromIndex(typename.startIndex.advancedBy(3)).hasPrefix("<")
     }
 }

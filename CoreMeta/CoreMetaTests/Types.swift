@@ -5,10 +5,6 @@
 
 import Foundation
 
-@objc protocol Lizard {}
-@objc protocol Fish {}
-class Trout : NSObject, Fish {}
-
 class Tree : NSObject {}
 class Leaf : NSObject {}
 
@@ -16,23 +12,20 @@ class Flower : NSObject {}
 class Rose : NSObject {}
 
 
-class FruitTree: NSObject {
-    var fruit: Array<Fruit>
-    var color: String
+@objc protocol Lizard {}
+@objc protocol Fish {}
 
-    init(fruit: Array<Fruit>, color: String) {
-        self.fruit = fruit
-        self.color = color
-    }
+class Trout : NSObject, Fish {}
+class Shark : NSObject {}
+class Whale : NSObject {}
+class Turtle : NSObject {}
 
+class Ocean : NSObject {
+    var fish: Fish?
+    var shark : Shark?
+    var whale : Whale?
+
+    var depth = 12.5
+
+    private(set) var turtle : Turtle?
 }
-
-class Fruit: NSObject {
-    var name: String
-
-    init(name: String) {
-        self.name = name
-    }
-}
-
-
