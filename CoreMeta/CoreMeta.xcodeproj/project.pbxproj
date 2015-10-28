@@ -23,6 +23,9 @@
 		BAC2861E7D19273E3F634226 /* CMTypeIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28E8C5B326278A15BDA12 /* CMTypeIntrospector.swift */; };
 		BAC28700F8DB308C8054F2B9 /* CMContainerRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC289CF15067882A3014EEC /* CMContainerRegistration.swift */; };
 		BAC28A009D4C44551DE30EB1 /* CMContainerProtocolRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */; };
+		BAC28AD6A41D71D135A967AA /* CMStaticContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2827C530A20B4567647AD /* CMStaticContainer.swift */; };
+		BAC28B34459F6D28793ED4D5 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28115A3B32FA76935A2A9 /* NSObjectExtension.swift */; };
+		BAC28B76D4E8FB9AAA0DF384 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28115A3B32FA76935A2A9 /* NSObjectExtension.swift */; };
 		BAC28B879C7B02192B54DC30 /* CMPropertyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28D31B0FF287E973DF73C /* CMPropertyInfo.swift */; };
 		BAC28BD64733FD9564EFF1AB /* CMTypeIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28E8C5B326278A15BDA12 /* CMTypeIntrospector.swift */; };
 		BAC28BDBE775E3653BB75EA1 /* CMContainerRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC289CF15067882A3014EEC /* CMContainerRegistration.swift */; };
@@ -38,6 +41,7 @@
 		BAC28EEC58210799D0255BBA /* CMContainerRegistrationMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28E2B7CC739D0A80AD301 /* CMContainerRegistrationMapTests.swift */; };
 		BAC28EFEEBFA28A66F9A019B /* CMDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28C2B2CFE86B1F0B571CD /* CMDictionaryExtensions.swift */; };
 		BAC28FAC55D62A42D501D481 /* CMContainerProtocolRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */; };
+		BAC28FE8363F455EA9470734 /* CMStaticContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2827C530A20B4567647AD /* CMStaticContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +63,9 @@
 		BAC28011EC282486F604B907 /* CMContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerTests.swift; sourceTree = "<group>"; };
 		BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerProtocolRegistrationMap.swift; sourceTree = "<group>"; };
 		BAC280EB062595ADDDF8B157 /* CMTypeIntrospectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMTypeIntrospectorTests.swift; sourceTree = "<group>"; };
+		BAC28115A3B32FA76935A2A9 /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		BAC282729D3AD5AED8D56CA5 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		BAC2827C530A20B4567647AD /* CMStaticContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMStaticContainer.swift; sourceTree = "<group>"; };
 		BAC2839049153FFD7F34745A /* CMContainerRegistrationMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerRegistrationMap.swift; sourceTree = "<group>"; };
 		BAC285082A985E5ED86E2661 /* CMTypeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMTypeInfo.swift; sourceTree = "<group>"; };
 		BAC2898DA5983C2F7F7D1E75 /* CMDictionaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMDictionaryTests.swift; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 				BAC28FD01821D756366625C8 /* CMContainerClassRegistrationMap.swift */,
 				BAC28AFFB47D10B405FCA5DB /* CMContainerCache.swift */,
 				BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */,
+				BAC2827C530A20B4567647AD /* CMStaticContainer.swift */,
 			);
 			path = IOC;
 			sourceTree = "<group>";
@@ -191,6 +198,7 @@
 			children = (
 				BAC28CA26757108006637A20 /* CMArrayExtension.swift */,
 				BAC28C2B2CFE86B1F0B571CD /* CMDictionaryExtensions.swift */,
+				BAC28115A3B32FA76935A2A9 /* NSObjectExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,6 +331,8 @@
 				BAC2861E7D19273E3F634226 /* CMTypeIntrospector.swift in Sources */,
 				BAC28CE0E05F7765E4EC1229 /* CMContainerCache.swift in Sources */,
 				BAC28FAC55D62A42D501D481 /* CMContainerProtocolRegistrationMap.swift in Sources */,
+				BAC28B34459F6D28793ED4D5 /* NSObjectExtension.swift in Sources */,
+				BAC28FE8363F455EA9470734 /* CMStaticContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +358,8 @@
 				BAC28C1C10F5F2ADC40FA4C7 /* CMContainerCacheTests.swift in Sources */,
 				BAC28A009D4C44551DE30EB1 /* CMContainerProtocolRegistrationMap.swift in Sources */,
 				BAC28EBD53570CB1B8BD04C1 /* Types.swift in Sources */,
+				BAC28B76D4E8FB9AAA0DF384 /* NSObjectExtension.swift in Sources */,
+				BAC28AD6A41D71D135A967AA /* CMStaticContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

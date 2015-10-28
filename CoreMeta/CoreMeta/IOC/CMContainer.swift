@@ -9,7 +9,7 @@ public class CMContainer {
     let registrationMap: CMContainerRegistrationMap
     let cache: CMContainerCache
 
-    public init() {
+    init() {
         self.registrationMap = CMContainerRegistrationMap()
         self.cache = CMContainerCache()
     }
@@ -43,21 +43,21 @@ public class CMContainer {
     //*********
 
     public func put(obj: AnyObject) {
-        self.put(obj, type: obj.dynamicType)
+        self.put(obj, asType: obj.dynamicType)
     }
 
-    public func put(object: AnyObject, type: AnyClass) {
-        if (!self.registrationMap.isTypeRegistered(type)) {
-            self.registerClass(type)
+    public func put(object: AnyObject, asType: AnyClass) {
+        if (!self.registrationMap.isTypeRegistered(asType)) {
+            self.registerClass(asType)
         }
 
-        self.cache[type] = object
+        self.cache[asType] = object
     }
 
     public func put(object: AnyObject, p: Protocol) {
         let type: AnyClass = self.registrationMap.isProtocolRegistered(p) ? self.registrationMap.registrationForProtocol(p)!.returnedClass : object.dynamicType
 
-        self.put(object, type: type)
+        self.put(object, asType: type)
     }
 
     public func clear() {
@@ -104,7 +104,7 @@ public class CMContainer {
 
         // cache if we need to
         if (reg != nil && reg!.cache) {
-            self.put(obj, type: reg!.type)
+            self.put(obj, asType: reg!.type)
         }
 
         // return
