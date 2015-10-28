@@ -55,7 +55,7 @@ public class CMContainer {
     }
 
     public func put(object: AnyObject, p: Protocol) {
-        let type:AnyClass = self.registrationMap.isProtocolRegistered(p) ? self.registrationMap.registrationForProtocol(p)!.returnedClass : object.dynamicType
+        let type: AnyClass = self.registrationMap.isProtocolRegistered(p) ? self.registrationMap.registrationForProtocol(p)!.returnedClass : object.dynamicType
 
         self.put(object, type: type)
     }
@@ -81,7 +81,7 @@ public class CMContainer {
     // Creation
     //**********
 
-    public func objectForType<T: NSObject>() -> T {
+    public func objectForType<T:NSObject>() -> T {
         return self.objectForType(T.self) as! T
     }
 
@@ -115,6 +115,12 @@ public class CMContainer {
         let type = introspector.type as! NSObject.Type
         let obj = type.init()
 
+        injectProperties(introspector, obj: obj)
+
+        return obj
+    }
+
+    private func injectProperties(introspector: CMTypeIntrospector, obj: NSObject) {
         for prop in introspector.properties().filter({ !($0.typeInfo.isValueType) }) {
             guard let propObj = prop.typeInfo.isProtocol ? self.createInjectedValueForProtocol(prop.typeInfo.name) : self.createInjectedValueForClass(prop.typeInfo.name) else {
                 continue
@@ -122,19 +128,17 @@ public class CMContainer {
 
             obj.setValue(propObj, forKey: prop.name)
         }
-
-        return obj
     }
 
     private func createInjectedValueForClass(name: String) -> NSObject? {
-        let type:AnyClass = NSClassFromString(name)!
+        let type: AnyClass = NSClassFromString(name)!
         let reg = self.registrationMap.registrationForType(type)
 
         return reg == nil ? nil : self.objectForType(type)
     }
 
-    private func createInjectedValueForProtocol(name: String) -> NSObject?  {
-        let p:Protocol = NSProtocolFromString(name)!
+    private func createInjectedValueForProtocol(name: String) -> NSObject? {
+        let p: Protocol = NSProtocolFromString(name)!
         return self.objectForProtocol(p)
     }
 }

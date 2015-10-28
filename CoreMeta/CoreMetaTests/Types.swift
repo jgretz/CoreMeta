@@ -11,6 +11,26 @@ class Leaf : NSObject {}
 class Flower : NSObject {}
 class Rose : NSObject {}
 
+class Garden: NSObject {
+    var tree: Tree?
+    var flower: Flower?
+
+    override init() {
+    }
+
+    convenience init(tree: Tree) {
+        self.init()
+
+        self.tree = tree
+    }
+
+    convenience init(tree: Tree, flower: Flower) {
+        self.init(tree: tree)
+
+        self.flower = flower
+    }
+}
+
 
 @objc protocol Lizard {}
 @objc protocol Fish {}
@@ -28,4 +48,11 @@ class Ocean : NSObject {
     var depth = 12.5
 
     private(set) var turtle : Turtle?
+}
+
+class Pond: NSObject {
+    var fish: Trout?
+
+    override init() {
+    }
 }

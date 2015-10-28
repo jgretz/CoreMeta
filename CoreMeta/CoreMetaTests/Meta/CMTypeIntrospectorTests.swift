@@ -11,7 +11,7 @@ class CMTypeIntrospectorTests: XCTestCase {
     override func setUp() {
         let introspector = CMTypeIntrospector(t: Ocean.self)
 
-        properties = introspector.properties();
+        properties = introspector.properties()
     }
 
     func testPropertiesShouldReturnSomePropertiesWhenClassHasProperties() {
@@ -19,7 +19,7 @@ class CMTypeIntrospectorTests: XCTestCase {
     }
 
     func testPropertyShouldHaveFalseForAllBooleansIfNotApplicable() {
-        guard let property = properties.first({$0.name == "shark"}) else {
+        guard let property = properties.first({ $0.name == "shark" }) else {
             XCTFail("Type Introspector: defined property not found")
             return
         }
@@ -29,7 +29,7 @@ class CMTypeIntrospectorTests: XCTestCase {
     }
 
     func testPropertyShouldBeValueTypeForValueTypeProperties() {
-        guard let property = properties.first({$0.name == "depth"}) else {
+        guard let property = properties.first({ $0.name == "depth" }) else {
             XCTFail("Type Introspector: defined property not found")
             return
         }
@@ -38,7 +38,7 @@ class CMTypeIntrospectorTests: XCTestCase {
     }
 
     func testPropertyShouldBeProtocolForProtocolProperties() {
-        guard let property = properties.first({$0.name == "fish"}) else {
+        guard let property = properties.first({ $0.name == "fish" }) else {
             XCTFail("Type Introspector: defined property not found")
             return
         }
