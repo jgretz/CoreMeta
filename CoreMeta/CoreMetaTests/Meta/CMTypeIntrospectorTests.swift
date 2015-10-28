@@ -6,20 +6,23 @@
 import XCTest
 
 class CMTypeIntrospectorTests: XCTestCase {
-    var properties: Array<CMPropertyInfo>!
+    var oceanProperties: Array<CMPropertyInfo>!
+    var pondProperties: Array<CMPropertyInfo>!
 
     override func setUp() {
-        let introspector = CMTypeIntrospector(t: Ocean.self)
+        var introspector = CMTypeIntrospector(t: Ocean.self)
+        oceanProperties = introspector.properties()
 
-        properties = introspector.properties()
+        introspector = CMTypeIntrospector(t: Pond.self)
+        pondProperties = introspector.properties()
     }
 
     func testPropertiesShouldReturnSomePropertiesWhenClassHasProperties() {
-        XCTAssert(properties.count > 0, "Type Introspector: No properties found for class")
+        XCTAssert(oceanProperties.count > 0, "Type Introspector: No properties found for class")
     }
 
     func testPropertyShouldHaveFalseForAllBooleansIfNotApplicable() {
-        guard let property = properties.first({ $0.name == "shark" }) else {
+        guard let property = oceanProperties.first({ $0.name == "shark" }) else {
             XCTFail("Type Introspector: defined property not found")
             return
         }
@@ -29,7 +32,7 @@ class CMTypeIntrospectorTests: XCTestCase {
     }
 
     func testPropertyShouldBeValueTypeForValueTypeProperties() {
-        guard let property = properties.first({ $0.name == "depth" }) else {
+        guard let property = oceanProperties.first({ $0.name == "depth" }) else {
             XCTFail("Type Introspector: defined property not found")
             return
         }
@@ -38,11 +41,15 @@ class CMTypeIntrospectorTests: XCTestCase {
     }
 
     func testPropertyShouldBeProtocolForProtocolProperties() {
-        guard let property = properties.first({ $0.name == "fish" }) else {
+        guard let property = oceanProperties.first({ $0.name == "fish" }) else {
             XCTFail("Type Introspector: defined property not found")
             return
         }
 
         XCTAssert(property.typeInfo.isProtocol, "Type Introspector: isProtocol set to false for protocol property")
+    }
+
+    func testPropertiesShouldIncludePropertiesFromSuperClasses() {
+        XCTAssert(pondProperties.any({$0.name == "fish"}), "Type Introspector: isProtocol set to false for protocol property")
     }
 }

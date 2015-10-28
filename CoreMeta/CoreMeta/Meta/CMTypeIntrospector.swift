@@ -24,6 +24,7 @@ public class CMTypeIntrospector {
     }
 
     public func properties() -> Array<CMPropertyInfo> {
+        // get properties for this class
         var count = UInt32()
         let properties:UnsafeMutablePointer<objc_property_t> = class_copyPropertyList(type, &count)
 
@@ -49,6 +50,13 @@ public class CMTypeIntrospector {
 
         free(properties)
 
+        // climb chain
+        let superClass:AnyClass = class_getSuperclass(type)
+        if (superClass != NSObject.self) {
+            propertyInfos.appendContentsOf(CMTypeIntrospector(t: superClass).properties())
+        }
+
+        // return
         return propertyInfos
     }
 
