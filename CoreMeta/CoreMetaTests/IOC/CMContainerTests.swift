@@ -172,4 +172,11 @@ class CMContainerTests : XCTestCase {
 
         XCTAssertNil(obj.whale, "Container: is assigning a value for a property that is not registered")
     }
+
+    func testContainerShouldInjectObjectWithPropertiesAsIfItWasCreated() {
+        let obj = Ocean()
+        container.inject(obj)
+
+        XCTAssertNotNil(obj.shark, "Container: is not assigning a value for property of a class type that is registered on injection")
+    }
 }

@@ -125,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				8CAE81561BD55C9F00A30927 /* Resources */,
-				BAC28C7A061F3B6D1F2B726D /* Categories */,
+				BAC28C7A061F3B6D1F2B726D /* Extensions */,
 				BAC288DB918B2C80CFB5166D /* IOC */,
 				8CF2A9741BCF20D900FAA321 /* CoreMeta.h */,
 				BAC28546359576FDB12BA562 /* Meta */,
@@ -137,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				BAC2885E1D39C9042D830404 /* Meta */,
-				BAC28C8DB04EA6559A91F685 /* Categories */,
+				BAC28C8DB04EA6559A91F685 /* Extensions */,
 				BAC28A00C670B8240888C464 /* IOC */,
 				8CF3322F1BD14B8A0026564F /* Info.plist */,
 				BAC282729D3AD5AED8D56CA5 /* Types.swift */,
@@ -186,22 +186,22 @@
 			path = IOC;
 			sourceTree = "<group>";
 		};
-		BAC28C7A061F3B6D1F2B726D /* Categories */ = {
+		BAC28C7A061F3B6D1F2B726D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				BAC28CA26757108006637A20 /* CMArrayExtension.swift */,
 				BAC28C2B2CFE86B1F0B571CD /* CMDictionaryExtensions.swift */,
 			);
-			path = Categories;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		BAC28C8DB04EA6559A91F685 /* Categories */ = {
+		BAC28C8DB04EA6559A91F685 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				BAC28D5282CE3A1698F438CD /* CMArrayExtensionTests.swift */,
 				BAC2898DA5983C2F7F7D1E75 /* CMDictionaryTests.swift */,
 			);
-			path = Categories;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

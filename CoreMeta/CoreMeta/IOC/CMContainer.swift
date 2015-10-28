@@ -111,6 +111,17 @@ public class CMContainer {
         return obj
     }
 
+    public func inject(obj: NSObject) {
+        self.inject(obj, asType: obj.dynamicType)
+    }
+
+    public func inject(obj: NSObject, asType: AnyClass) {
+        let reg = self.registrationMap.registrationForType(asType)
+        let introspector = (reg == nil ? CMTypeIntrospector(t: asType) : reg!.typeIntrospector)
+
+        self.injectProperties(introspector, obj: obj)
+    }
+
     private func create(introspector: CMTypeIntrospector) -> NSObject {
         let type = introspector.type as! NSObject.Type
         let obj = type.init()
