@@ -10,8 +10,11 @@
 		8CF2A9751BCF20D900FAA321 /* CoreMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF2A9741BCF20D900FAA321 /* CoreMeta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CF332301BD14B8A0026564F /* CoreMeta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CF2A9711BCF20D900FAA321 /* CoreMeta.framework */; };
 		BAC280523F4D7B379D1E32C7 /* CMContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28C844249D7E3F85F7E52 /* CMContainer.swift */; };
+		BAC2816C3543AAB4D6D7EC31 /* CMBundleIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC281979C4DE77FCD1D776F /* CMBundleIntrospector.swift */; };
 		BAC282308170F5CFA054382E /* CMTypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC285082A985E5ED86E2661 /* CMTypeInfo.swift */; };
+		BAC2824DFB0F5998B5CBA166 /* CMContainerAutoRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2802C08FA7319535BF182 /* CMContainerAutoRegister.swift */; };
 		BAC28260BE5206B6200E0BF4 /* CMArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28D5282CE3A1698F438CD /* CMArrayExtensionTests.swift */; };
+		BAC282AA349DDA14FD1006EE /* CMBundleIntrospectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC280519F7CAAD47B8CB793 /* CMBundleIntrospectorTests.swift */; };
 		BAC282AF3224E655DDA7F0BF /* CMContainerClassRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28FD01821D756366625C8 /* CMContainerClassRegistrationMap.swift */; };
 		BAC28335AA44C27693E23AD0 /* CMDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2898DA5983C2F7F7D1E75 /* CMDictionaryTests.swift */; };
 		BAC28394E930225D944FF12D /* CMTypeIntrospectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC280EB062595ADDDF8B157 /* CMTypeIntrospectorTests.swift */; };
@@ -19,6 +22,7 @@
 		BAC2846FEDFC219173DFC868 /* CMContainerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28AFFB47D10B405FCA5DB /* CMContainerCache.swift */; };
 		BAC2848EE05B13B9F00C5CA5 /* CMContainerRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2839049153FFD7F34745A /* CMContainerRegistrationMap.swift */; };
 		BAC284E4C987DAA11A1C43A0 /* CMArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28CA26757108006637A20 /* CMArrayExtension.swift */; };
+		BAC284EBB545923E5374CDD5 /* CMContainerAutoRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2802C08FA7319535BF182 /* CMContainerAutoRegister.swift */; };
 		BAC286069F511C4DD08D70CF /* CMContainerRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2839049153FFD7F34745A /* CMContainerRegistrationMap.swift */; };
 		BAC2861E7D19273E3F634226 /* CMTypeIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28E8C5B326278A15BDA12 /* CMTypeIntrospector.swift */; };
 		BAC28700F8DB308C8054F2B9 /* CMContainerRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC289CF15067882A3014EEC /* CMContainerRegistration.swift */; };
@@ -38,6 +42,7 @@
 		BAC28DD6F2A8A69AF26A68C2 /* CMContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28011EC282486F604B907 /* CMContainerTests.swift */; };
 		BAC28E43C67C2A6722B0A414 /* CMTypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC285082A985E5ED86E2661 /* CMTypeInfo.swift */; };
 		BAC28EBD53570CB1B8BD04C1 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC282729D3AD5AED8D56CA5 /* Types.swift */; };
+		BAC28EE229CF640992EA12D9 /* CMBundleIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC281979C4DE77FCD1D776F /* CMBundleIntrospector.swift */; };
 		BAC28EEC58210799D0255BBA /* CMContainerRegistrationMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28E2B7CC739D0A80AD301 /* CMContainerRegistrationMapTests.swift */; };
 		BAC28EFEEBFA28A66F9A019B /* CMDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28C2B2CFE86B1F0B571CD /* CMDictionaryExtensions.swift */; };
 		BAC28FAC55D62A42D501D481 /* CMContainerProtocolRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */; };
@@ -61,9 +66,12 @@
 		8CF3322B1BD14B8A0026564F /* CoreMetaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreMetaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF3322F1BD14B8A0026564F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAC28011EC282486F604B907 /* CMContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerTests.swift; sourceTree = "<group>"; };
+		BAC2802C08FA7319535BF182 /* CMContainerAutoRegister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerAutoRegister.swift; sourceTree = "<group>"; };
+		BAC280519F7CAAD47B8CB793 /* CMBundleIntrospectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMBundleIntrospectorTests.swift; sourceTree = "<group>"; };
 		BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerProtocolRegistrationMap.swift; sourceTree = "<group>"; };
 		BAC280EB062595ADDDF8B157 /* CMTypeIntrospectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMTypeIntrospectorTests.swift; sourceTree = "<group>"; };
 		BAC28115A3B32FA76935A2A9 /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		BAC281979C4DE77FCD1D776F /* CMBundleIntrospector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMBundleIntrospector.swift; sourceTree = "<group>"; };
 		BAC282729D3AD5AED8D56CA5 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		BAC2827C530A20B4567647AD /* CMStaticContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMStaticContainer.swift; sourceTree = "<group>"; };
 		BAC2839049153FFD7F34745A /* CMContainerRegistrationMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerRegistrationMap.swift; sourceTree = "<group>"; };
@@ -157,6 +165,7 @@
 				BAC285082A985E5ED86E2661 /* CMTypeInfo.swift */,
 				BAC28D31B0FF287E973DF73C /* CMPropertyInfo.swift */,
 				BAC28E8C5B326278A15BDA12 /* CMTypeIntrospector.swift */,
+				BAC281979C4DE77FCD1D776F /* CMBundleIntrospector.swift */,
 			);
 			path = Meta;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				BAC280EB062595ADDDF8B157 /* CMTypeIntrospectorTests.swift */,
+				BAC280519F7CAAD47B8CB793 /* CMBundleIntrospectorTests.swift */,
 			);
 			path = Meta;
 			sourceTree = "<group>";
@@ -179,6 +189,7 @@
 				BAC28AFFB47D10B405FCA5DB /* CMContainerCache.swift */,
 				BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */,
 				BAC2827C530A20B4567647AD /* CMStaticContainer.swift */,
+				BAC2802C08FA7319535BF182 /* CMContainerAutoRegister.swift */,
 			);
 			path = IOC;
 			sourceTree = "<group>";
@@ -333,6 +344,8 @@
 				BAC28FAC55D62A42D501D481 /* CMContainerProtocolRegistrationMap.swift in Sources */,
 				BAC28B34459F6D28793ED4D5 /* NSObjectExtension.swift in Sources */,
 				BAC28FE8363F455EA9470734 /* CMStaticContainer.swift in Sources */,
+				BAC28EE229CF640992EA12D9 /* CMBundleIntrospector.swift in Sources */,
+				BAC2824DFB0F5998B5CBA166 /* CMContainerAutoRegister.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +373,9 @@
 				BAC28EBD53570CB1B8BD04C1 /* Types.swift in Sources */,
 				BAC28B76D4E8FB9AAA0DF384 /* NSObjectExtension.swift in Sources */,
 				BAC28AD6A41D71D135A967AA /* CMStaticContainer.swift in Sources */,
+				BAC2816C3543AAB4D6D7EC31 /* CMBundleIntrospector.swift in Sources */,
+				BAC282AA349DDA14FD1006EE /* CMBundleIntrospectorTests.swift in Sources */,
+				BAC284EBB545923E5374CDD5 /* CMContainerAutoRegister.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

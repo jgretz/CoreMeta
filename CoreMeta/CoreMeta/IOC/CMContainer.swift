@@ -27,7 +27,7 @@ public class CMContainer {
     }
 
     public func registerClass(t: AnyClass, cache: Bool, onCreate: (NSObject) -> Void) {
-        self.registrationMap.addRegistration(CMContainerClassRegistration(type: t, cache: false, onCreate: onCreate))
+        self.registrationMap.addRegistration(CMContainerClassRegistration(type: t, cache: cache, onCreate: onCreate))
     }
 
     public func registerClassAsClass(returnedClass: AnyClass, replacedClass: AnyClass) {
@@ -36,6 +36,23 @@ public class CMContainer {
 
     public func registerClassAsProtocol(t: AnyClass, p: Protocol) {
         self.registrationMap.addProtocolMap(CMContainerProtocolRegistrationMap(returnedClass: t, forProtocol: p))
+    }
+
+    public func autoregister() {
+        let autoregClasses = CMBundleIntrospector().classesThatConformToProtocol(CMContainerAutoRegister.self)
+
+        for p in autoregClasses {
+            let c = p as! CMContainerAutoRegister.Type
+            let cache = c.cache?() ?? false
+            let onCreate = c.onCreate?()
+
+            if (onCreate == nil) {
+                self.registerClass(c, cache: cache)
+            }
+            else {
+                self.registerClass(c, cache: cache, onCreate: onCreate!)
+            }
+        }
     }
 
     //*********
@@ -102,9 +119,15 @@ public class CMContainer {
         // create the object
         let obj = create((reg == nil ? CMTypeIntrospector(t: t) : reg!.typeIntrospector))
 
-        // cache if we need to
-        if (reg != nil && reg!.cache) {
-            self.put(obj, asType: reg!.type)
+        // follow registration instructions if they exist
+        if (reg != nil) {
+            if (reg!.onCreate != nil) {
+                reg!.onCreate!(obj)
+            }
+
+            if (reg!.cache) {
+                self.put(obj, asType: reg!.type)
+            }
         }
 
         // return

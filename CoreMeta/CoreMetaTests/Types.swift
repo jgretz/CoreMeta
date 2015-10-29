@@ -11,12 +11,15 @@ class Leaf : NSObject {}
 class Flower : NSObject {}
 class Rose : NSObject {}
 
+//******************
 
 @objc protocol Lizard {}
 @objc protocol Fish {}
 
 class Trout : NSObject, Fish {}
-class Shark : NSObject {}
+class Shark : NSObject {
+    var name:String?
+}
 class Whale : NSObject {}
 class Turtle : NSObject {}
 
@@ -31,4 +34,18 @@ class Ocean : NSObject {
 }
 
 class Pond: Ocean {
+}
+
+//******************
+
+class Pizza : NSObject, CMContainerAutoRegister {
+    var name:String?
+
+    class func cache() -> Bool {
+        return true
+    }
+
+    class func onCreate() -> (NSObject) -> Void {
+        return { ($0 as! Pizza).name = "Pep" }
+    }
 }

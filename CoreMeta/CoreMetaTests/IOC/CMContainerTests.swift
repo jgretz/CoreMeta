@@ -26,7 +26,9 @@ class CMContainerTests : XCTestCase {
         container.registerClassAsClass(Rose.self, replacedClass: Flower.self)
 
         container.registerClassAsProtocol(Trout.self, p: Fish.self)
-        container.registerClass(Shark.self)
+        container.registerClass(Shark.self, cache: false, onCreate: { ($0 as! Shark).name = "Jaws" })
+
+        container.autoregister()
     }
 
     //**********
@@ -60,6 +62,20 @@ class CMContainerTests : XCTestCase {
         let obj2:Leaf = container.objectForType()
 
         XCTAssert(obj1 == obj2, "Container: not caching class defined as cache = true")
+    }
+
+    func testContainerShouldExecuteOnCreateIfSpecified() {
+        let obj1:Shark = container.objectForType()
+
+        XCTAssert(obj1.name == "Jaws", "Container: not calling onCreate as specified")
+    }
+
+    func testContainerShouldReturnClassThatFollowsAutoRegistration() {
+        let obj1:Pizza = container.objectForType()
+        let obj2:Pizza = container.objectForType()
+
+        XCTAssert(obj1 == obj2, "Container: not caching object per auto-registration")
+        XCTAssert(obj1.name != nil && obj1.name == "Pep" , "Container: not executing onCreate object per auto-registration")
     }
 
     //*********
