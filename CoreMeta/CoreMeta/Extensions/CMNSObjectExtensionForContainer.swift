@@ -12,19 +12,19 @@ public extension NSObject {
 
     // this is the best I can get right now, I'd like to not to have to use a generic here and use Self, but i cant get the return to act right
     class func object<T:NSObject>() -> T {
-        return StaticContainer.container.objectForType(self) as! T
+        return CMStaticContainer.container.objectForType(self) as! T
     }
 
     class func objectForProtocol<P>(p: Protocol) -> P? {
-        return StaticContainer.container.objectForProtocol(p) as? P
+        return CMStaticContainer.container.objectForProtocol(p) as? P
     }
 
     func inject() {
-        StaticContainer.container.inject(self)
+        CMStaticContainer.container.inject(self)
     }
 
     func inject(asType: AnyClass) {
-        StaticContainer.container.inject(self, asType: asType)
+        CMStaticContainer.container.inject(self, asType: asType)
     }
 
     //*********
@@ -33,15 +33,15 @@ public extension NSObject {
 
 
     func put() {
-        StaticContainer.container.put(self)
+        CMStaticContainer.container.put(self)
     }
 
     func put(asType: AnyClass) {
-        StaticContainer.container.put(self, asType: asType)
+        CMStaticContainer.container.put(self, asType: asType)
     }
 
     func putAsProtocol(p: Protocol) {
-        StaticContainer.container.put(self, p: p)
+        CMStaticContainer.container.put(self, p: p)
     }
 
     //**************
@@ -49,23 +49,23 @@ public extension NSObject {
     //**************
 
     class func register() {
-        StaticContainer.container.registerClass(self)
+        CMStaticContainer.container.registerClass(self)
     }
 
     class func register(cache: Bool) {
-        StaticContainer.container.registerClass(self, cache: cache)
+        CMStaticContainer.container.registerClass(self, cache: cache)
     }
 
     class func registerClass(cache: Bool, onCreate: (NSObject) -> Void) {
-        StaticContainer.container.registerClass(self, cache: cache, onCreate: onCreate)
+        CMStaticContainer.container.registerClass(self, cache: cache, onCreate: onCreate)
     }
 
     class func registerClassAsClass(replacedClass: AnyClass) {
-        StaticContainer.container.registerClassAsClass(self, replacedClass: replacedClass)
+        CMStaticContainer.container.registerClassAsClass(self, replacedClass: replacedClass)
     }
 
     class func registerClassAsProtocol(p: Protocol) {
-        StaticContainer.container.registerClassAsProtocol(self, p: p)
+        CMStaticContainer.container.registerClassAsProtocol(self, p: p)
     }
 
 }

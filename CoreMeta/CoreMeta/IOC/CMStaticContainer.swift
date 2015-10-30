@@ -5,6 +5,6 @@
 
 import Foundation
 
-internal struct StaticContainer {
+internal struct CMStaticContainer {
     static let container = CMContainer()
 }

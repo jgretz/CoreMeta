@@ -49,3 +49,23 @@ class Pizza : NSObject, CMContainerAutoRegister {
         return { ($0 as! Pizza).name = "Pep" }
     }
 }
+
+class Cake : NSObject {
+    var flavor:String?
+    var color:String?
+    var filling:String?
+    var icing = false
+
+    override init() {
+        super.init()
+    }
+
+    convenience init(flavor:String?, color:String?, icing: Bool, filling:String?) {
+        self.init()
+
+        self.flavor = flavor
+        self.color = color
+        self.icing = icing
+        self.filling = filling
+    }
+}
