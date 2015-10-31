@@ -9,8 +9,8 @@
 Pod::Spec.new do |s|
   s.name             = "CoreMeta"
   s.version          = "2.0.0"
-  s.summary          = "IOC / DI for iOS, Binding Framework, and some other goodies."
-  s.description      = "For more information, please visit http://www.gretzlab.com or check out the example project."
+  s.summary          = "IOC / DI for iOS"
+  s.description      = "For more information, please visit http://www.gretzlab.com"
 
   s.homepage         = "https://github.com/jgretz/CoreMeta"
   s.license          = 'Apache 2.0'
@@ -27,6 +27,5 @@ Pod::Spec.new do |s|
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  # s.frameworks = 'Foundation'
 end
