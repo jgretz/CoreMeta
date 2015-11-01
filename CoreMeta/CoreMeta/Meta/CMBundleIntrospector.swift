@@ -9,8 +9,8 @@ public class CMBundleIntrospector {
     public init() {
     }
 
-    public func classesThatConformToProtocol(p: Protocol) -> Array<AnyClass> {
-        var result = Array<AnyClass>()
+    public func classesThatConformToProtocol(p: Protocol) -> Array<NSObject.Type> {
+        var result = Array<NSObject.Type>()
 
         var numClasses = objc_getClassList(nil, 0)
         let classes = AutoreleasingUnsafeMutablePointer<AnyClass?>(malloc(Int(sizeof(AnyClass) * Int(numClasses))))
@@ -20,7 +20,7 @@ public class CMBundleIntrospector {
             let c:AnyClass! = classes[i] as AnyClass!
 
             if (class_conformsToProtocol(c, p)) {
-                result.append(c)
+                result.append(c as! NSObject.Type)
             }
         }
 
