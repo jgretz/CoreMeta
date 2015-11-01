@@ -9,7 +9,7 @@ public class CMContainer {
     let registrationMap: CMContainerRegistrationMap
     let cache: CMContainerCache
 
-    init() {
+    public init() {
         self.registrationMap = CMContainerRegistrationMap()
         self.cache = CMContainerCache()
     }

@@ -6,7 +6,10 @@
 import Foundation
 
 public class CMBundleIntrospector {
-    func classesThatConformToProtocol(p: Protocol) -> Array<AnyClass> {
+    public init() {
+    }
+
+    public func classesThatConformToProtocol(p: Protocol) -> Array<AnyClass> {
         var result = Array<AnyClass>()
 
         var numClasses = objc_getClassList(nil, 0)
