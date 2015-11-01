@@ -6,8 +6,8 @@
 import Foundation
 
 public class CMTypeIntrospector {
-    let type: AnyClass
-    let valueTypeMap: Dictionary<String, String>
+    let type:AnyClass
+    let valueTypeMap:Dictionary<String, String>
 
     public init(t: AnyClass) {
         self.type = t
@@ -61,28 +61,49 @@ public class CMTypeIntrospector {
     }
 
     private func parseTypeInfo(typename: String) -> CMTypeInfo {
-        return isValueType(typename) ? parseValueTypeInfo(typename)
+        return !isKnown(typename) ? parseUnknown(typename)
+                : isValueType(typename) ? parseValueTypeInfo(typename)
                 : isProtocol(typename) ? parseProtocolInfo(typename)
                 : parseRefTypeInfo(typename)
+    }
+    
+    private func parseUnknown(typename:String) -> CMTypeInfo {
+        return CMTypeInfo(name: typename, isKnown: false, isValueType: false, isProtocol: false)
     }
 
     private func parseValueTypeInfo(typename: String) -> CMTypeInfo {
         let key = typename.substringToIndex(typename.startIndex.advancedBy(2))
         let name = valueTypeMap[key]!
 
-        return CMTypeInfo(name: name, isValueType: true, isProtocol: false)
+        return CMTypeInfo(name: name, isKnown: true, isValueType: true, isProtocol: false)
     }
 
     private func parseProtocolInfo(typename: String) -> CMTypeInfo {
         let name = typename.substringWithRange(Range(start: typename.startIndex.advancedBy(4), end: typename.endIndex.advancedBy(-2)))
 
-        return CMTypeInfo(name: name, isValueType: false, isProtocol: true)
+        return CMTypeInfo(name: name, isKnown: true, isValueType: false, isProtocol: true)
     }
 
     private func parseRefTypeInfo(typename: String) -> CMTypeInfo {
         let name = typename.substringWithRange(Range(start: typename.startIndex.advancedBy(3), end: typename.endIndex.advancedBy(-1)));
 
-        return CMTypeInfo(name: name, isValueType: false, isProtocol: false)
+        return CMTypeInfo(name: name, isKnown: true, isValueType: false, isProtocol: false)
+    }
+    
+    private func isKnown(typename:String) -> Bool {
+        if (typename == "T@?") {
+            return false
+        }
+        
+        if (typename.hasPrefix("T@")) {
+            return true
+        }
+        
+        if (valueTypeMap.hasKey(typename)) {
+            return true
+        }
+        
+        return false
     }
 
     private func isValueType(typename: String) -> Bool {

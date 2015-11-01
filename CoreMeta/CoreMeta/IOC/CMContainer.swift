@@ -155,7 +155,7 @@ public class CMContainer {
     }
 
     private func injectProperties(introspector: CMTypeIntrospector, obj: NSObject) {
-        for prop in introspector.properties().filter({ !($0.typeInfo.isValueType) }) {
+        for prop in introspector.properties().filter({ !($0.typeInfo.isValueType || !$0.typeInfo.isKnown) }) {
             guard let propObj = prop.typeInfo.isProtocol ? self.createInjectedValueForProtocol(prop.typeInfo.name) : self.createInjectedValueForClass(prop.typeInfo.name) else {
                 continue
             }
@@ -165,14 +165,21 @@ public class CMContainer {
     }
 
     private func createInjectedValueForClass(name: String) -> NSObject? {
-        let type: AnyClass = NSClassFromString(name)!
-        let reg = self.registrationMap.registrationForType(type)
-
-        return reg == nil ? nil : self.objectForType(type)
+        let type:AnyClass? = NSClassFromString(name)
+        if (type == nil) {
+            return nil
+        }
+        
+        let reg = self.registrationMap.registrationForType(type!)
+        return reg == nil ? nil : self.objectForType(type!)
     }
 
     private func createInjectedValueForProtocol(name: String) -> NSObject? {
-        let p: Protocol = NSProtocolFromString(name)!
-        return self.objectForProtocol(p)
+        let p:Protocol? = NSProtocolFromString(name)
+        if (p == nil) {
+            return nil
+        }
+        
+        return self.objectForProtocol(p!)
     }
 }

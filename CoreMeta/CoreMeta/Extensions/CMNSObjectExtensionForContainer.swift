@@ -20,7 +20,7 @@ public extension NSObject {
     }
 
     func inject() {
-        CMStaticContainer.container.inject(self)
+        CMStaticContainer.container.inject(self, asType: self.dynamicType)
     }
 
     func inject(asType: AnyClass) {
