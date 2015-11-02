@@ -15,6 +15,10 @@ public extension NSObject {
         return CMStaticContainer.container.objectForType(self) as! T
     }
 
+    class func objectForType(t:AnyClass) -> NSObject {
+        return CMStaticContainer.container.objectForType(t)
+    }
+
     class func objectForProtocol<P>(p: Protocol) -> P? {
         return CMStaticContainer.container.objectForProtocol(p) as? P
     }
