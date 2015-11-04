@@ -6,15 +6,15 @@
 import Foundation
 
 public extension Array {
-    func first(@noescape f: (Array.Generator.Element) -> Bool) -> Array.Generator.Element? {
+    public func first(@noescape f: (Array.Generator.Element) -> Bool) -> Array.Generator.Element? {
         return self.filter(f).first
     }
 
-    func any(@noescape f: (Array.Generator.Element) -> Bool) -> Bool {
+    public func any(@noescape f: (Array.Generator.Element) -> Bool) -> Bool {
         return self.filter(f).count > 0
     }
 
-    func all(@noescape f: (Array.Generator.Element) -> Bool) -> Bool {
+    public func all(@noescape f: (Array.Generator.Element) -> Bool) -> Bool {
         return self.filter(f).count == self.count
     }
 }
