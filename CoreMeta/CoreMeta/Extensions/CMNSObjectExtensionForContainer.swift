@@ -59,7 +59,7 @@ public extension NSObject {
         CMStaticContainer.container.registerClass(self, cache: cache)
     }
 
-    public class func registerClass(cache: Bool, onCreate: (NSObject) -> Void) {
+    public class func register(cache: Bool, onCreate: (NSObject) -> Void) {
         CMStaticContainer.container.registerClass(self, cache: cache, onCreate: onCreate)
     }
 
