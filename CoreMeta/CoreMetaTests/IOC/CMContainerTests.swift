@@ -78,6 +78,18 @@ class CMContainerTests : XCTestCase {
         XCTAssert(obj1.name != nil && obj1.name == "Pep" , "Container: not executing onCreate object per auto-registration")
     }
 
+    func testContainerShouldAutoRegisterItself() {
+        let con:CMContainer = container.objectForType()
+
+        XCTAssert(con == container, "Container: container not auto registering itself as cache: true")
+    }
+
+    func testContainerShouldAutoRegisterItselfAsCMContainerProtocol() {
+        let con = container.objectForProtocol(CMContainerProtocol.self)
+
+        XCTAssert(con != nil, "Container: container not auto registering itself as a CMContainerProtocol")
+    }
+
     //*********
     // Storage
     //*********

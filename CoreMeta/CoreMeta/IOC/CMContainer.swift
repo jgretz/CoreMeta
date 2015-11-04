@@ -5,13 +5,19 @@
 
 import Foundation
 
-public class CMContainer {
-    let registrationMap: CMContainerRegistrationMap
-    let cache: CMContainerCache
+public class CMContainer : NSObject, CMContainerProtocol {
+    var registrationMap: CMContainerRegistrationMap
+    var cache: CMContainerCache
 
-    public init() {
+    public override init() {
         self.registrationMap = CMContainerRegistrationMap()
         self.cache = CMContainerCache()
+
+        super.init()
+
+        self.registerClass(CMContainer.self, cache: true)
+        self.registerClassAsProtocol(CMContainer.self, p: CMContainerProtocol.self)
+        self.put(self)
     }
 
     //**************

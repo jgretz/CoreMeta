@@ -27,10 +27,12 @@
 		BAC2861E7D19273E3F634226 /* CMTypeIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28E8C5B326278A15BDA12 /* CMTypeIntrospector.swift */; };
 		BAC286881413621F2BD2D844 /* CMObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC285941F829000DF797A1C /* CMObjectMapperTests.swift */; };
 		BAC28700F8DB308C8054F2B9 /* CMContainerRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC289CF15067882A3014EEC /* CMContainerRegistration.swift */; };
+		BAC289799F4DB5763E6A1365 /* CMContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC283E0E27C0C7A88DBC1F6 /* CMContainerProtocol.swift */; };
 		BAC289B087E4189AFBF3C53C /* CMObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2890EBEF2C403C7399F14 /* CMObjectMapper.swift */; };
 		BAC28A009D4C44551DE30EB1 /* CMContainerProtocolRegistrationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */; };
 		BAC28A17801D07665D684DFF /* CMObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2890EBEF2C403C7399F14 /* CMObjectMapper.swift */; };
 		BAC28AD6A41D71D135A967AA /* CMStaticContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2827C530A20B4567647AD /* CMStaticContainer.swift */; };
+		BAC28B06881AFBEB77887B6F /* CMContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC283E0E27C0C7A88DBC1F6 /* CMContainerProtocol.swift */; };
 		BAC28B34459F6D28793ED4D5 /* CMNSObjectExtensionForContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28115A3B32FA76935A2A9 /* CMNSObjectExtensionForContainer.swift */; };
 		BAC28B76D4E8FB9AAA0DF384 /* CMNSObjectExtensionForContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28115A3B32FA76935A2A9 /* CMNSObjectExtensionForContainer.swift */; };
 		BAC28B879C7B02192B54DC30 /* CMPropertyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28D31B0FF287E973DF73C /* CMPropertyInfo.swift */; };
@@ -80,6 +82,7 @@
 		BAC282729D3AD5AED8D56CA5 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		BAC2827C530A20B4567647AD /* CMStaticContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMStaticContainer.swift; sourceTree = "<group>"; };
 		BAC2839049153FFD7F34745A /* CMContainerRegistrationMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerRegistrationMap.swift; sourceTree = "<group>"; };
+		BAC283E0E27C0C7A88DBC1F6 /* CMContainerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerProtocol.swift; sourceTree = "<group>"; };
 		BAC285082A985E5ED86E2661 /* CMTypeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMTypeInfo.swift; sourceTree = "<group>"; };
 		BAC285941F829000DF797A1C /* CMObjectMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMObjectMapperTests.swift; sourceTree = "<group>"; };
 		BAC2890EBEF2C403C7399F14 /* CMObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMObjectMapper.swift; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 				BAC2808E17987A86F2CC4B7B /* CMContainerProtocolRegistrationMap.swift */,
 				BAC2827C530A20B4567647AD /* CMStaticContainer.swift */,
 				BAC2802C08FA7319535BF182 /* CMContainerAutoRegister.swift */,
+				BAC283E0E27C0C7A88DBC1F6 /* CMContainerProtocol.swift */,
 			);
 			path = IOC;
 			sourceTree = "<group>";
@@ -375,6 +379,7 @@
 				BAC2824DFB0F5998B5CBA166 /* CMContainerAutoRegister.swift in Sources */,
 				BAC289B087E4189AFBF3C53C /* CMObjectMapper.swift in Sources */,
 				BAC28E1F8E9BEB9301A37D8B /* CMObjectMap.swift in Sources */,
+				BAC28B06881AFBEB77887B6F /* CMContainerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +413,7 @@
 				BAC28A17801D07665D684DFF /* CMObjectMapper.swift in Sources */,
 				BAC28DDE4B46DCDC211ADEA0 /* CMObjectMap.swift in Sources */,
 				BAC286881413621F2BD2D844 /* CMObjectMapperTests.swift in Sources */,
+				BAC289799F4DB5763E6A1365 /* CMContainerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

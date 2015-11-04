@@ -27,7 +27,7 @@ public extension NSObject {
         CMStaticContainer.container.inject(self, asType: self.dynamicType)
     }
 
-    public func inject(asType: AnyClass) {
+    public func injectAsType(asType: AnyClass) {
         CMStaticContainer.container.inject(self, asType: asType)
     }
 
@@ -39,7 +39,7 @@ public extension NSObject {
         CMStaticContainer.container.put(self)
     }
 
-    public func put(asType: AnyClass) {
+    public func putAsType(asType: AnyClass) {
         CMStaticContainer.container.put(self, asType: asType)
     }
 
