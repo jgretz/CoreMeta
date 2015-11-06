@@ -7,7 +7,7 @@ Written for [Truefit](http://www.truefit.io) mainly by [Josh Gretz](http://www.g
 Getting Started
 -----------
 ### Overview
-You can learn more about IOC / DI out on the [internet](https://en.wikipedia.org/wiki/Inversion_of_control), but in general, its an approach that allows your code to be decoupled 
+You can learn more about IOC / DI out on the [internet](https://en.wikipedia.org/wiki/Inversion_of_control), but in general, its an approach that allows your code to be decoupled and takes away a lot of the "plumbing" code.
 
 ### Installation
 #### As a Cocoa Pod
