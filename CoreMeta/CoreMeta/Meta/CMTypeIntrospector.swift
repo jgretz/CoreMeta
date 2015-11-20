@@ -85,6 +85,9 @@ public class CMTypeIntrospector {
     }
 
     private func parseRefTypeInfo(typename: String) -> CMTypeInfo {
+        guard typename.characters.count > 3
+            else { return CMTypeInfo(name: typename, isKnown: false, isValueType: false, isProtocol: false) }
+        
         let name = typename.substringWithRange(Range(start: typename.startIndex.advancedBy(3), end: typename.endIndex.advancedBy(-1)));
 
         return CMTypeInfo(name: name, isKnown: true, isValueType: false, isProtocol: false)
@@ -111,6 +114,6 @@ public class CMTypeIntrospector {
     }
 
     private func isProtocol(typename: String) -> Bool {
-        return typename.substringFromIndex(typename.startIndex.advancedBy(3)).hasPrefix("<")
+        return typename.characters.count > 3 && typename.substringFromIndex(typename.startIndex.advancedBy(3)).hasPrefix("<")
     }
 }
