@@ -5,16 +5,23 @@
 
 import Foundation
 
-public extension NSObject {
+public extension NSObjectProtocol {
+    
     //**********
     // Creation
     //**********
-
-    // this is the best I can get right now, I'd like to not to have to use a generic here and use Self, but i cant get the return to act right
-    public class func object<T:NSObject>() -> T {
-        return CMStaticContainer.container.objectForType(self) as! T
+    
+    public static func object() -> Self {
+        return CMStaticContainer.container.objectForType(self) as! Self
     }
+}
 
+public extension NSObject {
+    
+    //**********
+    // Creation
+    //**********
+    
     public class func objectForType(t:AnyClass) -> NSObject {
         return CMStaticContainer.container.objectForType(t)
     }
