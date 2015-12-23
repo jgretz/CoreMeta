@@ -168,6 +168,21 @@ public class CMContainer : NSObject, CMContainerProtocol {
 
             obj.setValue(propObj, forKey: prop.name)
         }
+        
+        setGeneratorImplementations(obj)
+    }
+    
+    private func setGeneratorImplementations(obj: AnyObject) {
+        
+        let mirror = Mirror(reflecting: obj)
+        for child in mirror.children {
+            if var generator = child.value as? CMGeneratorProtocol {
+                generator.generateImpl = { self.objectForType(generator.generatorType()) }
+            }
+            else if let value = child.value as? AnyObject {
+                setGeneratorImplementations(value)
+            }
+        }
     }
 
     private func createInjectedValueForClass(name: String) -> NSObject? {
