@@ -139,6 +139,19 @@ public class CMContainer : NSObject, CMContainerProtocol {
         // return
         return obj
     }
+    
+    public func objectForAnyType(t: Any.Type) -> NSObject? {
+        
+        if let tClass = classForAnyType(t) {
+            return objectForType(tClass)
+        }
+        
+        if let tProtocol = protocolForAnyType(t) {
+            return objectForProtocol(tProtocol)
+        }
+        
+        return nil
+    }
 
     public func inject(obj: NSObject) {
         self.inject(obj, asType: obj.dynamicType)
@@ -168,6 +181,31 @@ public class CMContainer : NSObject, CMContainerProtocol {
 
             obj.setValue(propObj, forKey: prop.name)
         }
+        
+        setGeneratorImplementations(obj)
+    }
+    
+    private func setGeneratorImplementations(obj: AnyObject) {
+        
+        let mirror = Mirror(reflecting: obj)
+        for child in mirror.children {
+            if var generator = child.value as? CMGeneratorProtocol {
+                generator.generateImpl = { return self.objectForAnyType(generator.type)! }
+            }
+            else if let value = child.value as? AnyObject {
+                setGeneratorImplementations(value)
+            }
+        }
+    }
+    
+    private func classForAnyType(type: Any.Type) -> AnyClass? {
+        return type as? AnyClass
+    }
+    
+    private func protocolForAnyType(type: Any.Type) -> Protocol? {
+        // String(reflecting:) gets the type name with the null name space
+        let fullTypeName = String(reflecting: type)
+        return NSProtocolFromString(fullTypeName)
     }
 
     private func createInjectedValueForClass(name: String) -> NSObject? {
