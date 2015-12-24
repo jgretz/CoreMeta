@@ -198,7 +198,6 @@ public class CMContainer : NSObject, CMContainerProtocol {
         }
     }
     
-    
     private func classForAnyType(type: Any.Type) -> AnyClass? {
         return type as? AnyClass
     }

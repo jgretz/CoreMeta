@@ -15,8 +15,7 @@ protocol CMGeneratorProtocol {
 
 public class CMGenerator<T> : CMGeneratorProtocol {
     
-    public init() {
-    }
+    public init() { }
     
     public func generate() -> T {
         return generateImpl() as! T

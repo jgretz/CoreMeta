@@ -27,7 +27,6 @@ class InjectedProtocolClass : NSObject {
     var p : RegisteredProtocol!
 }
 
-
 class CMGeneratorTests : XCTestCase {
     
     private var container : CMContainer!
