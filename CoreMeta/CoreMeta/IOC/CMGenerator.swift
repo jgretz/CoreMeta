@@ -8,22 +8,23 @@
 
 import Foundation
 
-internal protocol CMGeneratorProtocol {
-    func generatorType() -> AnyClass
+protocol CMGeneratorProtocol {
+    var type : Any.Type { get }
     var generateImpl: (() -> AnyObject)! { get set }
 }
 
-public class CMGenerator<T:NSObject> : CMGeneratorProtocol {
+public class CMGenerator<T> : CMGeneratorProtocol {
     
-    public init() {}
+    public init() {
+    }
     
     public func generate() -> T {
         return generateImpl() as! T
     }
     
-    internal func generatorType() -> AnyClass {
-        return T.self
+    var type : Any.Type {
+        get { return T.self }
     }
     
-    internal var generateImpl : (() -> AnyObject)!
+    var generateImpl : (() -> AnyObject)!
 }
