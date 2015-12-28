@@ -139,7 +139,7 @@ public class CMContainer : NSObject, CMContainerProtocol {
         // return
         return obj
     }
-
+    
     public func inject(obj: NSObject) {
         self.inject(obj, asType: obj.dynamicType)
     }
@@ -161,14 +161,64 @@ public class CMContainer : NSObject, CMContainerProtocol {
     }
 
     private func injectProperties(introspector: CMTypeIntrospector, obj: NSObject) {
-        for prop in introspector.properties().filter({ !($0.typeInfo.isValueType || !$0.typeInfo.isKnown) }) {
+        let properties = introspector.properties()
+        for prop in properties.filter({ !($0.typeInfo.isValueType || !$0.typeInfo.isKnown) }) {
             guard let propObj = prop.typeInfo.isProtocol ? self.createInjectedValueForProtocol(prop.typeInfo.name) : self.createInjectedValueForClass(prop.typeInfo.name) else {
                 continue
             }
 
             obj.setValue(propObj, forKey: prop.name)
         }
+        
+        injectClosures(obj, properties: properties)
     }
+    
+    private func injectClosures(obj: NSObject, properties: [CMPropertyInfo]) {
+        let mirror = Mirror(reflecting: obj)
+        for child in mirror.children.filter({ c in nil != properties.first({p in p.name == c.label})}) {
+            if let lamdaReturnTypeName = getClosureReturnTypeName(child.value.dynamicType) {
+                let generator = convertClosureToObjcBlock({ self.objectForTypeName(lamdaReturnTypeName)! })
+                obj.setValue(generator, forKey: child.label!)
+            }
+        }
+    }
+    
+    private func getClosureReturnTypeName(type: Any.Type) -> String? {
+        
+        // String(reflecting:) gets the type names with the full name space
+        let typeString = String(reflecting: type)
+
+        // Captures a type name from statements like
+        // "Swift.Optional<() -> Swift.String>" and "() -> Swift.String"
+        let regex = try! NSRegularExpression(pattern: "(?:Swift.Optional\\<)?\\(\\) -> ([^>]*)(?:\\>)?", options: NSRegularExpressionOptions(rawValue: 0))
+        
+        let matches = regex.matchesInString(typeString, options: .WithTransparentBounds, range: NSMakeRange(0, typeString.characters.count))
+        if let match = matches.first {
+            let range = match.rangeAtIndex(1)
+            return (typeString as NSString).substringWithRange(range)
+        }
+        
+        return nil
+    }
+    
+    private func convertClosureToObjcBlock(closure: () -> NSObject) -> AnyObject {
+        let objcBlock:@convention(block) () -> NSObject = closure
+        return unsafeBitCast(objcBlock, AnyObject.self)
+    }
+    
+    private func objectForTypeName(typeName : String) -> NSObject? {
+        
+        if let tClass = NSClassFromString(typeName) {
+            return objectForType(tClass)
+        }
+        
+        if let tProtocol = NSProtocolFromString(typeName) {
+            return objectForProtocol(tProtocol)
+        }
+        
+        return nil
+    }
+    
 
     private func createInjectedValueForClass(name: String) -> NSObject? {
         let type:AnyClass? = NSClassFromString(name)

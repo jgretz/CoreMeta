@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8CF2A9751BCF20D900FAA321 /* CoreMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF2A9741BCF20D900FAA321 /* CoreMeta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CF332301BD14B8A0026564F /* CoreMeta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CF2A9711BCF20D900FAA321 /* CoreMeta.framework */; };
+		9B10B24D1C2B30FA00290F27 /* CMContainerClosureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B10B24C1C2B30FA00290F27 /* CMContainerClosureTests.swift */; };
 		BAC280523F4D7B379D1E32C7 /* CMContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC28C844249D7E3F85F7E52 /* CMContainer.swift */; };
 		BAC2816C3543AAB4D6D7EC31 /* CMBundleIntrospector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC281979C4DE77FCD1D776F /* CMBundleIntrospector.swift */; };
 		BAC282308170F5CFA054382E /* CMTypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC285082A985E5ED86E2661 /* CMTypeInfo.swift */; };
@@ -72,6 +73,7 @@
 		8CF2A9761BCF20D900FAA321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CF3322B1BD14B8A0026564F /* CoreMetaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreMetaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF3322F1BD14B8A0026564F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B10B24C1C2B30FA00290F27 /* CMContainerClosureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerClosureTests.swift; sourceTree = "<group>"; };
 		BAC28011EC282486F604B907 /* CMContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerTests.swift; sourceTree = "<group>"; };
 		BAC2802C08FA7319535BF182 /* CMContainerAutoRegister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMContainerAutoRegister.swift; sourceTree = "<group>"; };
 		BAC280519F7CAAD47B8CB793 /* CMBundleIntrospectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMBundleIntrospectorTests.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				BAC28011EC282486F604B907 /* CMContainerTests.swift */,
 				BAC28E2B7CC739D0A80AD301 /* CMContainerRegistrationMapTests.swift */,
 				BAC28EADB7641728B360CFCD /* CMContainerCacheTests.swift */,
+				9B10B24C1C2B30FA00290F27 /* CMContainerClosureTests.swift */,
 			);
 			path = IOC;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				BAC28EEC58210799D0255BBA /* CMContainerRegistrationMapTests.swift in Sources */,
 				BAC28EFEEBFA28A66F9A019B /* CMDictionaryExtensions.swift in Sources */,
 				BAC28700F8DB308C8054F2B9 /* CMContainerRegistration.swift in Sources */,
+				9B10B24D1C2B30FA00290F27 /* CMContainerClosureTests.swift in Sources */,
 				BAC28D13E028288ABC979ECC /* CMContainerClassRegistrationMap.swift in Sources */,
 				BAC2848EE05B13B9F00C5CA5 /* CMContainerRegistrationMap.swift in Sources */,
 				BAC280523F4D7B379D1E32C7 /* CMContainer.swift in Sources */,
