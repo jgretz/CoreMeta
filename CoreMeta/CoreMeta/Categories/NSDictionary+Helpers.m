@@ -32,12 +32,3 @@
 }
 
 @end
-
-@implementation NSMutableDictionary (Helpers)
-
--(void) setObject: (id) object forKeyedSubscript: (id<NSCopying>) key {
-    [self setObject: object forKey: key];
-}
-
-
-@end
