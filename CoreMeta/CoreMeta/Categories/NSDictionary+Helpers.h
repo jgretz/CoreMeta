@@ -27,9 +27,3 @@
 -(BOOL) containsKey: (id) key;
 
 @end
-
-@interface NSMutableDictionary (Helpers)
-
--(void) setObject: (id) object forKeyedSubscript: (id<NSCopying>) key;
-
-@end
