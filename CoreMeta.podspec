@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "CoreMeta"
-  s.version          = "2.0.0"
+  s.version          = "2.0.1"
   s.summary          = "IOC / DI for iOS"
   s.description      = "For more information, please visit http://www.gretzlab.com"
 
