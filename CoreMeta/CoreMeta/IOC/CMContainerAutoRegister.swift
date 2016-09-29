@@ -6,6 +6,6 @@
 import Foundation
 
 @objc public protocol CMContainerAutoRegister : NSObjectProtocol {
-    optional static func cache() -> Bool
-    optional static func onCreate() -> (NSObject) -> Void
+    @objc optional static func cache() -> Bool
+    @objc optional static func onCreate() -> (NSObject) -> Void
 }

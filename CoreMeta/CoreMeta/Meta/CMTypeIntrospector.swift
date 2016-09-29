@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class CMTypeIntrospector {
+open class CMTypeIntrospector {
     let type:AnyClass
     let valueTypeMap:Dictionary<String, String>
 
@@ -23,26 +23,26 @@ public class CMTypeIntrospector {
         ]
     }
 
-    public func properties() -> Array<CMPropertyInfo> {
+    open func properties() -> Array<CMPropertyInfo> {
         // get properties for this class
         var count = UInt32()
-        let properties:UnsafeMutablePointer<objc_property_t> = class_copyPropertyList(type, &count)
+        let properties:UnsafeMutablePointer<objc_property_t?>! = class_copyPropertyList(type, &count)
 
         var propertyInfos = Array<CMPropertyInfo>()
-        for (var i = 0; i < Int(count); i++) {
-            let property:objc_property_t = properties[i]
+        for i in 0..<Int(count) {
+            let property:objc_property_t = properties[i]!
 
-            guard let propertyName = NSString(UTF8String: property_getName(property)) as? String else {
+            guard let propertyName = NSString(utf8String: property_getName(property)) as? String else {
                 debugPrint("Couldn't unwrap property name for \(property)")
                 continue
             }
 
-            guard let infoString = NSString(UTF8String: property_getAttributes(property)) as? String else {
+            guard let infoString = NSString(utf8String: property_getAttributes(property)) as? String else {
                 debugPrint("Couldn't get property attributes for \(property)")
                 continue
             }
 
-            let infoParts = infoString.componentsSeparatedByString(",")
+            let infoParts = infoString.components(separatedBy: ",")
             let typeInfo = parseTypeInfo(infoParts.first!)
 
             propertyInfos.append(CMPropertyInfo(name: propertyName, typeInfo: typeInfo))
@@ -53,47 +53,47 @@ public class CMTypeIntrospector {
         // climb chain
         let superClass:AnyClass = class_getSuperclass(type)
         if (superClass != NSObject.self) {
-            propertyInfos.appendContentsOf(CMTypeIntrospector(t: superClass).properties())
+            propertyInfos.append(contentsOf: CMTypeIntrospector(t: superClass).properties())
         }
 
         // return
         return propertyInfos
     }
 
-    private func parseTypeInfo(typename: String) -> CMTypeInfo {
+    fileprivate func parseTypeInfo(_ typename: String) -> CMTypeInfo {
         return !isKnown(typename) ? parseUnknown(typename)
                 : isValueType(typename) ? parseValueTypeInfo(typename)
                 : isProtocol(typename) ? parseProtocolInfo(typename)
                 : parseRefTypeInfo(typename)
     }
     
-    private func parseUnknown(typename:String) -> CMTypeInfo {
+    fileprivate func parseUnknown(_ typename:String) -> CMTypeInfo {
         return CMTypeInfo(name: typename, isKnown: false, isValueType: false, isProtocol: false)
     }
 
-    private func parseValueTypeInfo(typename: String) -> CMTypeInfo {
-        let key = typename.substringToIndex(typename.startIndex.advancedBy(2))
+    fileprivate func parseValueTypeInfo(_ typename: String) -> CMTypeInfo {
+        let key = typename.substring(to: typename.characters.index(typename.startIndex, offsetBy: 2))
         let name = valueTypeMap[key]!
 
         return CMTypeInfo(name: name, isKnown: true, isValueType: true, isProtocol: false)
     }
 
-    private func parseProtocolInfo(typename: String) -> CMTypeInfo {
-        let name = typename.substringWithRange(Range(start: typename.startIndex.advancedBy(4), end: typename.endIndex.advancedBy(-2)))
+    fileprivate func parseProtocolInfo(_ typename: String) -> CMTypeInfo {
+        let name = typename.substring(with: (typename.characters.index(typename.startIndex, offsetBy: 4) ..< typename.characters.index(typename.endIndex, offsetBy: -2)))
 
         return CMTypeInfo(name: name, isKnown: true, isValueType: false, isProtocol: true)
     }
 
-    private func parseRefTypeInfo(typename: String) -> CMTypeInfo {
+    fileprivate func parseRefTypeInfo(_ typename: String) -> CMTypeInfo {
         guard typename.characters.count > 3
             else { return CMTypeInfo(name: typename, isKnown: false, isValueType: false, isProtocol: false) }
         
-        let name = typename.substringWithRange(Range(start: typename.startIndex.advancedBy(3), end: typename.endIndex.advancedBy(-1)));
+        let name = typename.substring(with: (typename.characters.index(typename.startIndex, offsetBy: 3) ..< typename.characters.index(typename.endIndex, offsetBy: -1)));
 
         return CMTypeInfo(name: name, isKnown: true, isValueType: false, isProtocol: false)
     }
     
-    private func isKnown(typename:String) -> Bool {
+    fileprivate func isKnown(_ typename:String) -> Bool {
         if (typename == "T@?") {
             return false
         }
@@ -109,11 +109,11 @@ public class CMTypeIntrospector {
         return false
     }
 
-    private func isValueType(typename: String) -> Bool {
+    fileprivate func isValueType(_ typename: String) -> Bool {
         return !typename.hasPrefix("T@")
     }
 
-    private func isProtocol(typename: String) -> Bool {
-        return typename.characters.count > 3 && typename.substringFromIndex(typename.startIndex.advancedBy(3)).hasPrefix("<")
+    fileprivate func isProtocol(_ typename: String) -> Bool {
+        return typename.characters.count > 3 && typename.substring(from: typename.characters.index(typename.startIndex, offsetBy: 3)).hasPrefix("<")
     }
 }

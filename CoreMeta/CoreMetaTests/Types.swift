@@ -30,7 +30,7 @@ class Ocean : NSObject {
 
     var depth = 12.5
 
-    private(set) var turtle : Turtle?
+    fileprivate(set) var turtle : Turtle?
 }
 
 class Pond: Ocean {

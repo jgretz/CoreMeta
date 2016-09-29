@@ -38,19 +38,19 @@ class CMContainerTests : XCTestCase {
     func testContainerShouldReturnObjectOfTypeRequested() {
         let obj = container.objectForType(Tree.self)
 
-        XCTAssert(obj.dynamicType == Tree.self , "Container: does not return type requested")
+        XCTAssert(type(of: obj) == Tree.self , "Container: does not return type requested")
     }
 
     func testContainerShouldReturnMappedTypeIfSpecified() {
         let obj = container.objectForType(Flower.self)
 
-        XCTAssert(obj.dynamicType == Rose.self , "Container: does not return mapped type for class requested")
+        XCTAssert(type(of: obj) == Rose.self , "Container: does not return mapped type for class requested")
     }
 
     func testContainerShouldReturnObjectOfTypeSpecifiedForMappedProtocol() {
         let obj = container.objectForProtocol(Fish.self)
 
-        XCTAssert(obj != nil && obj!.dynamicType == Trout.self, "Container: does not return mapped type for protocol requested")
+        XCTAssert(obj != nil && type(of: obj!) == Trout.self, "Container: does not return mapped type for protocol requested")
     }
 
     func testContainerShouldReturnNilForUnmappedProtocol() {

@@ -20,11 +20,11 @@ class CMContainerRegistrationMap {
     // Build
     //*******
 
-    func addRegistration(registration: CMContainerClassRegistration) {
+    func addRegistration(_ registration: CMContainerClassRegistration) {
         self.classRegistrations[self.keyFromType(registration.type)] = registration
     }
 
-    func addTypeMap(typeMap: CMContainerClassRegistrationMap) {
+    func addTypeMap(_ typeMap: CMContainerClassRegistrationMap) {
         if (!self.isTypeRegistered(typeMap.returnedClass)) {
             self.addRegistration(CMContainerClassRegistration(type: typeMap.returnedClass, cache: false, onCreate: nil))
         }
@@ -32,7 +32,7 @@ class CMContainerRegistrationMap {
         self.classMaps[self.keyFromType(typeMap.replacedClass)] = typeMap
     }
 
-    func addProtocolMap(protocolMap: CMContainerProtocolRegistrationMap) {
+    func addProtocolMap(_ protocolMap: CMContainerProtocolRegistrationMap) {
         if (!self.isTypeRegistered(protocolMap.returnedClass)) {
             self.addRegistration(CMContainerClassRegistration(type: protocolMap.returnedClass, cache: false, onCreate: nil))
         }
@@ -44,15 +44,15 @@ class CMContainerRegistrationMap {
     // Get
     //*****
 
-    func isTypeRegistered(type: AnyClass) -> Bool {
+    func isTypeRegistered(_ type: AnyClass) -> Bool {
         return self.classRegistrations.hasKey(self.keyFromType(type))
     }
 
-    func isProtocolRegistered(p: Protocol) -> Bool {
+    func isProtocolRegistered(_ p: Protocol) -> Bool {
         return self.protocolMaps.hasKey(self.keyFromProtocol(p))
     }
 
-    func registrationForType(type: AnyClass) -> CMContainerClassRegistration? {
+    func registrationForType(_ type: AnyClass) -> CMContainerClassRegistration? {
         let reqKey = keyFromType(type)
         if (!classMaps.hasKey(reqKey)) {
             return self.classRegistrations[reqKey]
@@ -62,7 +62,7 @@ class CMContainerRegistrationMap {
         return self.classRegistrations[keyFromType(map!.returnedClass)]
     }
 
-    func registrationForProtocol(p: Protocol) -> CMContainerProtocolRegistrationMap? {
+    func registrationForProtocol(_ p: Protocol) -> CMContainerProtocolRegistrationMap? {
         return self.protocolMaps[keyFromProtocol(p)]
     }
 
@@ -70,11 +70,11 @@ class CMContainerRegistrationMap {
     // Keys
     //******
 
-    private func keyFromType(type: AnyClass) -> String {
+    fileprivate func keyFromType(_ type: AnyClass) -> String {
         return NSStringFromClass(type)
     }
 
-    private func keyFromProtocol(p: Protocol) -> String {
+    fileprivate func keyFromProtocol(_ p: Protocol) -> String {
         return NSStringFromProtocol(p)
     }
 }

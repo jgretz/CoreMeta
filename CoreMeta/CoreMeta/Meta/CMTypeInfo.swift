@@ -5,11 +5,11 @@
 
 import Foundation
 
-public class CMTypeInfo {
-    public let name:String
-    public let isKnown:Bool
-    public let isValueType:Bool
-    public let isProtocol:Bool
+open class CMTypeInfo {
+    open let name:String
+    open let isKnown:Bool
+    open let isValueType:Bool
+    open let isProtocol:Bool
 
     init(name: String, isKnown:Bool, isValueType: Bool, isProtocol: Bool) {
         self.name = name
