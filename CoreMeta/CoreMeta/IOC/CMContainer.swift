@@ -189,8 +189,10 @@ open class CMContainer : NSObject, CMContainerProtocol {
         let typeString = String(reflecting: type)
 
         // Captures a type name from statements like
-        // "Swift.Optional<() -> Swift.String>" and "() -> Swift.String"
-        let regex = try! NSRegularExpression(pattern: "(?:Swift.Optional\\<)?\\(\\) -> ([^>]*)(?:\\>)?", options: NSRegularExpression.Options(rawValue: 0))
+        // "Swift.ImplicitlyUnwrappedOptional<(()) -> Swift.String>",
+        // "Swift.Optional<() -> Swift.String>", and
+        //  "() -> Swift.String"
+        let regex = try! NSRegularExpression(pattern: ".*\\(+\\)+ -> ([^>]*)", options: NSRegularExpression.Options(rawValue: 0))
         
         let matches = regex.matches(in: typeString, options: .withTransparentBounds, range: NSMakeRange(0, typeString.characters.count))
         if let match = matches.first {
