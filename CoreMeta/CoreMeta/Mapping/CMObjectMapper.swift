@@ -5,8 +5,8 @@
 
 import Foundation
 
-public class CMObjectMapper {
-    private var mappings:Dictionary<String,CMObjectMap>
+open class CMObjectMapper {
+    fileprivate var mappings:Dictionary<String,CMObjectMap>
 
     public init() {
         mappings = Dictionary<String,CMObjectMap>()
@@ -16,18 +16,18 @@ public class CMObjectMapper {
     // Registration
     //**************
 
-    public func registerMap(source: AnyClass, target: AnyClass) {
+    open func registerMap(_ source: AnyClass, target: AnyClass) {
         self.registerMap(source, target: target, map: CMObjectMap.self)
     }
 
-    public func registerMap(source: AnyClass, target: AnyClass, map: AnyClass) {
+    open func registerMap(_ source: AnyClass, target: AnyClass, map: AnyClass) {
         let instance = (map as! CMObjectMap.Type).init()
         instance.createDefaultMap(source, target: target)
 
         mappings[mapKey(source, target: target)] = instance
     }
 
-    private func mapKey(source: AnyClass, target: AnyClass) -> String {
+    fileprivate func mapKey(_ source: AnyClass, target: AnyClass) -> String {
         return "\(NSStringFromClass(source))_\(NSStringFromClass(target))"
     }
 
@@ -35,17 +35,17 @@ public class CMObjectMapper {
     // Map Object
     //************
 
-    public func map(source:NSObject, target:NSObject) {
-        let key = mapKey(source.dynamicType, target: target.dynamicType)
+    open func map(_ source:NSObject, target:NSObject) {
+        let key = mapKey(type(of: source), target: type(of: target))
         if (!mappings.hasKey(key)) {
-            self.registerMap(source.dynamicType, target: target.dynamicType)
+            self.registerMap(type(of: source), target: type(of: target))
         }
 
         self.map(source, target: target, map: mappings[key]!)
     }
 
-    public func map(source:NSObject, target:NSObject, map:CMObjectMap) {
-        let targetProperties = CMTypeIntrospector(t:target.dynamicType).properties()
+    open func map(_ source:NSObject, target:NSObject, map:CMObjectMap) {
+        let targetProperties = CMTypeIntrospector(t:type(of: target)).properties()
         for property in targetProperties {
             map.mapValueFromSourceToTargetForProperty(source, target: target, propertyName: property.name)
         }

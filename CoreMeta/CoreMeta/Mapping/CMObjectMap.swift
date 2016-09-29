@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class CMObjectMap {
+open class CMObjectMap {
     var ignoreValue:((String,AnyObject?) -> Bool)?
     var propertyMap:Dictionary<String,(String,NSObject?)->AnyObject?>
 
@@ -13,20 +13,26 @@ public class CMObjectMap {
         propertyMap = Dictionary<String,(String,NSObject?)->AnyObject?>()
     }
 
-    func createDefaultMap(source:AnyClass, target:AnyClass) {
+    func createDefaultMap(_ source:AnyClass, target:AnyClass) {
         let sourceProperties = CMTypeIntrospector(t:source).properties()
         let targetProperties = CMTypeIntrospector(t:target).properties()
 
         for targetProperty in targetProperties {
-            if (!sourceProperties.any({$0.name.uppercaseString == targetProperty.name.uppercaseString})) {
+            if (!sourceProperties.any({$0.name.uppercased() == targetProperty.name.uppercased()})) {
                 continue
             }
 
-            setPropertyMap(targetProperty.name, mapLogic: { (p:String,obj:NSObject?) -> AnyObject? in return obj == nil ? nil : obj!.valueForKey(p) })
+            setPropertyMap(targetProperty.name, mapLogic: { (p:String,obj:NSObject?) -> AnyObject? in
+                if (obj == nil) {
+                    return nil
+                }
+                
+                return obj!.value(forKey: p) as AnyObject?
+            })
         }
     }
 
-    func mapValueFromSourceToTargetForProperty(source:NSObject,target:NSObject,propertyName:String) {
+    func mapValueFromSourceToTargetForProperty(_ source:NSObject,target:NSObject,propertyName:String) {
         let value = self.valueForTargetProperty(propertyName,source:source)
 
         // allow ignore
@@ -38,11 +44,11 @@ public class CMObjectMap {
         target.setValue(value, forKey: propertyName)
     }
 
-    func setPropertyMap(propertyName:String,mapLogic:(String,NSObject?)->AnyObject?) {
+    func setPropertyMap(_ propertyName:String,mapLogic:@escaping (String,NSObject?)->AnyObject?) {
         propertyMap[propertyName] = mapLogic
     }
 
-    func valueForTargetProperty(propertyName:String,source:NSObject) -> AnyObject? {
+    func valueForTargetProperty(_ propertyName:String,source:NSObject) -> AnyObject? {
         if (!propertyMap.hasKey(propertyName)) {
             return nil
         }

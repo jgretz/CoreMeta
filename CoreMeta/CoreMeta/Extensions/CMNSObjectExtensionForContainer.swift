@@ -22,19 +22,19 @@ public extension NSObject {
     // Creation
     //**********
     
-    public class func objectForType(t:AnyClass) -> NSObject {
+    public class func objectForType(_ t:AnyClass) -> NSObject {
         return CMStaticContainer.container.objectForType(t)
     }
 
-    public class func objectForProtocol<P>(p: Protocol) -> P? {
+    public class func objectForProtocol<P>(_ p: Protocol) -> P? {
         return CMStaticContainer.container.objectForProtocol(p) as? P
     }
 
     public func inject() {
-        CMStaticContainer.container.inject(self, asType: self.dynamicType)
+        CMStaticContainer.container.inject(self, asType: type(of: self))
     }
 
-    public func injectAsType(asType: AnyClass) {
+    public func injectAsType(_ asType: AnyClass) {
         CMStaticContainer.container.inject(self, asType: asType)
     }
 
@@ -46,11 +46,11 @@ public extension NSObject {
         CMStaticContainer.container.put(self)
     }
 
-    public func putAsType(asType: AnyClass) {
+    public func putAsType(_ asType: AnyClass) {
         CMStaticContainer.container.put(self, asType: asType)
     }
 
-    public func putAsProtocol(p: Protocol) {
+    public func putAsProtocol(_ p: Protocol) {
         CMStaticContainer.container.put(self, p: p)
     }
 
@@ -66,15 +66,15 @@ public extension NSObject {
         CMStaticContainer.container.registerClass(self, cache: cache)
     }
 
-    public class func register(andCache cache: Bool, onCreate: (NSObject) -> Void) {
+    public class func register(andCache cache: Bool, onCreate: @escaping (NSObject) -> Void) {
         CMStaticContainer.container.registerClass(self, cache: cache, onCreate: onCreate)
     }
 
-    public class func registerClassAsClass(replacedClass: AnyClass) {
+    public class func registerClassAsClass(_ replacedClass: AnyClass) {
         CMStaticContainer.container.registerClassAsClass(self, replacedClass: replacedClass)
     }
 
-    public class func registerClassAsProtocol(p: Protocol) {
+    public class func registerClassAsProtocol(_ p: Protocol) {
         CMStaticContainer.container.registerClassAsProtocol(self, p: p)
     }
 

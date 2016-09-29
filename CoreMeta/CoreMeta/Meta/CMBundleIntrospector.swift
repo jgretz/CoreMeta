@@ -5,25 +5,39 @@
 
 import Foundation
 
-public class CMBundleIntrospector {
+open class CMBundleIntrospector {
     public init() {
     }
-
-    public func classesThatConformToProtocol(p: Protocol) -> Array<NSObject.Type> {
+    
+    open func classesThatConformToProtocol(_ p: Protocol) -> Array<NSObject.Type> {
+        let classes = getClassList()
         var result = Array<NSObject.Type>()
-
-        var numClasses = objc_getClassList(nil, 0)
-        let classes = AutoreleasingUnsafeMutablePointer<AnyClass?>(malloc(Int(sizeof(AnyClass) * Int(numClasses))))
-        numClasses = objc_getClassList(classes, numClasses)
-
-        for (var i = 0; i < Int(numClasses); i++) {
-            let c:AnyClass! = classes[i] as AnyClass!
-
-            if (class_conformsToProtocol(c, p)) {
+        
+        for c in classes {
+            if class_conformsToProtocol(c, p) {
                 result.append(c as! NSObject.Type)
             }
         }
-
         return result
+    }
+    
+    func getClassList() -> [AnyClass] {
+        let expectedClassCount = objc_getClassList(nil, 0)
+        let capacity = Int(expectedClassCount)
+        
+        let allClasses = UnsafeMutablePointer<AnyClass?>.allocate(capacity: capacity)
+        let autoreleasingAllClasses = AutoreleasingUnsafeMutablePointer<AnyClass?>(allClasses)
+        let actualClassCount:Int32 = objc_getClassList(autoreleasingAllClasses, expectedClassCount)
+        
+        var classes = [AnyClass]()
+        for i in 0 ..< actualClassCount {
+            if let currentClass: AnyClass = allClasses[Int(i)] {
+                classes.append(currentClass)
+            }
+        }
+        
+        allClasses.deallocate(capacity: capacity)
+        
+        return classes
     }
 }

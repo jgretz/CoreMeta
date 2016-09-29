@@ -27,7 +27,7 @@ class InjectedProtocolClass : NSObject {
 
 class CMGeneratorTests : XCTestCase {
     
-    private var container : CMContainer!
+    fileprivate var container : CMContainer!
     
     override func setUp() {
         super.setUp()
@@ -39,7 +39,7 @@ class CMGeneratorTests : XCTestCase {
     
     func testItShouldInjectACMGeneratorInstance() {
         
-        let injected = container.objectForType(InjectedClass) as! InjectedClass
+        let injected = container.objectForType(InjectedClass.self) as! InjectedClass
         
         XCTAssertNotNil(injected.generator, "The generator implemention was not set")
     }
@@ -48,9 +48,9 @@ class CMGeneratorTests : XCTestCase {
         
         container.registerClass(RegisteredClass.self, cache: true)
         
-        let registered = container.objectForType(RegisteredClass)
+        let registered = container.objectForType(RegisteredClass.self)
         
-        let injected = container.objectForType(InjectedClass) as! InjectedClass
+        let injected = container.objectForType(InjectedClass.self) as! InjectedClass
         
         let generated = injected.generator()
         
@@ -62,9 +62,9 @@ class CMGeneratorTests : XCTestCase {
         container.registerClass(RegisteredClass.self, cache: true)
         container.registerClassAsProtocol(RegisteredClass.self, p: RegisteredProtocol.self)
         
-        let registered = container.objectForType(RegisteredClass)
+        let registered = container.objectForType(RegisteredClass.self)
         
-        let injected = container.objectForType(InjectedProtocolClass) as! InjectedProtocolClass
+        let injected = container.objectForType(InjectedProtocolClass.self) as! InjectedProtocolClass
         
         let generated = injected.generator()
         

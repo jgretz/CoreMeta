@@ -6,7 +6,7 @@
 import Foundation
 
 public extension Dictionary {
-    public func hasKey(key: Key) -> Bool {
+    public func hasKey(_ key: Key) -> Bool {
         return self[key] != nil
     }
 }

@@ -5,9 +5,9 @@
 
 import Foundation
 
-public class CMPropertyInfo {
-    public let name: String
-    public let typeInfo: CMTypeInfo
+open class CMPropertyInfo {
+    open let name: String
+    open let typeInfo: CMTypeInfo
 
     init(name: String, typeInfo: CMTypeInfo) {
         self.name = name

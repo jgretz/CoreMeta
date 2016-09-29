@@ -6,15 +6,15 @@
 import Foundation
 
 @objc protocol CMContainerProtocol {
-    func registerClass(t: AnyClass)
+    func registerClass(_ t: AnyClass)
 
-    func registerClass(t: AnyClass, cache: Bool)
+    func registerClass(_ t: AnyClass, cache: Bool)
 
-    func registerClass(t: AnyClass, cache: Bool, onCreate: (NSObject) -> Void)
+    func registerClass(_ t: AnyClass, cache: Bool, onCreate: @escaping (NSObject) -> Void)
 
-    func registerClassAsClass(returnedClass: AnyClass, replacedClass: AnyClass)
+    func registerClassAsClass(_ returnedClass: AnyClass, replacedClass: AnyClass)
 
-    func registerClassAsProtocol(t: AnyClass, p: Protocol)
+    func registerClassAsProtocol(_ t: AnyClass, p: Protocol)
 
     func autoregister()
 
@@ -22,27 +22,27 @@ import Foundation
     // Storage
     //*********
 
-    func put(obj: AnyObject)
+    func put(_ obj: AnyObject)
 
-    func put(object: AnyObject, asType: AnyClass)
+    func put(_ object: AnyObject, asType: AnyClass)
 
-    func put(object: AnyObject, p: Protocol)
+    func put(_ object: AnyObject, p: Protocol)
 
     func clear()
 
-    func clearClass(t: AnyClass)
+    func clearClass(_ t: AnyClass)
 
-    func clearProtocol(p: Protocol)
+    func clearProtocol(_ p: Protocol)
 
     //**********
     // Creation
     //**********
 
-    func objectForProtocol(p: Protocol) -> NSObject?
+    func objectForProtocol(_ p: Protocol) -> NSObject?
 
-    func objectForType(t: AnyClass) -> NSObject
+    func objectForType(_ t: AnyClass) -> NSObject
 
-    func inject(obj: NSObject)
+    func inject(_ obj: NSObject)
 
-    func inject(obj: NSObject, asType: AnyClass)
+    func inject(_ obj: NSObject, asType: AnyClass)
 }

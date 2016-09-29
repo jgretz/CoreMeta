@@ -22,15 +22,15 @@ class CMContainerCache {
         }
     }
 
-    func hasType(type: AnyClass) -> Bool {
+    func hasType(_ type: AnyClass) -> Bool {
         return self.cache.hasKey(keyFromType(type))
     }
 
-    func put(obj: AnyObject, type: AnyClass) {
+    func put(_ obj: AnyObject, type: AnyClass) {
         self.cache[keyFromType(type)] = obj
     }
 
-    func objectForClass(type: AnyClass) -> AnyObject? {
+    func objectForClass(_ type: AnyClass) -> AnyObject? {
         return self.cache[keyFromType(type)]
     }
 
@@ -38,11 +38,11 @@ class CMContainerCache {
         self.cache.removeAll()
     }
 
-    func clear(type: AnyClass) {
-        self.cache.removeValueForKey(keyFromType(type))
+    func clear(_ type: AnyClass) {
+        self.cache.removeValue(forKey: keyFromType(type))
     }
 
-    private func keyFromType(type: AnyClass) -> String {
+    fileprivate func keyFromType(_ type: AnyClass) -> String {
         return NSStringFromClass(type)
     }
 

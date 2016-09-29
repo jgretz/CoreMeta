@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class CMContainer : NSObject, CMContainerProtocol {
+open class CMContainer : NSObject, CMContainerProtocol {
     var registrationMap: CMContainerRegistrationMap
     var cache: CMContainerCache
 
@@ -24,27 +24,27 @@ public class CMContainer : NSObject, CMContainerProtocol {
     // Registration
     //**************
 
-    public func registerClass(t: AnyClass) {
+    open func registerClass(_ t: AnyClass) {
         self.registerClass(t, cache: false)
     }
 
-    public func registerClass(t: AnyClass, cache: Bool) {
+    open func registerClass(_ t: AnyClass, cache: Bool) {
         self.registrationMap.addRegistration(CMContainerClassRegistration(type: t, cache: cache, onCreate: nil))
     }
 
-    public func registerClass(t: AnyClass, cache: Bool, onCreate: (NSObject) -> Void) {
+    open func registerClass(_ t: AnyClass, cache: Bool, onCreate: @escaping (NSObject) -> Void) {
         self.registrationMap.addRegistration(CMContainerClassRegistration(type: t, cache: cache, onCreate: onCreate))
     }
 
-    public func registerClassAsClass(returnedClass: AnyClass, replacedClass: AnyClass) {
+    open func registerClassAsClass(_ returnedClass: AnyClass, replacedClass: AnyClass) {
         self.registrationMap.addTypeMap(CMContainerClassRegistrationMap(returnedClass: returnedClass, replacedClass: replacedClass))
     }
 
-    public func registerClassAsProtocol(t: AnyClass, p: Protocol) {
+    open func registerClassAsProtocol(_ t: AnyClass, p: Protocol) {
         self.registrationMap.addProtocolMap(CMContainerProtocolRegistrationMap(returnedClass: t, forProtocol: p))
     }
 
-    public func autoregister() {
+    open func autoregister() {
         let autoregClasses = CMBundleIntrospector().classesThatConformToProtocol(CMContainerAutoRegister.self)
 
         for p in autoregClasses {
@@ -65,11 +65,11 @@ public class CMContainer : NSObject, CMContainerProtocol {
     // Storage
     //*********
 
-    public func put(obj: AnyObject) {
-        self.put(obj, asType: obj.dynamicType)
+    open func put(_ obj: AnyObject) {
+        self.put(obj, asType: type(of: obj))
     }
 
-    public func put(object: AnyObject, asType: AnyClass) {
+    open func put(_ object: AnyObject, asType: AnyClass) {
         if (!self.registrationMap.isTypeRegistered(asType)) {
             self.registerClass(asType)
         }
@@ -77,21 +77,21 @@ public class CMContainer : NSObject, CMContainerProtocol {
         self.cache[asType] = object
     }
 
-    public func put(object: AnyObject, p: Protocol) {
-        let type: AnyClass = self.registrationMap.isProtocolRegistered(p) ? self.registrationMap.registrationForProtocol(p)!.returnedClass : object.dynamicType
+    open func put(_ object: AnyObject, p: Protocol) {
+        let type: AnyClass = self.registrationMap.isProtocolRegistered(p) ? self.registrationMap.registrationForProtocol(p)!.returnedClass : type(of: object)
 
         self.put(object, asType: type)
     }
 
-    public func clear() {
+    open func clear() {
         self.cache.clear()
     }
 
-    public func clearClass(t: AnyClass) {
+    open func clearClass(_ t: AnyClass) {
         self.cache.clear(t)
     }
 
-    public func clearProtocol(p: Protocol) {
+    open func clearProtocol(_ p: Protocol) {
         let reg = self.registrationMap.registrationForProtocol(p)
         if (reg == nil) {
             return
@@ -104,17 +104,17 @@ public class CMContainer : NSObject, CMContainerProtocol {
     // Creation
     //**********
 
-    public func objectForType<T:NSObject>() -> T {
+    open func objectForType<T:NSObject>() -> T {
         return self.objectForType(T.self) as! T
     }
 
-    public func objectForProtocol(p: Protocol) -> NSObject? {
+    open func objectForProtocol(_ p: Protocol) -> NSObject? {
         let reg = self.registrationMap.registrationForProtocol(p)
 
         return reg == nil ? nil : self.objectForType(reg!.returnedClass)
     }
 
-    public func objectForType(t: AnyClass) -> NSObject {
+    open func objectForType(_ t: AnyClass) -> NSObject {
         let reg = self.registrationMap.registrationForType(t)
 
         // if we already have a cached value then we should return that
@@ -140,18 +140,18 @@ public class CMContainer : NSObject, CMContainerProtocol {
         return obj
     }
     
-    public func inject(obj: NSObject) {
-        self.inject(obj, asType: obj.dynamicType)
+    open func inject(_ obj: NSObject) {
+        self.inject(obj, asType: type(of: obj))
     }
 
-    public func inject(obj: NSObject, asType: AnyClass) {
+    open func inject(_ obj: NSObject, asType: AnyClass) {
         let reg = self.registrationMap.registrationForType(asType)
         let introspector = (reg == nil ? CMTypeIntrospector(t: asType) : reg!.typeIntrospector)
 
         self.injectProperties(introspector, obj: obj)
     }
 
-    private func create(introspector: CMTypeIntrospector) -> NSObject {
+    fileprivate func create(_ introspector: CMTypeIntrospector) -> NSObject {
         let type = introspector.type as! NSObject.Type
         let obj = type.init()
 
@@ -160,7 +160,7 @@ public class CMContainer : NSObject, CMContainerProtocol {
         return obj
     }
 
-    private func injectProperties(introspector: CMTypeIntrospector, obj: NSObject) {
+    fileprivate func injectProperties(_ introspector: CMTypeIntrospector, obj: NSObject) {
         let properties = introspector.properties()
         for prop in properties.filter({ !($0.typeInfo.isValueType || !$0.typeInfo.isKnown) }) {
             guard let propObj = prop.typeInfo.isProtocol ? self.createInjectedValueForProtocol(prop.typeInfo.name) : self.createInjectedValueForClass(prop.typeInfo.name) else {
@@ -173,40 +173,42 @@ public class CMContainer : NSObject, CMContainerProtocol {
         injectClosures(obj, properties: properties)
     }
     
-    private func injectClosures(obj: NSObject, properties: [CMPropertyInfo]) {
+    fileprivate func injectClosures(_ obj: NSObject, properties: [CMPropertyInfo]) {
         let mirror = Mirror(reflecting: obj)
         for child in mirror.children.filter({ c in nil != properties.first({p in p.name == c.label})}) {
-            if let lamdaReturnTypeName = getClosureReturnTypeName(child.value.dynamicType) {
+            if let lamdaReturnTypeName = getClosureReturnTypeName(type(of: child.value)) {
                 let generator = convertClosureToObjcBlock({ self.objectForTypeName(lamdaReturnTypeName)! })
                 obj.setValue(generator, forKey: child.label!)
             }
         }
     }
     
-    private func getClosureReturnTypeName(type: Any.Type) -> String? {
+    fileprivate func getClosureReturnTypeName(_ type: Any.Type) -> String? {
         
         // String(reflecting:) gets the type names with the full name space
         let typeString = String(reflecting: type)
 
         // Captures a type name from statements like
-        // "Swift.Optional<() -> Swift.String>" and "() -> Swift.String"
-        let regex = try! NSRegularExpression(pattern: "(?:Swift.Optional\\<)?\\(\\) -> ([^>]*)(?:\\>)?", options: NSRegularExpressionOptions(rawValue: 0))
+        // "Swift.ImplicitlyUnwrappedOptional<(()) -> Swift.String>",
+        // "Swift.Optional<() -> Swift.String>", and
+        //  "() -> Swift.String"
+        let regex = try! NSRegularExpression(pattern: ".*\\(+\\)+ -> ([^>]*)", options: NSRegularExpression.Options(rawValue: 0))
         
-        let matches = regex.matchesInString(typeString, options: .WithTransparentBounds, range: NSMakeRange(0, typeString.characters.count))
+        let matches = regex.matches(in: typeString, options: .withTransparentBounds, range: NSMakeRange(0, typeString.characters.count))
         if let match = matches.first {
-            let range = match.rangeAtIndex(1)
-            return (typeString as NSString).substringWithRange(range)
+            let range = match.rangeAt(1)
+            return (typeString as NSString).substring(with: range)
         }
         
         return nil
     }
     
-    private func convertClosureToObjcBlock(closure: () -> NSObject) -> AnyObject {
+    fileprivate func convertClosureToObjcBlock(_ closure: @escaping () -> NSObject) -> AnyObject {
         let objcBlock:@convention(block) () -> NSObject = closure
-        return unsafeBitCast(objcBlock, AnyObject.self)
+        return unsafeBitCast(objcBlock, to: AnyObject.self)
     }
     
-    private func objectForTypeName(typeName : String) -> NSObject? {
+    fileprivate func objectForTypeName(_ typeName : String) -> NSObject? {
         
         if let tClass = NSClassFromString(typeName) {
             return objectForType(tClass)
@@ -220,7 +222,7 @@ public class CMContainer : NSObject, CMContainerProtocol {
     }
     
 
-    private func createInjectedValueForClass(name: String) -> NSObject? {
+    fileprivate func createInjectedValueForClass(_ name: String) -> NSObject? {
         let type:AnyClass? = NSClassFromString(name)
         if (type == nil) {
             return nil
@@ -230,7 +232,7 @@ public class CMContainer : NSObject, CMContainerProtocol {
         return reg == nil ? nil : self.objectForType(type!)
     }
 
-    private func createInjectedValueForProtocol(name: String) -> NSObject? {
+    fileprivate func createInjectedValueForProtocol(_ name: String) -> NSObject? {
         let p:Protocol? = NSProtocolFromString(name)
         if (p == nil) {
             return nil
