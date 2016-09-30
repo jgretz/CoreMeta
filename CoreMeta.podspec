@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "CoreMeta"
-  s.version          = "2.0.0"
+  s.version          = "2.0.1"
   s.summary          = "IOC / DI for iOS"
   s.description      = "For more information, please visit http://www.gretzlab.com"
 
@@ -21,8 +21,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '9.0'
   s.requires_arc = true
 
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
   s.source_files = 'CoreMeta/CoreMeta/**/*.{swift}'
-  s.resource_bundles = {
-    'CoreMeta' => ['Pod/Assets/*.png']
-  }
 end
